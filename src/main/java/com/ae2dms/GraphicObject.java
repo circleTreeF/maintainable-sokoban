@@ -63,4 +63,6 @@ class GraphicObject extends Rectangle {
         if (GameEngine.isDebugActive()) {
             this.setStroke(Color.RED);
             this.setStrokeWidth(0.25);
-        }}}
+        }
+    }
+}
