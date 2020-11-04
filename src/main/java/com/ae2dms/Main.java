@@ -36,12 +36,17 @@ public class Main extends Application {
         launch(args);
     }
 
+    /**
+        set the to menu of the initial interface of the game
+        In the menu, 3 options are "file", "level", "about"
+        Under each option, there are menu items.
+
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
         menu = new MenuBar();
-
         MenuItem menuItemSaveGame = new MenuItem("Save Game");
         menuItemSaveGame.setDisable(true);
         menuItemSaveGame.setOnAction(actionEvent -> saveGame());
@@ -80,6 +85,10 @@ public class Main extends Application {
         loadDefaultSaveFile(primaryStage);
     }
 
+    /**
+     * load default game map file i.e. level/SampleGame.skb
+     * @param primaryStage
+     */
     void loadDefaultSaveFile(Stage primaryStage) {
         this.primaryStage = primaryStage;
         InputStream in = getClass().getClassLoader().getResourceAsStream("level/SampleGame.skb");
@@ -87,10 +96,19 @@ public class Main extends Application {
         setEventFilter();
     }
 
+    /**
+     * For new game starting, initialize the game to start
+     * @param input
+     */
+
     private void initializeGame(InputStream input) {
         gameEngine = new GameEngine(input, true);
         reloadGrid();
     }
+
+    /**
+     *
+     */
 
     private void setEventFilter() {
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -99,6 +117,10 @@ public class Main extends Application {
         });
     }
 
+    /**
+     * load the user defined map file
+     * @throws FileNotFoundException
+     */
     private void loadGameFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Save File");
@@ -128,6 +150,10 @@ public class Main extends Application {
         gameGrid.autosize();
         primaryStage.sizeToScene();
     }
+
+    /**
+     * present the victory information and data about this play
+     */
 
     private void showVictoryMessage() {
         String dialogTitle = "Game Over!";
@@ -167,13 +193,21 @@ public class Main extends Application {
         gameGrid.add(graphicObject, location.y, location.x);
     }
 
+    /**
+     * close the game, i.e. exist from the whole program
+     */
     public void closeGame() {
         System.exit(0);
     }
 
+    //TODO: this feature remains to be implemented
     public void saveGame() {
     }
 
+    /**
+     * to load the game file
+     * TODO: FileNotFoundException in this method. This could be refactored (according to class 6)
+     */
     public void loadGame() {
         try {
             loadGameFile();
@@ -182,23 +216,36 @@ public class Main extends Application {
         }
     }
 
+    //TODO: this feature is not implemented temporarily replaced by existing from the game
     public void undo() {
         closeGame();
     }
 
+    //TODO: reset this level to the initial scene
     public void resetLevel() {
     }
 
+    /**
+      Description: to show the basic information about this app
+     */
     public void showAbout() {
         String title = "About this game";
-        String message = "Game created by XXX\n";
+        String message = "Game created by Yizirui FANG 20127901\n";
 
         newDialog(title, message, null);
     }
 
+    /**
+     * play the default music when this menu item is clicked
+     */
+
     public void toggleMusic() {
         // TODO
     }
+
+    /**
+     * to start the debug mode of the game. In this mode, every edge of the block would be highlighted
+     */
 
     public void toggleDebug() {
         gameEngine.toggleDebug();
