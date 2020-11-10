@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 public class GameEngine {
     public static final String GAME_NAME = "SokobanFX";
     public static GameLogger logger;
+    //FIXME: should movesCount be statics or final?
     public int movesCount = 0;
     public String mapSetName;
     private static boolean debug = false;
@@ -21,10 +22,19 @@ public class GameEngine {
     private List<Level> levels;
     private boolean gameComplete = false;
 
-    public GameEngine(InputStream input, boolean production) {
+    /**
+     * @param inputGameFile
+     * @param production
+     * @return
+     * @description: the constructor would load the game map file name stored in inputGameFile
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:26 given
+     **/
+
+    public GameEngine(InputStream inputGameFile, boolean production) {
         try {
             logger = new GameLogger();
-            levels = loadGameFile(input);
+            levels = loadGameFile(inputGameFile);
             currentLevel = getNextLevel();
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
@@ -32,12 +42,22 @@ public class GameEngine {
             logger.warning("Cannot load the default save file: " + e.getStackTrace());
         }
     }
+
     public static boolean isDebugActive() {
         return debug;
     }
 
-    public void handleKey(KeyCode code) {
-        switch (code) {
+    /**
+     * @param pressedKeyCode
+     * @return void
+     * @description: handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:25 given
+     **/
+
+    //TODO: refactor swith statement
+    public void handleKey(KeyCode pressedKeyCode) {
+        switch (pressedKeyCode) {
             case UP:
                 move(new Point(-1, 0));
                 break;
@@ -58,12 +78,22 @@ public class GameEngine {
                 // TODO: implement something funny.
         }
 
+        //TODO: refactor the if statement
         if (isDebugActive()) {
-            System.out.println(code);
+            System.out.println(pressedKeyCode);
         }
     }
 
+    /**
+     * @param delta
+     * @return void
+     * @description: //TODO
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:26 given
+     **/
+
     private void move(Point delta) {
+        //TODO:refactor to state pattern
         if (isGameComplete()) {
             return;
         }
@@ -73,6 +103,7 @@ public class GameEngine {
         Point targetObjectPoint = GameGrid.translatePoint(keeperPosition, delta);
         GameObject keeperTarget = currentLevel.objectsGrid.getGameObjectAt(targetObjectPoint);
 
+        //TODO: refactor the if statement
         if (GameEngine.isDebugActive()) {
             System.out.println("Current level state:");
             System.out.println(currentLevel.toString());
@@ -82,7 +113,7 @@ public class GameEngine {
         }
 
         boolean keeperMoved = false;
-
+        //FIXME: refactor the switch statement
         switch (keeperTarget) {
 
             case WALL:
@@ -113,6 +144,7 @@ public class GameEngine {
                 throw new AssertionError("This should not have happened. Report this problem to the developer.");
         }
 
+        //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
             movesCount++;
@@ -126,18 +158,30 @@ public class GameEngine {
         }
     }
 
-    private List<Level> loadGameFile(InputStream input) {
+    /**
+     * @param inputGameFile
+     * @return java.util.List<com.ae2dms.Level>
+     * the array list of map of all levels
+     * @description This method would load the map stored in the input parameter inputGameFile.
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:06 given
+     **/
+
+    private List<Level> loadGameFile(InputStream inputGameFile) {
         List<Level> levels = new ArrayList<>(5);
         int levelIndex = 0;
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(input))) {
+        //FIXME: refactor to handle more proper exception, i.e. place the exception in a new class
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputGameFile))) {
             boolean parsedFirstLevel = false;
             List<String> rawLevel = new ArrayList<>();
             String levelName = "";
 
+            //FIXME: avoid while (true)
+            //read the lines in the input file to level
             while (true) {
                 String line = reader.readLine();
 
+                //FIXME: refactor to avoid if statement
                 if (line == null) {
                     if (rawLevel.size() != 0) {
                         Level parsedLevel = new Level(levelName, ++levelIndex, rawLevel);
@@ -164,13 +208,16 @@ public class GameEngine {
                     continue;
                 }
 
+                //delete the space on the both sides
                 line = line.trim();
+                //upper case and lower case may all exist in the .skb
                 line = line.toUpperCase();
+                //TODO: W should also be set at the both sides of lines
                 if (line.matches(".*W.*W.*")) {
                     rawLevel.add(line);
                 }
             }
-
+            //TODO: refactor the exception to the new classes of exception
         } catch (IOException e) {
             logger.severe("Error trying to load the game file: " + e);
         } catch (NullPointerException e) {
@@ -180,9 +227,27 @@ public class GameEngine {
         return levels;
     }
 
+    /**
+     * @param
+     * @return boolean
+     * @description return boolean value of if the game is completed
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:08 given
+     **/
+
     public boolean isGameComplete() {
         return gameComplete;
     }
+
+    /**
+     * @param
+     * @return com.ae2dms.Level
+     * @description move to next level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:10 given
+     **/
+
+    //FIXME: the second level would be missed
     public Level getNextLevel() {
         if (currentLevel == null) {
             return levels.get(0);
@@ -195,9 +260,26 @@ public class GameEngine {
         return null;
     }
 
+    /**
+     * @param
+     * @return com.ae2dms.Level
+     * @description: return the current level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:22 given
+     **/
+
     public Level getCurrentLevel() {
         return currentLevel;
     }
+
+    /**
+     * @param
+     * @return void
+     * @description: start or close the debug mode
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:23 given
+     **/
+
     public void toggleDebug() {
         debug = !debug;
     }
