@@ -25,6 +25,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+/**
+ * @author Yizirui Fang
+ */
 public class Main extends Application {
     private Stage primaryStage;
     private GameEngine gameEngine;
@@ -37,11 +40,15 @@ public class Main extends Application {
     }
 
     /**
-        set the to menu of the initial interface of the game
-        In the menu, 3 options are "file", "level", "about"
-        Under each option, there are menu items.
+     * @param primaryStage
+     * @return void
+     * @description: set the to menu of the initial interface of the game
+     * In the menu, 3 options are "file", "level", "about"
+     * * Under each option, there are menu items.
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:11 given
+     **/
 
-     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
@@ -86,39 +93,61 @@ public class Main extends Application {
     }
 
     /**
-     * load default game map file i.e. level/SampleGame.skb
      * @param primaryStage
-     */
+     * @return void
+     * @description load default game map file i.e. level/SampleGame.skb
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:11 given
+     **/
+
     void loadDefaultSaveFile(Stage primaryStage) {
+
         this.primaryStage = primaryStage;
-        InputStream in = getClass().getClassLoader().getResourceAsStream("level/SampleGame.skb");
-        initializeGame(in);
+        InputStream defaultInputStream = getClass().getClassLoader().getResourceAsStream("level/SampleGame.skb");
+        initializeGame(defaultInputStream);
         setEventFilter();
     }
 
     /**
-     * For new game starting, initialize the game to start
-     * @param input
-     */
+     * @param inputGameFile
+     *         the file stream of the file which stores the map of the game, may be default file/user specified file in the getExtensionFilters
+     * @return void
+     * @description For new game starting, initialize the game to start
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 21:50 given
+     **/
 
-    private void initializeGame(InputStream input) {
-        gameEngine = new GameEngine(input, true);
+    private void initializeGame(InputStream inputGameFile) {
+        gameEngine = new GameEngine(inputGameFile, true);
         reloadGrid();
     }
 
     /**
-     *
-     */
+     * @param
+     * @return void
+     * @description: add the event filter about the keyboard pressing at the primary stage
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:12 given
+     **/
+
 
     private void setEventFilter() {
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            //TODO: compose to the single method
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
     }
 
     /**
-     * load the user defined map file
+     * @description: load the user defined map file
+     * <p>
+     * if there is the saved file, then use this file to continues the game
+     * otherwise, initialize game with the default game file
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:12 given
+     * @param null
+     * @return
      * @throws FileNotFoundException
      */
     private void loadGameFile() throws FileNotFoundException {
@@ -127,6 +156,7 @@ public class Main extends Application {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
         saveFile = fileChooser.showOpenDialog(primaryStage);
 
+        //TODO: refactor the if statement
         if (saveFile != null) {
             if (GameEngine.isDebugActive()) {
                 GameEngine.logger.info("Loading save file: " + saveFile.getName());
@@ -135,7 +165,18 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * @param
+     * @return void
+     * @description when the gameEngine indicates the game is completed, show victory message
+     * otherwise, get the current level map, ...
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 22:24 given
+     **/
+
+
     private void reloadGrid() {
+        //TODO: refactor the if statement
         if (gameEngine.isGameComplete()) {
             showVictoryMessage();
             return;
@@ -152,8 +193,13 @@ public class Main extends Application {
     }
 
     /**
-     * present the victory information and data about this play
-     */
+     * @param
+     * @return void
+     * @description present the victory information and data about this play
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 21:48 given
+     **/
+
 
     private void showVictoryMessage() {
         String dialogTitle = "Game Over!";
@@ -162,6 +208,17 @@ public class Main extends Application {
 
         newDialog(dialogTitle, dialogMessage, mb);
     }
+
+    /**
+     * @param dialogTitle
+     * @param dialogMessage
+     * @param dialogMessageEffect
+     * @return void
+     * @description new the dialog window with title, message, and message effect specified by input
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 21:46 given
+     **/
+
 
     private void newDialog(String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
         final Stage dialog = new Stage();
@@ -174,6 +231,7 @@ public class Main extends Application {
         text1.setTextAlignment(TextAlignment.CENTER);
         text1.setFont(javafx.scene.text.Font.font(14));
 
+        //TODO: try to refactor the if statement
         if (dialogMessageEffect != null) {
             text1.setEffect(dialogMessageEffect);
         }
@@ -188,14 +246,29 @@ public class Main extends Application {
         dialog.show();
     }
 
+    /**
+     * @param gameObject
+     * @param location
+     * @return void
+     * @description //TODO
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 21:42 given
+     **/
+
+
     private void addObjectToGrid(GameObject gameObject, Point location) {
         GraphicObject graphicObject = new GraphicObject(gameObject);
         gameGrid.add(graphicObject, location.y, location.x);
     }
 
     /**
-     * close the game, i.e. exist from the whole program
-     */
+     * @param
+     * @return void
+     * @description close the game, i.e. exist from the whole program
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 22:25 given
+     **/
+
     public void closeGame() {
         System.exit(0);
     }
@@ -205,9 +278,14 @@ public class Main extends Application {
     }
 
     /**
-     * to load the game file
+     * @param
+     * @return void
+     * @description to load the game file
      * TODO: FileNotFoundException in this method. This could be refactored (according to class 6)
-     */
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 22:25 given
+     **/
+
     public void loadGame() {
         try {
             loadGameFile();
@@ -226,8 +304,13 @@ public class Main extends Application {
     }
 
     /**
-      Description: to show the basic information about this app
-     */
+     * @description to show the basic information about this app
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/9 21:37 given
+     * @para [] *
+     * return void
+     **/
+
     public void showAbout() {
         String title = "About this game";
         String message = "Game created by Yizirui FANG 20127901\n";
@@ -244,8 +327,13 @@ public class Main extends Application {
     }
 
     /**
-     * to start the debug mode of the game. In this mode, every edge of the block would be highlighted
-     */
+    * @description: to start the debug mode of the game. In this mode, every edge of the block would be highlighted
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @data: 2020/11/10 14:14 given
+     * @param
+    * @return void
+    **/
+
 
     public void toggleDebug() {
         gameEngine.toggleDebug();
