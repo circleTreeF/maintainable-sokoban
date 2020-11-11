@@ -11,6 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+/**
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.
+ *
+ * @description: This is the game engine
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/9 21:10 given
+ * @version: 1.0
+ */
+
 public class GameEngine {
     public static final String GAME_NAME = "SokobanFX";
     public static GameLogger logger;
@@ -29,6 +40,7 @@ public class GameEngine {
      * @description: the constructor would load the game map file name stored in inputGameFile
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:26 given
+     * @version: 1.0.0
      **/
 
     public GameEngine(InputStream inputGameFile, boolean production) {
@@ -53,6 +65,7 @@ public class GameEngine {
      * @description: handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:25 given
+     * @version: 1.0.0
      **/
 
     //TODO: refactor swith statement
@@ -90,6 +103,7 @@ public class GameEngine {
      * @description: //TODO
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:26 given
+     * @version: 1.0.0
      **/
 
     private void move(Point delta) {
@@ -165,6 +179,7 @@ public class GameEngine {
      * @description This method would load the map stored in the input parameter inputGameFile.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:06 given
+     * @version: 1.0.0
      **/
 
     private List<Level> loadGameFile(InputStream inputGameFile) {
@@ -245,10 +260,12 @@ public class GameEngine {
      * @description move to next level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:10 given
+     * @version: 1.0.0
      **/
 
     //FIXME: the second level would be missed
     public Level getNextLevel() {
+
         if (currentLevel == null) {
             return levels.get(0);
         }
@@ -256,6 +273,7 @@ public class GameEngine {
         if (currentLevelIndex < levels.size()) {
             return levels.get(currentLevelIndex + 1);
         }
+        //TODO: refactor the position of assigning variable $gameComplete$ in this class
         gameComplete = true;
         return null;
     }
@@ -266,6 +284,7 @@ public class GameEngine {
      * @description: return the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:22 given
+     * @version: 1.0.0
      **/
 
     public Level getCurrentLevel() {
@@ -278,6 +297,7 @@ public class GameEngine {
      * @description: start or close the debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:23 given
+     * @version: 1.0.0
      **/
 
     public void toggleDebug() {
