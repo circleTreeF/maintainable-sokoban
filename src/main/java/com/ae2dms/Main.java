@@ -26,7 +26,14 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * @author Yizirui Fang
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.
+ *
+ * @description: This is the main class
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/9 21:10 given
+ * @version: 1.0
  */
 public class Main extends Application {
     private Stage primaryStage;
@@ -47,6 +54,7 @@ public class Main extends Application {
      * * Under each option, there are menu items.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:11 given
+     * @version: 1.0.0
      **/
 
     @Override
@@ -98,6 +106,7 @@ public class Main extends Application {
      * @description load default game map file i.e. level/SampleGame.skb
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:11 given
+     * @version: 1.0.0
      **/
 
     void loadDefaultSaveFile(Stage primaryStage) {
@@ -115,6 +124,7 @@ public class Main extends Application {
      * @description For new game starting, initialize the game to start
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 21:50 given
+     * @version: 1.0.0
      **/
 
     private void initializeGame(InputStream inputGameFile) {
@@ -128,6 +138,7 @@ public class Main extends Application {
      * @description: add the event filter about the keyboard pressing at the primary stage
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:12 given
+     * @version: 1.0.0
      **/
 
 
@@ -140,15 +151,16 @@ public class Main extends Application {
     }
 
     /**
+     * @param null
+     * @return
+     * @throws FileNotFoundException
      * @description: load the user defined map file
      * <p>
      * if there is the saved file, then use this file to continues the game
      * otherwise, initialize game with the default game file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/10 14:12 given
-     * @param null
-     * @return
-     * @throws FileNotFoundException
+     * @version: 1.0.0
      */
     private void loadGameFile() throws FileNotFoundException {
         FileChooser fileChooser = new FileChooser();
@@ -172,6 +184,7 @@ public class Main extends Application {
      * otherwise, get the current level map, ...
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 22:24 given
+     * @version: 1.0.0
      **/
 
 
@@ -186,7 +199,7 @@ public class Main extends Application {
         Level.LevelIterator levelGridIterator = (Level.LevelIterator) currentLevel.iterator();
         gameGrid.getChildren().clear();
         while (levelGridIterator.hasNext()) {
-            addObjectToGrid(levelGridIterator.next(), levelGridIterator.getcurrentposition());
+            addObjectToGrid(levelGridIterator.next(), levelGridIterator.getCurrentPosition());
         }
         gameGrid.autosize();
         primaryStage.sizeToScene();
@@ -198,6 +211,7 @@ public class Main extends Application {
      * @description present the victory information and data about this play
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 21:48 given
+     * @version: 1.0.0
      **/
 
 
@@ -217,6 +231,7 @@ public class Main extends Application {
      * @description new the dialog window with title, message, and message effect specified by input
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 21:46 given
+     * @version: 1.0.0
      **/
 
 
@@ -253,6 +268,7 @@ public class Main extends Application {
      * @description //TODO
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 21:42 given
+     * @version: 1.0.0
      **/
 
 
@@ -267,6 +283,7 @@ public class Main extends Application {
      * @description close the game, i.e. exist from the whole program
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 22:25 given
+     * @version: 1.0.0
      **/
 
     public void closeGame() {
@@ -284,6 +301,7 @@ public class Main extends Application {
      * TODO: FileNotFoundException in this method. This could be refactored (according to class 6)
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @data: 2020/11/9 22:25 given
+     * @version: 1.0.0
      **/
 
     public void loadGame() {
@@ -309,6 +327,7 @@ public class Main extends Application {
      * @data: 2020/11/9 21:37 given
      * @para [] *
      * return void
+     * @version: 1.0.0
      **/
 
     public void showAbout() {
@@ -327,12 +346,13 @@ public class Main extends Application {
     }
 
     /**
-    * @description: to start the debug mode of the game. In this mode, every edge of the block would be highlighted
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @data: 2020/11/10 14:14 given
      * @param
-    * @return void
-    **/
+     * @return void
+     * @description: to start the debug mode of the game. In this mode, every edge of the block would be highlighted
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @data: 2020/11/10 14:14 given
+     * @version: 1.0.0
+     **/
 
 
     public void toggleDebug() {
