@@ -1,5 +1,7 @@
-package com.ae2dms;
+package com.ae2dms.view;
 
+import com.ae2dms.GameEngine;
+import com.ae2dms.GameObject;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
@@ -7,8 +9,27 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-class GraphicObject extends Rectangle {
-    GraphicObject(GameObject obj) {
+/**
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.view.GraphicObject
+ *
+ * @description: This is the class to store the graphic game objects
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/10 11:10 given
+ * @version: 1.0
+ */
+
+public class GraphicObject extends Rectangle {
+    /**
+     * @param obj
+     * @description: the default constructor of class GraphicObject, would construct the graphic object according to the type of the game object
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/12 16:59
+     * @version:
+     **/
+
+    public GraphicObject(GameObject obj) {
         Paint color;
         switch (obj) {
             case WALL:
