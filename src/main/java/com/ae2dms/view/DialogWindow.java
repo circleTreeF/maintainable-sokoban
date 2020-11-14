@@ -20,8 +20,8 @@ import javafx.stage.Stage;
  * @date: 2020/11/13 22:33
  * @version: 1.0
  */
-public class DialogWindow {
-    private Stage dialogWindow;
+public class DialogWindow extends Stage {
+    Stage dialogWindow;
 
     /**
      * constructor
@@ -30,13 +30,13 @@ public class DialogWindow {
      * @param dialogTitle
      * @param dialogMessage
      * @description: construct a instance of dialog window without visually present
-     * refactor from Main.java.newDialog
+     * extracted from Main.java.newDialog
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/13 23:16
      * @version: 1.0.0
      **/
 
-    public DialogWindow(Stage primaryStage, String dialogTitle, String dialogMessage) {
+    public DialogWindow(Stage primaryStage, String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(primaryStage);
@@ -46,7 +46,11 @@ public class DialogWindow {
         Text text1 = new Text(dialogMessage);
         text1.setTextAlignment(TextAlignment.CENTER);
         text1.setFont(javafx.scene.text.Font.font(14));
-        this.dialogWindow = dialog;
+
+        //TODO: try to refactor the if statement
+        if (dialogMessageEffect != null) {
+            text1.setEffect(dialogMessageEffect);
+        }
 
         VBox dialogVbox = new VBox(20);
         dialogVbox.setAlignment(Pos.CENTER);
@@ -55,5 +59,7 @@ public class DialogWindow {
 
         Scene dialogScene = new Scene(dialogVbox, 350, 150);
         dialog.setScene(dialogScene);
+        this.dialogWindow = dialog;
     }
 }
+

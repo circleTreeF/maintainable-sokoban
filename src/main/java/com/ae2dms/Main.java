@@ -1,5 +1,9 @@
 package com.ae2dms;
 
+import com.ae2dms.model.GameEngine;
+import com.ae2dms.view.DialogWindow;
+import com.ae2dms.view.GraphicObject;
+import com.sun.glass.ui.EventLoop;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -53,7 +57,7 @@ public class Main extends Application {
      * In the menu, 3 options are "file", "level", "about"
      * * Under each option, there are menu items.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:11 given
+     * @date: 2020/11/10 14:11 given
      * @version: 1.0.0
      **/
 
@@ -105,7 +109,7 @@ public class Main extends Application {
      * @return void
      * @description load default game map file i.e. level/SampleGame.skb
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:11 given
+     * @date: 2020/11/10 14:11 given
      * @version: 1.0.0
      **/
 
@@ -123,7 +127,7 @@ public class Main extends Application {
      * @return void
      * @description For new game starting, initialize the game to start
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 21:50 given
+     * @date: 2020/11/9 21:50 given
      * @version: 1.0.0
      **/
 
@@ -137,7 +141,7 @@ public class Main extends Application {
      * @return void
      * @description: add the event filter about the keyboard pressing at the primary stage
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:12 given
+     * @date: 2020/11/10 14:12 given
      * @version: 1.0.0
      **/
 
@@ -151,15 +155,14 @@ public class Main extends Application {
     }
 
     /**
-     * @param null
      * @return
-     * @throws FileNotFoundException
+     * @throw FileNotFoundException
      * @description: load the user defined map file
      * <p>
      * if there is the saved file, then use this file to continues the game
      * otherwise, initialize game with the default game file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:12 given
+     * @date: 2020/11/10 14:12 given
      * @version: 1.0.0
      */
     private void loadGameFile() throws FileNotFoundException {
@@ -183,7 +186,7 @@ public class Main extends Application {
      * @description when the gameEngine indicates the game is completed, show victory message
      * otherwise, get the current level map, ...
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 22:24 given
+     * @date: 2020/11/9 22:24 given
      * @version: 1.0.0
      **/
 
@@ -208,9 +211,9 @@ public class Main extends Application {
     /**
      * @param
      * @return void
-     * @description present the victory information and data about this play
+     * @description present the victory information and date about this play
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 21:48 given
+     * @date: 2020/11/9 21:48 given
      * @version: 1.0.0
      **/
 
@@ -220,7 +223,8 @@ public class Main extends Application {
         String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
         MotionBlur mb = new MotionBlur(2, 3);
 
-        newDialog(dialogTitle, dialogMessage, mb);
+        Stage messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, mb);
+        messageWindow.show();
     }
 
     /**
@@ -230,11 +234,11 @@ public class Main extends Application {
      * @return void
      * @description new the dialog window with title, message, and message effect specified by input
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 21:46 given
+     * @date: 2020/11/9 21:46 given
      * @version: 1.0.0
      **/
 
-
+    /*
     private void newDialog(String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -246,10 +250,7 @@ public class Main extends Application {
         text1.setTextAlignment(TextAlignment.CENTER);
         text1.setFont(javafx.scene.text.Font.font(14));
 
-        //TODO: try to refactor the if statement
-        if (dialogMessageEffect != null) {
-            text1.setEffect(dialogMessageEffect);
-        }
+
 
         VBox dialogVbox = new VBox(20);
         dialogVbox.setAlignment(Pos.CENTER);
@@ -259,7 +260,7 @@ public class Main extends Application {
         Scene dialogScene = new Scene(dialogVbox, 350, 150);
         dialog.setScene(dialogScene);
         dialog.show();
-    }
+    }*/
 
     /**
      * @param gameObject
@@ -267,7 +268,7 @@ public class Main extends Application {
      * @return void
      * @description //TODO
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 21:42 given
+     * @date: 2020/11/9 21:42 given
      * @version: 1.0.0
      **/
 
@@ -282,7 +283,7 @@ public class Main extends Application {
      * @return void
      * @description close the game, i.e. exist from the whole program
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 22:25 given
+     * @date: 2020/11/9 22:25 given
      * @version: 1.0.0
      **/
 
@@ -300,7 +301,7 @@ public class Main extends Application {
      * @description to load the game file
      * TODO: FileNotFoundException in this method. This could be refactored (according to class 6)
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 22:25 given
+     * @date: 2020/11/9 22:25 given
      * @version: 1.0.0
      **/
 
@@ -322,19 +323,21 @@ public class Main extends Application {
     }
 
     /**
-     * @description to show the basic information about this app
+     * @param
+     * @return void
+     * @description: to show the basic information about this app
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/9 21:37 given
-     * @para [] *
-     * return void
-     * @version: 1.0.0
+     * @date: 2020/11/13 21:57 given
+     * @version:
      **/
+
 
     public void showAbout() {
         String title = "About this game";
         String message = "Game created by Yizirui FANG 20127901\n";
 
-        newDialog(title, message, null);
+        Stage aboutWindow = new DialogWindow(primaryStage, title, message, null);
+        aboutWindow.show();
     }
 
     /**
@@ -350,7 +353,7 @@ public class Main extends Application {
      * @return void
      * @description: to start the debug mode of the game. In this mode, every edge of the block would be highlighted
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:14 given
+     * @date: 2020/11/10 14:14 given
      * @version: 1.0.0
      **/
 
