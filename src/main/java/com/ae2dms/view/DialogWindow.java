@@ -10,6 +10,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.awt.*;
+
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
@@ -21,7 +23,6 @@ import javafx.stage.Stage;
  * @version: 1.0
  */
 public class DialogWindow extends Stage {
-    Stage dialogWindow;
 
     /**
      * constructor
@@ -37,11 +38,10 @@ public class DialogWindow extends Stage {
      **/
 
     public DialogWindow(Stage primaryStage, String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
-        Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(primaryStage);
-        dialog.setResizable(false);
-        dialog.setTitle(dialogTitle);
+        this.initModality(Modality.APPLICATION_MODAL);
+        this.initOwner(primaryStage);
+        this.setResizable(false);
+        this.setTitle(dialogTitle);
 
         Text text1 = new Text(dialogMessage);
         text1.setTextAlignment(TextAlignment.CENTER);
@@ -58,8 +58,7 @@ public class DialogWindow extends Stage {
         dialogVbox.getChildren().add(text1);
 
         Scene dialogScene = new Scene(dialogVbox, 350, 150);
-        dialog.setScene(dialogScene);
-        this.dialogWindow = dialog;
+        this.setScene(dialogScene);
     }
 }
 

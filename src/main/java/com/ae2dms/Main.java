@@ -223,7 +223,7 @@ public class Main extends Application {
         String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
         MotionBlur mb = new MotionBlur(2, 3);
 
-        Stage messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, mb);
+        DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, mb);
         messageWindow.show();
     }
 
@@ -336,7 +336,7 @@ public class Main extends Application {
         String title = "About this game";
         String message = "Game created by Yizirui FANG 20127901\n";
 
-        Stage aboutWindow = new DialogWindow(primaryStage, title, message, null);
+        DialogWindow aboutWindow = new DialogWindow(primaryStage, title, message, null);
         aboutWindow.show();
     }
 
