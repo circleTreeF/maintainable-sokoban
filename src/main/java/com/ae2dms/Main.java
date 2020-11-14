@@ -228,41 +228,6 @@ public class Main extends Application {
     }
 
     /**
-     * @param dialogTitle
-     * @param dialogMessage
-     * @param dialogMessageEffect
-     * @return void
-     * @description new the dialog window with title, message, and message effect specified by input
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/9 21:46 given
-     * @version: 1.0.0
-     **/
-
-    /*
-    private void newDialog(String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(primaryStage);
-        dialog.setResizable(false);
-        dialog.setTitle(dialogTitle);
-
-        Text text1 = new Text(dialogMessage);
-        text1.setTextAlignment(TextAlignment.CENTER);
-        text1.setFont(javafx.scene.text.Font.font(14));
-
-
-
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.setAlignment(Pos.CENTER);
-        dialogVbox.setBackground(Background.EMPTY);
-        dialogVbox.getChildren().add(text1);
-
-        Scene dialogScene = new Scene(dialogVbox, 350, 150);
-        dialog.setScene(dialogScene);
-        dialog.show();
-    }*/
-
-    /**
      * @param gameObject
      * @param location
      * @return void
