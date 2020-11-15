@@ -1,26 +1,17 @@
 package com.ae2dms;
 
+import com.ae2dms.controller.MenuBarController;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.view.DialogWindow;
+import com.ae2dms.view.GameMenu;
 import com.ae2dms.view.GraphicObject;
-import com.sun.glass.ui.EventLoop;
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.*;
-import javafx.scene.effect.Effect;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -65,36 +56,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
-        menu = new MenuBar();
-        MenuItem menuItemSaveGame = new MenuItem("Save Game");
-        menuItemSaveGame.setDisable(true);
-        menuItemSaveGame.setOnAction(actionEvent -> saveGame());
-        MenuItem menuItemLoadGame = new MenuItem("Load Game");
-        menuItemLoadGame.setOnAction(actionEvent -> loadGame());
-        MenuItem menuItemExit = new MenuItem("Exit");
-        menuItemExit.setOnAction(actionEvent -> closeGame());
-        Menu menuFile = new Menu("File");
-        menuFile.getItems().addAll(menuItemSaveGame, menuItemLoadGame, new SeparatorMenuItem(), menuItemExit);
-
-        MenuItem menuItemUndo = new MenuItem("Undo");
-        menuItemUndo.setDisable(true);
-        menuItemUndo.setOnAction(actionEvent -> undo());
-        RadioMenuItem radioMenuItemMusic = new RadioMenuItem("Toggle Music");
-        radioMenuItemMusic.setOnAction(actionEvent -> toggleMusic());
-        RadioMenuItem radioMenuItemDebug = new RadioMenuItem("Toggle Debug");
-        radioMenuItemDebug.setOnAction(actionEvent -> toggleDebug());
-        MenuItem menuItemResetLevel = new MenuItem("Reset Level");
-        Menu menuLevel = new Menu("Level");
-        menuLevel.setOnAction(actionEvent -> resetLevel());
-        menuLevel.getItems().addAll(menuItemUndo, radioMenuItemMusic, radioMenuItemDebug,
-                new SeparatorMenuItem(), menuItemResetLevel);
-
-        MenuItem menuItemGame = new MenuItem("About This Game");
-        Menu menuAbout = new Menu("About");
-        menuAbout.setOnAction(actionEvent -> showAbout());
-        menuAbout.getItems().addAll(menuItemGame);
-        menu.getMenus().addAll(menuFile, menuLevel, menuAbout);
+        menu = new GameMenu();
         gameGrid = new GridPane();
+        MenuBarController.gameGrid = gameGrid;
         GridPane root = new GridPane();
         root.add(menu, 0, 0);
         root.add(gameGrid, 0, 1);
@@ -114,8 +78,8 @@ public class Main extends Application {
      **/
 
     void loadDefaultSaveFile(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
+        MenuBarController.primaryStage = primaryStage;
         InputStream defaultInputStream = getClass().getClassLoader().getResourceAsStream("level/SampleGame.skb");
         initializeGame(defaultInputStream);
         setEventFilter();
@@ -132,7 +96,9 @@ public class Main extends Application {
      **/
 
     private void initializeGame(InputStream inputGameFile) {
+
         gameEngine = new GameEngine(inputGameFile, true);
+        MenuBarController.gameEngine = gameEngine;
         reloadGrid();
     }
 
@@ -221,9 +187,9 @@ public class Main extends Application {
     private void showVictoryMessage() {
         String dialogTitle = "Game Over!";
         String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
-        MotionBlur mb = new MotionBlur(2, 3);
+        MotionBlur motionBlur = new MotionBlur(2, 3);
 
-        DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, mb);
+        DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
         messageWindow.show();
     }
 
@@ -293,7 +259,16 @@ public class Main extends Application {
      * @description: to show the basic information about this app
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/13 21:57 given
-     * @version:
+     * @version: 1.0.0
+     **/
+    /**
+     * @param
+     * @return void
+     * @description: to show the basic information about this app
+     * refactored to extract new class
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/13 21:57 given
+     * @version: 1.0.1
      **/
 
 
