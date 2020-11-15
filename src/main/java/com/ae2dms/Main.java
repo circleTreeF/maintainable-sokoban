@@ -11,13 +11,10 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
@@ -55,35 +52,19 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-
+        MenuBarController.primaryStage = primaryStage;
         menu = new GameMenu();
         gameGrid = new GridPane();
         MenuBarController.gameGrid = gameGrid;
         GridPane root = new GridPane();
         root.add(menu, 0, 0);
         root.add(gameGrid, 0, 1);
-        primaryStage.setTitle(GameEngine.GAME_NAME);
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-        loadDefaultSaveFile(primaryStage);
+        MenuBarController.primaryStage.setTitle(GameEngine.GAME_NAME);
+        MenuBarController.primaryStage.setScene(new Scene(root));
+        MenuBarController.primaryStage.show();
+        MenuBarController.loadDefaultSaveFile(primaryStage);
     }
 
-    /**
-     * @param primaryStage
-     * @return void
-     * @description load default game map file i.e. level/SampleGame.skb
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/10 14:11 given
-     * @version: 1.0.0
-     **/
-
-    void loadDefaultSaveFile(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        MenuBarController.primaryStage = primaryStage;
-        InputStream defaultInputStream = getClass().getClassLoader().getResourceAsStream("level/SampleGame.skb");
-        initializeGame(defaultInputStream);
-        setEventFilter();
-    }
 
     /**
      * @param inputGameFile
@@ -120,31 +101,6 @@ public class Main extends Application {
         });
     }
 
-    /**
-     * @return
-     * @throw FileNotFoundException
-     * @description: load the user defined map file
-     * <p>
-     * if there is the saved file, then use this file to continues the game
-     * otherwise, initialize game with the default game file
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/10 14:12 given
-     * @version: 1.0.0
-     */
-    private void loadGameFile() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        saveFile = fileChooser.showOpenDialog(primaryStage);
-
-        //TODO: refactor the if statement
-        if (saveFile != null) {
-            if (GameEngine.isDebugActive()) {
-                GameEngine.logger.info("Loading save file: " + saveFile.getName());
-            }
-            initializeGame(new FileInputStream(saveFile));
-        }
-    }
 
     /**
      * @param
@@ -222,84 +178,4 @@ public class Main extends Application {
         System.exit(0);
     }
 
-    //TODO: this feature remains to be implemented
-    public void saveGame() {
-    }
-
-    /**
-     * @param
-     * @return void
-     * @description to load the game file
-     * TODO: FileNotFoundException in this method. This could be refactored (according to class 6)
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/9 22:25 given
-     * @version: 1.0.0
-     **/
-
-    public void loadGame() {
-        try {
-            loadGameFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //TODO: this feature is not implemented temporarily replaced by existing from the game
-    public void undo() {
-        closeGame();
-    }
-
-    //TODO: reset this level to the initial scene
-    public void resetLevel() {
-    }
-
-    /**
-     * @param
-     * @return void
-     * @description: to show the basic information about this app
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/13 21:57 given
-     * @version: 1.0.0
-     **/
-    /**
-     * @param
-     * @return void
-     * @description: to show the basic information about this app
-     * refactored to extract new class
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/13 21:57 given
-     * @version: 1.0.1
-     **/
-
-
-    public void showAbout() {
-        String title = "About this game";
-        String message = "Game created by Yizirui FANG 20127901\n";
-
-        DialogWindow aboutWindow = new DialogWindow(primaryStage, title, message, null);
-        aboutWindow.show();
-    }
-
-    /**
-     * play the default music when this menu item is clicked
-     */
-
-    public void toggleMusic() {
-        // TODO
-    }
-
-    /**
-     * @param
-     * @return void
-     * @description: to start the debug mode of the game. In this mode, every edge of the block would be highlighted
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/10 14:14 given
-     * @version: 1.0.0
-     **/
-
-
-    public void toggleDebug() {
-        gameEngine.toggleDebug();
-        reloadGrid();
-    }
 }
