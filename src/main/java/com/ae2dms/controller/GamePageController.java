@@ -13,6 +13,7 @@ import com.ae2dms.Level;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObject;
+import javafx.fxml.FXML;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -32,10 +33,10 @@ import java.io.InputStream;
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @data 11, 14, 2020 22:57
  */
-public class MenuBarController {
+public class GamePageController {
     public static Stage primaryStage;
     public static GameEngine gameEngine;
-    public static GridPane gameGrid;
+    @FXML private GridPane gameGrid;
 
     /**
      * @param
@@ -47,7 +48,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
-    public static void saveGame() {
+    public void saveGame() {
     }
 
     /**
@@ -77,9 +78,10 @@ public class MenuBarController {
     * @version:
     **/
 
-    public static void loadDefaultSaveFile(Stage primaryStage) {
-        MenuBarController.primaryStage = primaryStage;
-        InputStream defaultInputStream = MenuBarController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
+    @FXML
+    public void loadDefaultSaveFile(Stage primaryStage) {
+        GamePageController.primaryStage = primaryStage;
+        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
         initializeGame(defaultInputStream);
         setEventFilter();
     }
@@ -123,7 +125,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
-    public static void closeGame() {
+    public void closeGame() {
         System.exit(0);
     }
 
@@ -139,6 +141,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
+    //TODO: this feature is not implemented yet
     public void undo() {
         closeGame();
     }
@@ -155,7 +158,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
-    public static void toggleMusic() {
+    public void toggleMusic() {
         // TODO
     }
 
@@ -185,7 +188,7 @@ public class MenuBarController {
      **/
 
     //TODO: reset this level to the initial scene    
-    public static void resetLevel() {
+    public void resetLevel() {
     }
 
 
@@ -217,7 +220,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
-    private static void initializeGame(InputStream inputGameFile) {
+    private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
         reloadGrid();
     }
@@ -233,7 +236,7 @@ public class MenuBarController {
      * @version: 1.0.0
      **/
 
-    private static void reloadGrid() {
+    private void reloadGrid() {
         //TODO: refactor the if statement
         if (gameEngine.isGameComplete()) {
             showVictoryMessage();
@@ -261,7 +264,7 @@ public class MenuBarController {
      **/
 
 
-    private static void addObjectToGrid(GameObject gameObject, Point location) {
+    private void addObjectToGrid(GameObject gameObject, Point location) {
         GraphicObject graphicObject = new GraphicObject(gameObject);
         gameGrid.add(graphicObject, location.y, location.x);
     }
@@ -286,7 +289,7 @@ public class MenuBarController {
         messageWindow.show();
     }
 
-    private static void setEventFilter() {
+    private void setEventFilter() {
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             //TODO: compose to the single method
             gameEngine.handleKey(event.getCode());
@@ -294,5 +297,9 @@ public class MenuBarController {
         });
     }
 
+    public void  initialize() {
+        loadDefaultSaveFile(primaryStage);
+        //primaryStage.setResizable(false);
+    }
 }
 
