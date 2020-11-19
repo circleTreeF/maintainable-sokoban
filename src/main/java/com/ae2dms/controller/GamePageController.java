@@ -1,12 +1,5 @@
-package com.ae2dms.controller;/**
- * The project of AE2DMS Coursework of Yizirui FANG 20127091
- * <p>
- * Package: com.ae2dms.controller
- *
- * @description: TODO
- * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
- * @date: 2020/11/14 22:57
- */
+package com.ae2dms.controller;
+
 
 import com.ae2dms.GameObject;
 import com.ae2dms.Level;
@@ -27,16 +20,20 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * @PackageName: com.ae2dms.controller
- * @ClassName: MenuBarController
- * @Description:
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.controller
+ *
+ * @className: MenuBarController
+ * @description: This class includes controller for the GamePage.fxml, which is the page of playing this game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
- * @data 11, 14, 2020 22:57
+ * @date: 2020/11/14 22:57
  */
 public class GamePageController {
     public static Stage primaryStage;
     public static GameEngine gameEngine;
-    @FXML private GridPane gameGrid;
+    @FXML
+    private GridPane gameGrid;
 
     /**
      * @param
@@ -70,13 +67,13 @@ public class GamePageController {
     }
 
     /**
-    * @description: load the default file of the map for the game
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/11/15 21:08
      * @param primaryStage
-    * @return void
-    * @version:
-    **/
+     * @return void
+     * @description: load the default file of the map for the game
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/15 21:08
+     * @version:
+     **/
 
     @FXML
     public void loadDefaultSaveFile(Stage primaryStage) {
@@ -212,6 +209,7 @@ public class GamePageController {
 
     /**
      * @param inputGameFile
+     *         The input file of the map of this game
      * @return void
      * @description: initialize the game engine for this game and the grid
      * extracted from Main.initializeGame()
@@ -255,7 +253,9 @@ public class GamePageController {
 
     /**
      * @param gameObject
+     *         The category of game object
      * @param location
+     *         The location of this new game object
      * @return void
      * @description: add the game object into the grid of the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -289,17 +289,36 @@ public class GamePageController {
         messageWindow.show();
     }
 
+    /**
+     * @param
+     * @return void
+     * @description: the event filter to the keyboard event at the primary stage window of the game page
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 13:10 given
+     * @version: 1.0.0
+     **/
+
+
     private void setEventFilter() {
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            //TODO: compose to the single method
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
     }
 
-    public void  initialize() {
+    /**
+     * @param
+     * @return void
+     * @description: initialize the game page element, gameGrid. Display the initial level of the map to the game page
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 13:23
+     * @version: 1.0.0
+     **/
+
+
+    public void initialize() {
+        primaryStage.show();
         loadDefaultSaveFile(primaryStage);
-        //primaryStage.setResizable(false);
     }
 }
 

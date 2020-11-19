@@ -1,6 +1,6 @@
 package com.ae2dms;
 
-import com.ae2dms.controller.MenuBarController;
+import com.ae2dms.controller.GamePageController;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObject;
@@ -51,23 +51,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //this.primaryStage = primaryStage;
-        MenuBarController.primaryStage = primaryStage;
+        GamePageController.primaryStage = primaryStage;
         GridPane root = FXMLLoader.load(getClass().getResource("/view/GamePage.fxml"));
-        //root.add(gameGrid, 0, 1);
-//        menu = new GameMenu();
-//        gameGrid = new GridPane();
-        MenuBarController.gameGrid = new GridPane();
-//        GridPane root = new GridPane();
-//        root.add(menu, 0, 0);
-        //FIXME: the gamegrid is overlapping with menu bar
         //FIXME: the size of gamegrid is not as set in fxml
         //FIXME: the size of window is not as specified
-        root.add(MenuBarController.gameGrid, 0, 1);
-        MenuBarController.primaryStage.setTitle(GameEngine.GAME_NAME);
-        MenuBarController.primaryStage.setScene(new Scene(root,400, 420));
-        MenuBarController.primaryStage.show();
-        MenuBarController.loadDefaultSaveFile(primaryStage);
+        GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
+        GamePageController.primaryStage.setScene(new Scene(root, 607, 637));
+        //GamePageController.primaryStage.setResizable(false);
     }
 
 
@@ -84,7 +74,7 @@ public class Main extends Application {
     private void initializeGame(InputStream inputGameFile) {
 
         gameEngine = new GameEngine(inputGameFile, true);
-        MenuBarController.gameEngine = gameEngine;
+        GamePageController.gameEngine = gameEngine;
         reloadGrid();
     }
 
