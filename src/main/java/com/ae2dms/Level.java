@@ -1,8 +1,20 @@
 package com.ae2dms;
 
+import com.ae2dms.model.GameEngine;
+
 import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
+
+/**
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.controller
+ *
+ * @description: This is the class for level in the game
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/10 11:10 given
+ */
 
 public final class Level implements Iterable<GameObject> {
     public final GameGrid objectsGrid;
@@ -12,7 +24,24 @@ public final class Level implements Iterable<GameObject> {
     private int numberOfDiamonds = 0;
     private Point keeperPosition = new Point(0, 0);
 
-    public Level(String levelName, int levelIndex, List<String> raw_level) {
+    /**
+     * constructor
+     *
+     * @param levelName
+     *         the name of the level, got from the .skb map file
+     * @param levelIndex
+     *         the index of the level, count from 0 depending on the order of occurrence in the map file
+     * @param rawLevel
+     *         the list of raw level where game object is specified by strings, got from the .skb map file
+     * @description: the default constructor of class Level, set objectsGrid as
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/10 15:38
+     * @version: 1.0.0
+     **/
+
+
+    public Level(String levelName, int levelIndex, List<String> rawLevel) {
+        //TODO: refactor the if statement
         if (GameEngine.isDebugActive()) {
             System.out.printf("[ADDING LEVEL] LEVEL [%d]: %s\n", levelIndex, levelName);
         }
@@ -20,16 +49,16 @@ public final class Level implements Iterable<GameObject> {
         name = levelName;
         index = levelIndex;
 
-        int rows = raw_level.size();
-        int columns = raw_level.get(0).trim().length();
+        int rows = rawLevel.size();
+        int columns = rawLevel.get(0).trim().length();
 
         objectsGrid = new GameGrid(rows, columns);
         diamondsGrid = new GameGrid(rows, columns);
 
-        for (int row = 0; row < raw_level.size(); row++) {
-
-            for (int col = 0; col < raw_level.get(row).length(); col++) {
-                GameObject curTile = GameObject.fromChar(raw_level.get(row).charAt(col));
+        //traverse through the map to define
+        for (int row = 0; row < rawLevel.size(); row++) {
+            for (int col = 0; col < rawLevel.get(row).length(); col++) {
+                GameObject curTile = GameObject.fromChar(rawLevel.get(row).charAt(col));
 
                 if (curTile == GameObject.DIAMOND) {
                     numberOfDiamonds++;
@@ -45,7 +74,17 @@ public final class Level implements Iterable<GameObject> {
         }
     }
 
-    boolean isComplete() {
+    /**
+     * @param
+     * @return boolean
+     * @description: check if the current level of the game is completed by comparing the number of crate and the number of the crates already in the diamond position
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/12 16:00 given
+     * @version: 1.0.0
+     **/
+
+
+    public boolean isComplete() {
         int cratedDiamondsCount = 0;
         for (int row = 0; row < objectsGrid.ROWS; row++) {
             for (int col = 0; col < objectsGrid.COLUMNS; col++) {
@@ -57,22 +96,73 @@ public final class Level implements Iterable<GameObject> {
         return cratedDiamondsCount >= numberOfDiamonds;
     }
 
+    /**
+     * @param
+     * @return java.lang.String
+     * @description: get the name of the level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/13 22:17 given
+     * @version: 1.0.0
+     **/
+
+
     public String getName() {
         return name;
     }
 
-    int getIndex() {
+    /**
+     * @param
+     * @return int
+     * @description: get the index of the level in the list of levels
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/13 22:17 given
+     * @version: 1.0.0
+     **/
+
+
+    public int getIndex() {
         return index;
     }
 
-    Point getKeeperPosition() {
+    /**
+     * @param
+     * @return java.awt.Point
+     * @description: get the current position of keep in the current level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 17:28
+     * @version: 1.0.0
+     **/
+
+    public Point getKeeperPosition() {
         return keeperPosition;
     }
 
-    GameObject getTargetObject(Point source, Point delta) {
+    /**
+     * @param source
+     *         the source point
+     * @param delta
+     *         the offset for the source point to find the transferred point
+     * @return com.ae2dms.GameObject
+     * @description: get the game object transferred from source by delta
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 23:35 given
+     * @version:
+     **/
+
+
+    public GameObject getTargetObject(Point source, Point delta) {
         return objectsGrid.getTargetFromSource(source, delta);
     }
-
+    
+    /** 
+    * @description: //TODO
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/11/19 22:30
+     * @param  
+    * @return java.lang.String
+    * @version:
+    **/
+    
     @Override
     public String toString() {
         return objectsGrid.toString();
@@ -115,7 +205,16 @@ public final class Level implements Iterable<GameObject> {
             return retObj;
         }
 
-        public Point getcurrentposition() {
+        /**
+         * @param
+         * @return java.awt.Point
+         * @description: get the Point specified in LevelIterator
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/19 22:27
+         * @version:
+         **/
+
+        public Point getCurrentPosition() {
             return new Point(column, row);
         }
     }
