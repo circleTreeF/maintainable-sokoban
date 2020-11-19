@@ -53,11 +53,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         GamePageController.primaryStage = primaryStage;
         GridPane root = FXMLLoader.load(getClass().getResource("/view/GamePage.fxml"));
-        //FIXME: the size of gamegrid is not as set in fxml
-        //FIXME: the size of window is not as specified
         GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
         GamePageController.primaryStage.setScene(new Scene(root, 607, 637));
-        //GamePageController.primaryStage.setResizable(false);
+        GamePageController.primaryStage.setResizable(false);
     }
 
 
