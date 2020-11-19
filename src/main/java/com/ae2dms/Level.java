@@ -18,8 +18,8 @@ import java.util.List;
 
 public final class Level implements Iterable<GameObject> {
     /**
-    the GameGrid of all game objects in this level
-    */
+     * the GameGrid of all game objects in this level
+     */
     public final GameGrid objectsGrid;
     public final GameGrid diamondsGrid;
     private final String name;
@@ -172,19 +172,27 @@ public final class Level implements Iterable<GameObject> {
     }
 
     /**
-    * @description: return a new inner class of this class, Level
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/11/19 23:07 given
      * @param
-    * @return java.util.Iterator<com.ae2dms.GameObject>
-    * @version: 1.0.0
-    **/
+     * @return java.util.Iterator<com.ae2dms.GameObject>
+     * @description: return a new inner class of this class, Level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:07 given
+     * @version: 1.0.0
+     **/
 
 
     @Override
     public Iterator<GameObject> iterator() {
         return new LevelIterator();
     }
+
+    /**
+     * @description: This is the class of iterator of iterable class Level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:48 given
+     * @version: 1.0.0
+     **/
+
 
     public class LevelIterator implements Iterator<GameObject> {
 
