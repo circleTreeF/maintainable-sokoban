@@ -1,6 +1,6 @@
 package com.ae2dms.view;
 
-import com.ae2dms.GameEngine;
+import com.ae2dms.model.GameEngine;
 import com.ae2dms.GameObject;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
@@ -23,10 +23,11 @@ import javafx.util.Duration;
 public class GraphicObject extends Rectangle {
     /**
      * @param obj
+     *         The game object in this game to construct the graphic object
      * @description: the default constructor of class GraphicObject, would construct the graphic object according to the type of the game object
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/12 16:59
-     * @version:
+     * @version: 1.0.0
      **/
 
     public GraphicObject(GameObject obj) {
@@ -75,7 +76,7 @@ public class GraphicObject extends Rectangle {
         this.setFill(color);
         this.setHeight(30);
         this.setWidth(30);
-
+        //set the property of the round corners
         if (obj != GameObject.WALL) {
             this.setArcHeight(50);
             this.setArcWidth(50);
