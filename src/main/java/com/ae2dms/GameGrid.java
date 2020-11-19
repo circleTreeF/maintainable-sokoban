@@ -1,23 +1,65 @@
 package com.ae2dms;
 
+import com.ae2dms.model.GameEngine;
+
 import java.awt.*;
 import java.util.Iterator;
+
+/**
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.GameGrid
+ *
+ * @description: This is the class to place the graphic objects of the game to present
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/10 11:10 given
+ * @version: 1.0
+ */
 
 public class GameGrid implements Iterable {
     final int COLUMNS;
     final int ROWS;
+    private final GameObject[][] gameObjects;
 
-    private GameObject[][] gameObjects;
+    /**
+     * constructor
+     *
+     * @param columns
+     *         the size of columns of the GameGrid
+     * @param rows
+     *         the size of rows of the GameGrid
+     * @description: the default constructor, create a array of GameObject with specified number of columns and rows
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:30 given
+     * @version: 1.0.0
+     **/
+
 
     public GameGrid(int columns, int rows) {
         COLUMNS = columns;
         ROWS = rows;
 
         // Initialize the array
+        //FIXME:the column and row is in the opposite
         gameObjects = new GameObject[COLUMNS][ROWS];
     }
 
-    static Point translatePoint(Point sourceLocation, Point delta) {
+    /**
+     * static
+     *
+     * @param sourceLocation
+     *         the source location of the game object
+     * @param delta
+     *         the delta value this source need to translate
+     * @return java.awt.Point
+     * @description: translate the point sourceLocation by delta in x and y axis
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 23:14
+     * @version: 1.0.0
+     **/
+
+
+    public static Point translatePoint(Point sourceLocation, Point delta) {
         Point translatedPoint = new Point(sourceLocation);
         translatedPoint.translate((int) delta.getX(), (int) delta.getY());
         return translatedPoint;
@@ -27,23 +69,63 @@ public class GameGrid implements Iterable {
         return new Dimension(COLUMNS, ROWS);
     }
 
+    /**
+     * @param source
+     *         the point of the source point
+     * @param delta
+     *         the delta value of target from the source in Point format
+     * @return com.ae2dms.GameObject
+     * @description: get the game object transferred from source by delta
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 23:36 given
+     * @version:
+     **/
+
+
     GameObject getTargetFromSource(Point source, Point delta) {
         return getGameObjectAt(translatePoint(source, delta));
     }
+
+    /**
+     * @param col
+     *         the column index of the searched game object
+     * @param row
+     *         the row index of the searched game object
+     * @return com.ae2dms.GameObject
+     * @description: check if the input col, cow is within the boundary and return the GameObject at the input position.
+     * If no, throw exception and promote in console if in debug mode
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 22:30 given
+     * @version: 1.0.0
+     **/
 
     public GameObject getGameObjectAt(int col, int row) throws ArrayIndexOutOfBoundsException {
         if (isPointOutOfBounds(col, row)) {
             if (GameEngine.isDebugActive()) {
                 System.out.printf("Trying to get null GameObject from COL: %d  ROW: %d", col, row);
             }
+            //TODO: exception may be generated to a new class
             throw new ArrayIndexOutOfBoundsException("The point [" + col + ":" + row + "] is outside the map.");
         }
 
         return gameObjects[col][row];
     }
 
+    /**
+     * Overload
+     *
+     * @param p
+     *         the point of the game object
+     * @return com.ae2dms.GameObject
+     * @description: return the game object at the input point
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 22:37 given
+     * @version: 1.0.0
+     **/
+
     public GameObject getGameObjectAt(Point p) {
         if (p == null) {
+            //TODO: all exception could be generated in a new class
             throw new IllegalArgumentException("Point cannot be null.");
         }
 
@@ -54,6 +136,20 @@ public class GameGrid implements Iterable {
         return putGameObjectAt(null, position);
     }
 
+    /**
+     * @param gameObject
+     *         the game object to be put
+     * @param x
+     *         the x value in the x axis to put the game object at
+     * @param y
+     *         the y value in the y axis to put the game object at
+     * @return boolean
+     * @description: put the game object at the defined position, return true if success; false, otherwise.
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/12 0:07 given
+     * @version:
+     **/
+
     public boolean putGameObjectAt(GameObject gameObject, int x, int y) {
         if (isPointOutOfBounds(x, y)) {
             return false;
@@ -63,49 +159,137 @@ public class GameGrid implements Iterable {
         return gameObjects[x][y] == gameObject;
     }
 
+    /**
+     * overload
+     *
+     * @param gameObject
+     *         the game object to be put
+     * @param p
+     *         the point the game object should be put at
+     * @return boolean
+     * @description: put the game object at the input point
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/13 21:59 given
+     * @version:
+     **/
+
+
     public boolean putGameObjectAt(GameObject gameObject, Point p) {
+        //TODO: make the style consist with others, implicit if statement for all or explicit
         return p != null && putGameObjectAt(gameObject, (int) p.getX(), (int) p.getY());
     }
+
+    /**
+     * @param x
+     *         the x value in the x axis for the point need to be checked
+     * @param y
+     *         the y value in the y axis for the point need to be checked
+     * @return boolean
+     * @description: check if the input index is out of bound for this level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/12 0:01 given
+     * @version: 1.0.0
+     **/
+
 
     private boolean isPointOutOfBounds(int x, int y) {
         return (x < 0 || y < 0 || x >= COLUMNS || y >= ROWS);
     }
 
+    /**
+     * @param p
+     *         the point need to be checked
+     * @return boolean
+     * @description: check if the input index is out of bound for this level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/12 16:32
+     * @version: 1.0.0
+     **/
+
+
     private boolean isPointOutOfBounds(Point p) {
         return isPointOutOfBounds(p.x, p.y);
     }
 
+    /**
+     * @param
+     * @return java.lang.String
+     * @description: return the string of all game object, separated with new line
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:27 given
+     * @version: 1.0.0
+     **/
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(gameObjects.length);
+        StringBuilder stringBuilder = new StringBuilder(gameObjects.length);
 
         for (GameObject[] gameObject : gameObjects) {
-            for (GameObject aGameObject : gameObject) {
-                if (aGameObject == null) {
-                    aGameObject = GameObject.DEBUG_OBJECT;
+            for (GameObject currentGameObject : gameObject) {
+                if (currentGameObject == null) {
+                    currentGameObject = GameObject.DEBUG_OBJECT;
                 }
-                sb.append(aGameObject.getCharSymbol());
+                stringBuilder.append(currentGameObject.getCharSymbol());
             }
 
-            sb.append('\n');
+            stringBuilder.append('\n');
         }
 
-        return sb.toString();
+        return stringBuilder.toString();
     }
+
+    /**
+     * @param
+     * @return java.util.Iterator<com.ae2dms.GameObject>
+     * @description: return a new inner class of this class, GameGrid
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:46
+     * @version:
+     **/
 
     @Override
     public Iterator<GameObject> iterator() {
         return new GridIterator();
     }
 
+    /**
+     * @description: This is the class of iterator of iterable class GameGrid
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 23:48 given
+     * @version: 1.0.0
+     **/
+
     public class GridIterator implements Iterator<GameObject> {
         int row = 0;
         int column = 0;
+
+        /**
+         * Override
+         *
+         * @param
+         * @return boolean
+         * @description: check if this GameGrid iterator has next element. Return 1, if it has; 0, otherwise
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/19 22:56
+         * @version:
+         **/
+
 
         @Override
         public boolean hasNext() {
             return !(row == ROWS && column == COLUMNS);
         }
+
+        /**
+         * Override
+         *
+         * @param
+         * @return com.ae2dms.GameObject
+         * @description: get and move the iterator to the next game object in the GameGrid
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/19 22:58
+         * @version:
+         **/
 
         @Override
         public GameObject next() {
