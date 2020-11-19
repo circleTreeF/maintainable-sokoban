@@ -17,6 +17,9 @@ import java.util.List;
  */
 
 public final class Level implements Iterable<GameObject> {
+    /**
+    the GameGrid of all game objects in this level
+    */
     public final GameGrid objectsGrid;
     public final GameGrid diamondsGrid;
     private final String name;
@@ -35,7 +38,7 @@ public final class Level implements Iterable<GameObject> {
      *         the list of raw level where game object is specified by strings, got from the .skb map file
      * @description: the default constructor of class Level, set objectsGrid as
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/10 15:38
+     * @date: 2020/11/10 15:38 given
      * @version: 1.0.0
      **/
 
@@ -129,7 +132,7 @@ public final class Level implements Iterable<GameObject> {
      * @return java.awt.Point
      * @description: get the current position of keep in the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/11 17:28
+     * @date: 2020/11/11 17:28 given
      * @version: 1.0.0
      **/
 
@@ -153,20 +156,30 @@ public final class Level implements Iterable<GameObject> {
     public GameObject getTargetObject(Point source, Point delta) {
         return objectsGrid.getTargetFromSource(source, delta);
     }
-    
-    /** 
-    * @description: //TODO
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/11/19 22:30
-     * @param  
-    * @return java.lang.String
-    * @version:
-    **/
-    
+
+    /**
+     * @param
+     * @return java.lang.String
+     * @description: //TODO
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 22:30 given
+     * @version:
+     **/
+
     @Override
     public String toString() {
         return objectsGrid.toString();
     }
+
+    /**
+    * @description: return a new inner class of this class, Level
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/11/19 23:07 given
+     * @param
+    * @return java.util.Iterator<com.ae2dms.GameObject>
+    * @version: 1.0.0
+    **/
+
 
     @Override
     public Iterator<GameObject> iterator() {
@@ -178,10 +191,33 @@ public final class Level implements Iterable<GameObject> {
         int column = 0;
         int row = 0;
 
+        /**
+         * Override
+         *
+         * @param
+         * @return boolean
+         * @description: check if this level iterator has next element. Return 1, if it has; 0, otherwise
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/19 22:56
+         * @version:
+         **/
+
+
         @Override
         public boolean hasNext() {
             return !(row == objectsGrid.ROWS - 1 && column == objectsGrid.COLUMNS);
         }
+
+        /**
+         * Override
+         *
+         * @param
+         * @return com.ae2dms.GameObject
+         * @description: get and move the iterator to the next game object in the level
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/19 22:58
+         * @version:
+         **/
 
         @Override
         public GameObject next() {
@@ -210,7 +246,7 @@ public final class Level implements Iterable<GameObject> {
          * @return java.awt.Point
          * @description: get the Point specified in LevelIterator
          * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-         * @date: 2020/11/19 22:27
+         * @date: 2020/11/19 22:27 given
          * @version:
          **/
 
