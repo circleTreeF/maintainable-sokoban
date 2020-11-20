@@ -1,5 +1,9 @@
-package com.ae2dms;
+package com.ae2dms.model;
 
+import com.ae2dms.GameGrid;
+import com.ae2dms.GameLogger;
+import com.ae2dms.GameObject;
+import com.ae2dms.Level;
 import javafx.scene.input.KeyCode;
 
 import java.awt.*;
@@ -39,7 +43,7 @@ public class GameEngine {
      * @return
      * @description: the constructor would load the game map file name stored in inputGameFile
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:26 given
+     * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
      **/
 
@@ -64,7 +68,7 @@ public class GameEngine {
      * @return void
      * @description: handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:25 given
+     * @date: 2020/11/10 14:25 given
      * @version: 1.0.0
      **/
 
@@ -102,11 +106,11 @@ public class GameEngine {
      * @return void
      * @description: //TODO
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:26 given
+     * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
      **/
 
-    private void move(Point delta) {
+    public void move(Point delta) {
         //TODO:refactor to state pattern
         if (isGameComplete()) {
             return;
@@ -178,7 +182,7 @@ public class GameEngine {
      * the array list of map of all levels
      * @description This method would load the map stored in the input parameter inputGameFile.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:06 given
+     * @date: 2020/11/10 14:06 given
      * @version: 1.0.0
      **/
 
@@ -245,10 +249,12 @@ public class GameEngine {
     /**
      * @param
      * @return boolean
-     * @description return boolean value of if the game is completed
+     * @description: return boolean value of if the game is completed
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:08 given
+     * @date: 2020/11/13 22:27
+     * @version: 1.0.0
      **/
+
 
     public boolean isGameComplete() {
         return gameComplete;
@@ -259,7 +265,7 @@ public class GameEngine {
      * @return com.ae2dms.Level
      * @description move to next level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:10 given
+     * @date: 2020/11/10 14:10 given
      * @version: 1.0.0
      **/
 
@@ -283,7 +289,7 @@ public class GameEngine {
      * @return com.ae2dms.Level
      * @description: return the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:22 given
+     * @date: 2020/11/10 14:22 given
      * @version: 1.0.0
      **/
 
@@ -296,7 +302,7 @@ public class GameEngine {
      * @return void
      * @description: start or close the debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @data: 2020/11/10 14:23 given
+     * @date: 2020/11/10 14:23 given
      * @version: 1.0.0
      **/
 
