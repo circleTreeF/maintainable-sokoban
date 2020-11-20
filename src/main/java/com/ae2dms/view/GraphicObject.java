@@ -30,6 +30,8 @@ public class GraphicObject extends Rectangle {
      * @version: 1.0.0
      **/
 
+    //TODO: refactor to factory model, could be built by enum class
+
     public GraphicObject(GameObject obj) {
         Paint color;
         switch (obj) {
