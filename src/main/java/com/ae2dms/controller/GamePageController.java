@@ -5,19 +5,17 @@ import com.ae2dms.GameObject;
 import com.ae2dms.Level;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.view.DialogWindow;
-import com.ae2dms.view.GraphicObject;
+import com.ae2dms.view.GraphicObjectFactory;
 import javafx.fxml.FXML;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -265,7 +263,8 @@ public class GamePageController {
 
 
     private void addObjectToGrid(GameObject gameObject, Point location) {
-        GraphicObject graphicObject = new GraphicObject(gameObject);
+        GraphicObjectFactory graphicObjectFactory = new GraphicObjectFactory();
+        Rectangle graphicObject = graphicObjectFactory.getGraphicObject(gameObject);
         gameGrid.add(graphicObject, location.y, location.x);
     }
 
