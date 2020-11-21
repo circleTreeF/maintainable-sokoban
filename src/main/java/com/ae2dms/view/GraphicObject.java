@@ -9,6 +9,8 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.io.IOException;
+
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
@@ -22,7 +24,7 @@ import javafx.util.Duration;
 
 public class GraphicObject extends Rectangle {
     /**
-     * @param obj
+     * @param gameObject
      *         The game object in this game to construct the graphic object
      * @description: the default constructor of class GraphicObject, would construct the graphic object according to the type of the game object
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -32,9 +34,9 @@ public class GraphicObject extends Rectangle {
 
     //TODO: refactor to factory model, could be built by enum class
 
-    public GraphicObject(GameObject obj) {
-        Paint color;
-        switch (obj) {
+    public GraphicObject(GameObject gameObject) throws IOException {
+        Paint color = Color.AQUA;
+        switch (gameObject) {
             case WALL:
                 color = Color.BLACK;
                 break;
@@ -47,12 +49,12 @@ public class GraphicObject extends Rectangle {
                 color = Color.DEEPSKYBLUE;
 
                 if (GameEngine.isDebugActive()) {
-                    FadeTransition ft = new FadeTransition(Duration.millis(1000), this);
-                    ft.setFromValue(1.0);
-                    ft.setToValue(0.2);
-                    ft.setCycleCount(Timeline.INDEFINITE);
-                    ft.setAutoReverse(true);
-                    ft.play();
+                    FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), this);
+                    fadeTransition.setFromValue(1.0);
+                    fadeTransition.setToValue(0.2);
+                    fadeTransition.setCycleCount(Timeline.INDEFINITE);
+                    fadeTransition.setAutoReverse(true);
+                    fadeTransition.play();
                 }
 
                 break;
@@ -79,7 +81,7 @@ public class GraphicObject extends Rectangle {
         this.setHeight(30);
         this.setWidth(30);
         //set the property of the round corners
-        if (obj != GameObject.WALL) {
+        if (gameObject != GameObject.WALL) {
             this.setArcHeight(50);
             this.setArcWidth(50);
         }
