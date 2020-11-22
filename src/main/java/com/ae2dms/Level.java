@@ -18,7 +18,7 @@ import java.util.List;
 
 public final class Level implements Iterable<GameObject> {
     /**
-     * the GameGrid of all game objects in this level
+     * the GameGrid of all game objects in this level, while the diamonds would be recorded as floor
      */
     public final GameGrid objectsGrid;
     public final GameGrid diamondsGrid;
