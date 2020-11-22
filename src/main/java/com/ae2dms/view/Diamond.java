@@ -3,7 +3,6 @@ package com.ae2dms.view;
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 /**
@@ -17,7 +16,7 @@ import javafx.util.Duration;
  */
 
 
-public class Diamond extends Rectangle {
+public class Diamond extends ObjectView {
     /**
      * constructor
      *
@@ -29,6 +28,7 @@ public class Diamond extends Rectangle {
      **/
 
     public Diamond() {
+        initializeCommonSize();
         initializeCommonDiamond();
     }
 
@@ -45,6 +45,7 @@ public class Diamond extends Rectangle {
 
 
     public Diamond(Boolean isDebug) {
+        initializeCommonSize();
         initializeCommonDiamond();
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(1000), this);
         fadeTransition.setFromValue(1.0);
@@ -65,8 +66,6 @@ public class Diamond extends Rectangle {
 
     public void initializeCommonDiamond() {
         this.setFill(Color.DEEPSKYBLUE);
-        this.setHeight(30);
-        this.setWidth(30);
         this.setArcHeight(50);
         this.setArcWidth(50);
     }

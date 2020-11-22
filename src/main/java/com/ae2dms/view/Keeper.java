@@ -1,7 +1,6 @@
 package com.ae2dms.view;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -14,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  */
 
 
-public class Keeper extends Rectangle {
+public class Keeper extends ObjectView {
 
     /**
      * constructor
@@ -27,6 +26,7 @@ public class Keeper extends Rectangle {
      **/
 
     public Keeper() {
+        initializeCommonSize();
         initializeCommonKeeper();
     }
 
@@ -43,6 +43,7 @@ public class Keeper extends Rectangle {
 
 
     public Keeper(Boolean isDebug) {
+        initializeCommonSize();
         initializeCommonKeeper();
         this.setStroke(Color.RED);
         this.setStrokeWidth(0.25);
@@ -59,8 +60,6 @@ public class Keeper extends Rectangle {
 
     public void initializeCommonKeeper() {
         this.setFill(Color.RED);
-        this.setHeight(30);
-        this.setWidth(30);
         this.setArcHeight(50);
         this.setArcWidth(50);
     }

@@ -1,7 +1,6 @@
 package com.ae2dms.view;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -14,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  */
 
 
-public class Wall extends Rectangle {
+public class Wall extends ObjectView {
     /**
      * constructor
      *
@@ -26,6 +25,7 @@ public class Wall extends Rectangle {
      **/
 
     public Wall() {
+        initializeCommonSize();
         initializeCommonWall();
         //this = FXMLLoader.load(getClass().getResource("/view/Wall.fxml"));
     }
@@ -44,6 +44,7 @@ public class Wall extends Rectangle {
 
     public Wall(Boolean isDebug) {
         // FXMLLoader.load(getClass().getResource("/view/Wall.fxml"));
+        initializeCommonSize();
         initializeCommonWall();
         this.setStroke(Color.RED);
         this.setStrokeWidth(0.25);
@@ -60,7 +61,5 @@ public class Wall extends Rectangle {
 
     public void initializeCommonWall() {
         this.setFill(Color.BLACK);
-        this.setHeight(30);
-        this.setWidth(30);
     }
 }

@@ -1,7 +1,6 @@
 package com.ae2dms.view;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -14,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  */
 
 
-public class CrateOnDiamond extends Rectangle {
+public class CrateOnDiamond extends ObjectView {
     /**
      * constructor
      *
@@ -26,6 +25,7 @@ public class CrateOnDiamond extends Rectangle {
      **/
 
     public CrateOnDiamond() {
+        initializeCommonSize();
         initializeCommonCrateOnDiamond();
     }
 
@@ -41,6 +41,7 @@ public class CrateOnDiamond extends Rectangle {
      **/
 
     public CrateOnDiamond(Boolean isDebug) {
+        initializeCommonSize();
         initializeCommonCrateOnDiamond();
         this.setStroke(Color.RED);
         this.setStrokeWidth(0.25);
@@ -58,8 +59,6 @@ public class CrateOnDiamond extends Rectangle {
 
     public void initializeCommonCrateOnDiamond() {
         this.setFill(Color.DARKCYAN);
-        this.setHeight(30);
-        this.setWidth(30);
         this.setArcHeight(50);
         this.setArcWidth(50);
     }
