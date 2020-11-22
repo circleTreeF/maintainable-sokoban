@@ -18,7 +18,7 @@
     <RowConstraints maxHeight="600.0" minHeight="600.0" prefHeight="600.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar maxHeight="30.0" minHeight="30.0" prefHeight="30.0" GridPane.rowIndex="0">
+      <MenuBar maxHeight="30.0" maxWidth="607.0" minHeight="30.0" minWidth="607.0" prefHeight="30.0" prefWidth="607.0" GridPane.rowIndex="0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
