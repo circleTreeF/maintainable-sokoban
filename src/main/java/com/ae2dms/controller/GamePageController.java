@@ -36,6 +36,21 @@ public class GamePageController {
     /**
      * @param
      * @return void
+     * @description: initialize the game page element, gameGrid. Display the initial level of the map to the game page
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/19 13:23
+     * @version: 1.0.0
+     **/
+
+
+    public void initialize() {
+        primaryStage.show();
+        loadDefaultSaveFile(primaryStage);
+    }
+
+    /**
+     * @param
+     * @return void
      * @description: save the current game level to file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * extracted from Main.saveGame()
@@ -61,51 +76,6 @@ public class GamePageController {
             loadGameFile();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * @param primaryStage
-     * @return void
-     * @description: load the default file of the map for the game
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 21:08
-     * @version:
-     **/
-
-    @FXML
-    public void loadDefaultSaveFile(Stage primaryStage) {
-        GamePageController.primaryStage = primaryStage;
-        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
-        initializeGame(defaultInputStream);
-        setEventFilter();
-    }
-
-    //TODO: investigate for these variable, saveFile, gameEngineer, primarilyStage should be in parameters or in the field
-
-    /**
-     * @param
-     * @return void
-     * @throw FileNotFoundException
-     * @description: load the user defined map file
-     * extracted from Main.loadGameFile()
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 15:14
-     * @version: 1.0.0
-     **/
-
-    private void loadGameFile() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        File saveFile = fileChooser.showOpenDialog(primaryStage);
-
-        //TODO: refactor the if statement
-        if (saveFile != null) {
-            if (GameEngine.isDebugActive()) {
-                GameEngine.logger.info("Loading save file: " + saveFile.getName());
-            }
-            initializeGame(new FileInputStream(saveFile));
         }
     }
 
@@ -182,7 +152,7 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    //TODO: reset this level to the initial scene    
+    //TODO: reset this level to the initial scene
     public void resetLevel() {
     }
 
@@ -205,11 +175,60 @@ public class GamePageController {
         aboutWindow.show();
     }
 
+
+    /**
+     * @param primaryStage
+     *         the primary stage of this game page scene
+     * @return void
+     * @description: load the default file of the map for the game
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/15 21:08
+     * @version:
+     **/
+
+
+    private void loadDefaultSaveFile(Stage primaryStage) {
+        GamePageController.primaryStage = primaryStage;
+        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
+        initializeGame(defaultInputStream);
+        setEventFilter();
+    }
+
+    //TODO: investigate for these variable, saveFile, gameEngineer, primarilyStage should be in parameters or in the field
+
+    /**
+     * @param
+     * @return void
+     * @throw FileNotFoundException
+     * @description: load the user defined map file
+     * extracted from Main.loadGameFile()
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/15 15:14
+     * @version: 1.0.0
+     **/
+
+
+    private void loadGameFile() throws FileNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Save File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
+        File saveFile = fileChooser.showOpenDialog(primaryStage);
+
+        //TODO: refactor the if statement
+        if (saveFile != null) {
+            if (GameEngine.isDebugActive()) {
+                GameEngine.logger.info("Loading save file: " + saveFile.getName());
+            }
+            initializeGame(new FileInputStream(saveFile));
+        }
+    }
+
+
     /**
      * @param inputGameFile
      *         The input file of the map of this game
      * @return void
-     * @description: initialize the game engine for this game and the grid
+     * @description: initialize the grid and the singleton, game engine for this game.
      * extracted from Main.initializeGame()
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 17:06
@@ -303,21 +322,6 @@ public class GamePageController {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
-    }
-
-    /**
-     * @param
-     * @return void
-     * @description: initialize the game page element, gameGrid. Display the initial level of the map to the game page
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 13:23
-     * @version: 1.0.0
-     **/
-
-
-    public void initialize() {
-        primaryStage.show();
-        loadDefaultSaveFile(primaryStage);
     }
 }
 
