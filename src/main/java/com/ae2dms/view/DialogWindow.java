@@ -10,8 +10,6 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
@@ -28,8 +26,11 @@ public class DialogWindow extends Stage {
      * constructor
      *
      * @param primaryStage
+     *         the primary stage of this scene
      * @param dialogTitle
+     *         the title of this dialog new window
      * @param dialogMessage
+     *         the dialog message of this new dialog window
      * @description: construct a instance of dialog window without visually present
      * extracted from Main.java.newDialog
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -37,6 +38,7 @@ public class DialogWindow extends Stage {
      * @version: 1.0.0
      **/
 
+    //TODO: could be refactored to the factory design pattern
     public DialogWindow(Stage primaryStage, String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
         this.initModality(Modality.APPLICATION_MODAL);
         this.initOwner(primaryStage);
