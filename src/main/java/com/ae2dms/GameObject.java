@@ -41,7 +41,8 @@ public enum GameObject {
     }
 
     /**
-     * @param checkedSymbol the character to check if this is one of possible values of game objects
+     * @param checkedSymbol
+     *         the character to check if this is one of possible values of game objects
      * @return com.ae2dms.GameObject
      * @description: return the game object whose symbol is the input character if the input character is value of game object; return WALL game object, otherwise
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
