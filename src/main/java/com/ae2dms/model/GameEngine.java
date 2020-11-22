@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
- * Package: com.ae2dms.
+ * Package: com.ae2dms.model
  *
  * @description: This is the game engine
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -38,9 +38,11 @@ public class GameEngine {
     private boolean gameComplete = false;
 
     /**
+     * constructor
+     *
      * @param inputGameFile
+     *         the input game file about the game map
      * @param production
-     * @return
      * @description: the constructor would load the game map file name stored in inputGameFile
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
@@ -59,12 +61,23 @@ public class GameEngine {
         }
     }
 
+    /**
+     * @param
+     * @return boolean
+     * @description: check if the game is in debug mode
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/21 22:00
+     * @version:
+     **/
+
+
     public static boolean isDebugActive() {
         return debug;
     }
 
     /**
      * @param pressedKeyCode
+     *         the key code of the pressed key in the keyboard
      * @return void
      * @description: handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -72,7 +85,7 @@ public class GameEngine {
      * @version: 1.0.0
      **/
 
-    //TODO: refactor swith statement
+    //TODO: refactor switch statement
     public void handleKey(KeyCode pressedKeyCode) {
         switch (pressedKeyCode) {
             case UP:
@@ -103,8 +116,9 @@ public class GameEngine {
 
     /**
      * @param delta
+     *         the difference of location between current location and the destination in Point format about the movement
      * @return void
-     * @description: //TODO
+     * @description: move the keeper according to input movement direction and distance
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
@@ -178,8 +192,9 @@ public class GameEngine {
 
     /**
      * @param inputGameFile
+     *         the input file stream about the map of the game
      * @return java.util.List<com.ae2dms.Level>
-     * the array list of map of all levels
+     *         the array list of map of all levels
      * @description This method would load the map stored in the input parameter inputGameFile.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:06 given
