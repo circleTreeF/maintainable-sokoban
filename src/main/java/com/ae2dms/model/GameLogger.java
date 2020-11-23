@@ -1,6 +1,4 @@
-package com.ae2dms;
-
-import com.ae2dms.model.GameEngine;
+package com.ae2dms.model;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +12,7 @@ import java.util.logging.SimpleFormatter;
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
- * Package: com.ae2dms.GameLogger
+ * Package: com.ae2dms.model.GameLogger
  *
  * @description: This is the class to log the activities of the game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn

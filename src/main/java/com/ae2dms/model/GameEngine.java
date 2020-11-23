@@ -1,11 +1,10 @@
 package com.ae2dms.model;
 
 import com.ae2dms.GameGrid;
-import com.ae2dms.GameLogger;
 import com.ae2dms.GameObject;
 import com.ae2dms.Level;
-import javafx.scene.input.KeyCode;
 
+import javafx.scene.input.KeyCode;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,7 +27,7 @@ import java.util.NoSuchElementException;
 
 public class GameEngine {
     public static final String GAME_NAME = "SokobanFX";
-    public static GameLogger logger;
+    public static GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
     public int movesCount = 0;
     public String mapSetName;
@@ -51,7 +50,7 @@ public class GameEngine {
 
     public GameEngine(InputStream inputGameFile, boolean production) {
         try {
-            logger = new GameLogger();
+            logger = GameLoggerSingleton.getGameLoggerSingleton();
             levels = loadGameFile(inputGameFile);
             currentLevel = getNextLevel();
         } catch (IOException x) {
