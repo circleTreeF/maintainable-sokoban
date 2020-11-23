@@ -3,7 +3,6 @@ package com.ae2dms;
 import com.ae2dms.model.GameEngine;
 
 import java.awt.*;
-import java.util.Iterator;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -16,7 +15,7 @@ import java.util.Iterator;
  * @version: 1.0
  */
 
-public class GameGrid implements Iterable {
+public class GameGrid {
     final int COLUMNS;
     final int ROWS;
     private final GameObject[][] gameObjects;
@@ -236,68 +235,5 @@ public class GameGrid implements Iterable {
         }
 
         return stringBuilder.toString();
-    }
-
-    /**
-     * @param
-     * @return java.util.Iterator<com.ae2dms.GameObject>
-     * @description: return a new inner class of this class, GameGrid
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 23:46
-     * @version:
-     **/
-
-    @Override
-    public Iterator<GameObject> iterator() {
-        return new GridIterator();
-    }
-
-    /**
-     * @description: This is the class of iterator of iterable class GameGrid
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 23:48 given
-     * @version: 1.0.0
-     **/
-
-    public class GridIterator implements Iterator<GameObject> {
-        int row = 0;
-        int column = 0;
-
-        /**
-         * Override
-         *
-         * @param
-         * @return boolean
-         * @description: check if this GameGrid iterator has next element. Return 1, if it has; 0, otherwise
-         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-         * @date: 2020/11/19 22:56
-         * @version:
-         **/
-
-
-        @Override
-        public boolean hasNext() {
-            return !(row == ROWS && column == COLUMNS);
-        }
-
-        /**
-         * Override
-         *
-         * @param
-         * @return com.ae2dms.GameObject
-         * @description: get and move the iterator to the next game object in the GameGrid
-         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-         * @date: 2020/11/19 22:58
-         * @version:
-         **/
-
-        @Override
-        public GameObject next() {
-            if (column >= COLUMNS) {
-                column = 0;
-                row++;
-            }
-            return getGameObjectAt(column++, row);
-        }
     }
 }
