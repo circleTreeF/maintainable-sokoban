@@ -1,9 +1,8 @@
-package com.ae2dms;
+package com.ae2dms.model;
 
-import com.ae2dms.model.GameEngine;
+import com.ae2dms.GameObject;
 
 import java.awt.*;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,9 +13,20 @@ import java.util.List;
  * @description: This is the class for level in the game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/10 11:10 given
+ * @version 1.0.0
  */
 
-public final class Level implements Iterable<GameObject> {
+/**
+ * The project of AE2DMS Coursework of Yizirui FANG 20127091
+ * <p>
+ * Package: com.ae2dms.model
+ *
+ * @description: This class is a concrete class implemented to store the collection of the game project of one level of the game
+ * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+ * @date: 2020/11/24 14:21
+ */
+
+public final class Level implements ContainerInterface {
     /**
      * the GameGrid of all game objects in this level, while the diamonds would be recorded as floor
      */
@@ -29,17 +39,18 @@ public final class Level implements Iterable<GameObject> {
 
     /**
      * constructor
+     * <p>
+     * the default constructor of class Level, write all GameObjects into objectsGrid where DIAMOND would be regraded as FLOOR; DIAMOND and FLOOR only into diamondsGrid
      *
      * @param levelName
-     *         the name of the level, got from the .skb map file
+     *         the name of the level, got from the map file
      * @param levelIndex
      *         the index of the level, count from 0 depending on the order of occurrence in the map file
      * @param rawLevel
-     *         the list of raw level where game object is specified by strings, got from the .skb map file
-     * @description: the default constructor of class Level, set objectsGrid as
+     *         the list of raw level where game object is specified by strings, got from the map file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/10 15:38 given
-     * @version: 1.0.0
+     * @date: 2020/11/24 15:17
+     * @version 2.0.0
      **/
 
 
@@ -78,9 +89,10 @@ public final class Level implements Iterable<GameObject> {
     }
 
     /**
+     * check if the current level of the game is completed by comparing the number of crate and the number of the crates already in the diamond position
+     *
      * @param
      * @return boolean
-     * @description: check if the current level of the game is completed by comparing the number of crate and the number of the crates already in the diamond position
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/12 16:00 given
      * @version: 1.0.0
@@ -99,54 +111,30 @@ public final class Level implements Iterable<GameObject> {
         return cratedDiamondsCount >= numberOfDiamonds;
     }
 
-    /**
-     * @param
-     * @return java.lang.String
-     * @description: get the name of the level
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/13 22:17 given
-     * @version: 1.0.0
-     **/
-
-
-    public String getName() {
-        return name;
-    }
 
     /**
-     * @param
-     * @return int
-     * @description: get the index of the level in the list of levels
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/13 22:17 given
-     * @version: 1.0.0
-     **/
-
-
-    public int getIndex() {
-        return index;
-    }
-
-    /**
+     * get the current position of keep in the current level
+     *
      * @param
      * @return java.awt.Point
-     * @description: get the current position of keep in the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 17:28 given
      * @version: 1.0.0
      **/
+
 
     public Point getKeeperPosition() {
         return keeperPosition;
     }
 
     /**
+     * get the game object transferred from source by delta
+     *
      * @param source
      *         the source point
      * @param delta
      *         the offset for the source point to find the transferred point
      * @return com.ae2dms.GameObject
-     * @description: get the game object transferred from source by delta
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:35 given
      * @version:
@@ -157,14 +145,49 @@ public final class Level implements Iterable<GameObject> {
         return objectsGrid.getTargetFromSource(source, delta);
     }
 
+
     /**
+     * get the name of the level
+     *
      * @param
      * @return java.lang.String
-     * @description: //TODO
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/11 23:35 given
+     * @version: 1.0.0
+     **/
+
+
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Currently not used but possible to be used
+     * <p>
+     * get the index of the level in the list of levels
+     *
+     * @param
+     * @return int
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 22:30 given
      * @version:
      **/
+
+    public int getIndex() {
+        return index;
+    }
+
+
+    /**
+     * Return the string of objectsGrid of this class
+     *
+     * @param
+     * @return java.lang.String
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/24 15:25
+     * @version:
+     **/
+
 
     @Override
     public String toString() {
@@ -172,35 +195,42 @@ public final class Level implements Iterable<GameObject> {
     }
 
     /**
-     * @param
-     * @return java.util.Iterator<com.ae2dms.GameObject>
-     * @description: return a new inner class of this class, Level
+     * return the iterator of Game Object under Iterator Pattern
+     *
+     * @return java.util.Iterator
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 23:07 given
+     * @date: 2020/11/22 22:42
      * @version: 1.0.0
      **/
-
-
     @Override
-    public Iterator<GameObject> iterator() {
+    public LevelIterator getIterator() {
         return new LevelIterator();
     }
 
     /**
-     * @description: This is the class of iterator of iterable class Level
+     * This inner class is the common iterator for both objectsGrid and diamondsGrid of this class
+     *
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 23:48 given
      * @version: 1.0.0
      **/
+    /**
+     * This inner class is the common iterator for both objectsGrid and diamondsGrid of this class
+     *
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/24 15:26
+     * @version: 2.0.0
+     **/
 
-
-    public class LevelIterator implements Iterator<GameObject> {
+    public class LevelIterator implements IteratorInterface {
 
         int column = 0;
         int row = 0;
 
         /**
          * Override
+         * <p>
+         * This method narrates navigation. This method returns true, if there is next element in the repository; false, otherwise.
          *
          * @param
          * @return boolean
@@ -226,7 +256,16 @@ public final class Level implements Iterable<GameObject> {
          * @date: 2020/11/19 22:58
          * @version:
          **/
-
+        /**
+         * Override
+         *
+         * Get the current game object and move the iterator to the next element in the repository
+         *
+         * @return com.ae2dms.GameObject
+         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @date: 2020/11/22 22:47
+         * @version: 1.1.0
+         **/
         @Override
         public GameObject next() {
             if (column >= objectsGrid.COLUMNS) {
@@ -235,24 +274,23 @@ public final class Level implements Iterable<GameObject> {
             }
             GameObject object = objectsGrid.getGameObjectAt(column, row);
             GameObject diamond = diamondsGrid.getGameObjectAt(column, row);
-            GameObject retObj = object;
+            GameObject currentObject = object;
             column++;
             if (diamond == GameObject.DIAMOND) {
                 if (object == GameObject.CRATE) {
-                    retObj = GameObject.CRATE_ON_DIAMOND;
+                    currentObject = GameObject.CRATE_ON_DIAMOND;
                 } else if (object == GameObject.FLOOR) {
-                    retObj = diamond;
-                } else {
-                    retObj = object;
+                    currentObject = diamond;
                 }
             }
-            return retObj;
+            return currentObject;
         }
 
         /**
+         * get the Point specified in LevelIterator
+         *
          * @param
          * @return java.awt.Point
-         * @description: get the Point specified in LevelIterator
          * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
          * @date: 2020/11/19 22:27 given
          * @version:

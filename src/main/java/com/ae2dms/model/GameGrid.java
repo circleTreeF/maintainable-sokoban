@@ -1,13 +1,13 @@
-package com.ae2dms;
+package com.ae2dms.model;
 
-import com.ae2dms.model.GameEngine;
+import com.ae2dms.GameObject;
 
 import java.awt.*;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
- * Package: com.ae2dms.GameGrid
+ * Package: com.ae2dms.model.GameGrid
  *
  * @description: This is the class to place the graphic objects of the game to present
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn

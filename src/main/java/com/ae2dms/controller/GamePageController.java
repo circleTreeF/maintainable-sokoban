@@ -2,9 +2,9 @@ package com.ae2dms.controller;
 
 
 import com.ae2dms.GameObject;
-import com.ae2dms.Level;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.model.GameLoggerSingleton;
+import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObjectFactory;
 import javafx.fxml.FXML;
@@ -30,7 +30,8 @@ import java.io.*;
  */
 public class GamePageController {
     public static Stage primaryStage;
-    public static GameEngine gameEngine;    @FXML
+    public static GameEngine gameEngine;
+    @FXML
     private GridPane gameGrid;
 
     /**
@@ -265,10 +266,10 @@ public class GamePageController {
         }
 
         Level currentLevel = gameEngine.getCurrentLevel();
-        Level.LevelIterator levelGridIterator = (Level.LevelIterator) currentLevel.iterator();
+        Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
-        while (levelGridIterator.hasNext()) {
-            addObjectToGrid(levelGridIterator.next(), levelGridIterator.getCurrentPosition());
+        while (levelIterator.hasNext()) {
+            addObjectToGrid(levelIterator.next(), levelIterator.getCurrentPosition());
         }
         gameGrid.autosize();
         primaryStage.sizeToScene();
