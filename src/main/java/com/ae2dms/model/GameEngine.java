@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
 
 public class GameEngine {
     public static final String GAME_NAME = "SokobanFX";
-    public static GameLoggerSingleton logger;
+    private GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
     public int movesCount = 0;
     public String mapSetName;

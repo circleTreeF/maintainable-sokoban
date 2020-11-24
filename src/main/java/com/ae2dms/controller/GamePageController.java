@@ -4,6 +4,7 @@ package com.ae2dms.controller;
 import com.ae2dms.GameObject;
 import com.ae2dms.Level;
 import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GameLoggerSingleton;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObjectFactory;
 import javafx.fxml.FXML;
@@ -29,8 +30,7 @@ import java.io.*;
  */
 public class GamePageController {
     public static Stage primaryStage;
-    public static GameEngine gameEngine;
-    @FXML
+    public static GameEngine gameEngine;    @FXML
     private GridPane gameGrid;
 
     /**
@@ -217,7 +217,13 @@ public class GamePageController {
         //TODO: refactor the if statement
         if (saveFile != null) {
             if (GameEngine.isDebugActive()) {
-                GameEngine.logger.info("Loading save file: " + saveFile.getName());
+                GameLoggerSingleton logger = null;
+                try {
+                    logger = GameLoggerSingleton.getGameLoggerSingleton();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                logger.info("Loading save file: " + saveFile.getName());
             }
             initializeGame(new FileInputStream(saveFile));
         }

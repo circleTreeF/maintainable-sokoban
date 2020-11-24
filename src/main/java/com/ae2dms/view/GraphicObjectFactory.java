@@ -2,7 +2,10 @@ package com.ae2dms.view;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GameLoggerSingleton;
 import javafx.scene.shape.Rectangle;
+
+import java.io.IOException;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -15,7 +18,6 @@ import javafx.scene.shape.Rectangle;
  * @date: 2020/11/21 15:22
  */
 public class GraphicObjectFactory {
-
     /**
      * @param gameObject
      *         the game object in this game
@@ -72,7 +74,13 @@ public class GraphicObjectFactory {
                 }
             default:
                 String message = "Error in Level constructor. Object not recognized.";
-                GameEngine.logger.severe(message);
+                GameLoggerSingleton logger = null;
+                try {
+                    logger = GameLoggerSingleton.getGameLoggerSingleton();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                logger.severe(message);
                 throw new AssertionError(message);
         }
     }
