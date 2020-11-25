@@ -29,6 +29,7 @@ public class GameEngine {
     private Level currentLevel;
     private IteratorInterface iterator;
     private boolean gameComplete = false;
+    private MovementTracker movementTracker;
 
     /**
      * constructor
@@ -49,6 +50,7 @@ public class GameEngine {
             iterator = map.getIterator();
             mapSetName = map.mapSetName;
             currentLevel = getNextLevel();
+            movementTracker = new MovementTracker();
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -113,7 +115,7 @@ public class GameEngine {
      * @param delta
      *         the difference of location between current location and the destination in Point format about the movement
      * @return void
-     * @description: move the keeper according to input movement direction and distance
+     * @description: move the keeper according to input movement direction and distance, and store the level before moving
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
@@ -153,6 +155,8 @@ public class GameEngine {
                     break;
                 }
 
+                movementTracker.trackerMove(currentLevel);
+
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(targetObjectPoint, delta)), targetObjectPoint);
                 currentLevel.objectsGrid.putGameObjectAt(keeperTarget, GameGrid.translatePoint(targetObjectPoint, delta));
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(keeperPosition, delta)), keeperPosition);
@@ -161,6 +165,8 @@ public class GameEngine {
                 break;
 
             case FLOOR:
+                movementTracker.trackerMove(currentLevel);
+
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(keeperPosition, delta)), keeperPosition);
                 currentLevel.objectsGrid.putGameObjectAt(keeper, GameGrid.translatePoint(keeperPosition, delta));
                 keeperMoved = true;
@@ -183,6 +189,22 @@ public class GameEngine {
                 currentLevel = getNextLevel();
             }
         }
+    }
+
+
+    /**
+     * revoke the latest movement of user
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/25 21:36
+     * @version: 1.0.0
+     **/
+
+
+    public void undo() {
+        currentLevel = movementTracker.trackerPop();
     }
 
 
