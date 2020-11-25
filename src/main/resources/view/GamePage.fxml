@@ -31,7 +31,7 @@
           <Menu mnemonicParsing="false" text="Level">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
-                  <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" text="Toggle Music" />
+                  <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleDebug" text="Toggle Debug" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level" />

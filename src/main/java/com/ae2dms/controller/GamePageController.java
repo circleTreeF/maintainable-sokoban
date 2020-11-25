@@ -15,6 +15,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.*;
 
@@ -33,6 +35,7 @@ public class GamePageController {
     public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
+    MusicPlayer musicPlayer;
 
     /**
      * @param
@@ -45,8 +48,10 @@ public class GamePageController {
 
 
     public void initialize() {
+        String defaultFile = "puzzle_theme.wav";
         primaryStage.show();
         loadDefaultSaveFile(primaryStage);
+        musicPlayer = new MusicPlayer(defaultFile);
     }
 
     /**
@@ -125,7 +130,14 @@ public class GamePageController {
      **/
 
     public void toggleMusic() {
-        // TODO
+        try {
+            musicPlayer.togglePlay();
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            if (GameEngine.isDebugActive()) {
+                System.out.println(e);
+            }
+        }
     }
 
     /**
