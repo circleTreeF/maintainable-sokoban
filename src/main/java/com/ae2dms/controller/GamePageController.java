@@ -48,10 +48,10 @@ public class GamePageController {
 
 
     public void initialize() {
-        String defaultFile = "puzzle_theme.wav";
+        String defaultMusic = "puzzle_theme.wav";
         primaryStage.show();
         loadDefaultSaveFile(primaryStage);
-        musicPlayer = new MusicPlayer(defaultFile);
+        musicPlayer = new MusicPlayer(defaultMusic);
     }
 
     /**
@@ -168,6 +168,8 @@ public class GamePageController {
 
     //TODO: reset this level to the initial scene
     public void resetLevel() {
+        gameEngine.resetCurrentLevel();
+        reloadGrid();
     }
 
 
