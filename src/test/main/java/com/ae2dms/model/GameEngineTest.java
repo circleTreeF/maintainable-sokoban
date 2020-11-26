@@ -58,11 +58,28 @@ class GameEngineTest {
         GameEngine gameEngine = new GameEngine(inputStream, true);
         gameEngine.handleKey(KeyCode.LEFT);
         gameEngine.undo();
-        assertEquals(gameEngine.movesCount,1);
+        assertEquals(1, gameEngine.movesCount);
 
         InputStream sameInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
         GameEngine sameGameEngine = new GameEngine(sameInputStream, true);
         assertEquals(sameGameEngine.getCurrentLevel().objectsGrid.toString(), gameEngine.getCurrentLevel().objectsGrid.toString());
         assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(),gameEngine.getCurrentLevel().diamondsGrid.toString());
+    }
+
+    @Test
+    void resetCurrentLevel() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream, true);
+        gameEngine.handleKey(KeyCode.LEFT);
+        gameEngine.handleKey(KeyCode.UP);
+        gameEngine.handleKey(KeyCode.LEFT);
+        gameEngine.resetCurrentLevel();
+
+        InputStream sameInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine sameGameEngine = new GameEngine(sameInputStream, true);
+        assertEquals(0, gameEngine.movesCount);
+        assertEquals(sameGameEngine.getCurrentLevel().objectsGrid.toString(), gameEngine.getCurrentLevel().objectsGrid.toString());
+        assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(),gameEngine.getCurrentLevel().diamondsGrid.toString());
+
     }
 }

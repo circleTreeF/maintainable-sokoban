@@ -15,3 +15,4 @@ In this test, the map file debugGame.skb would be applied to test.
 assert the string of `objectsGrid` and `diamondsGrid` in the `currentLevel` of the instance of  `GameEngine` by applying function `toString` on all objects.
 
 **Test Pass**
+
