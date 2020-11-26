@@ -85,7 +85,6 @@ public class GameEngine {
     //TODO: refactor switch statement
     //TODO: use a adapter design pattern to refactor the input variable in KeyCode data type to Event data type for the key combination
     public void handleKey(KeyCode pressedKeyCode) {
-        UserDefinedKey userDefinedKey = new UserDefinedKey();
         switch (pressedKeyCode) {
             case UP:
                 move(new Point(-1, 0));
