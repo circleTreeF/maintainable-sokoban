@@ -205,7 +205,23 @@ public class GameEngine {
 
 
     public void undo() {
+        //TODO: when undo, the movesCount is set to be not changed by design
         currentLevel = movementTracker.trackerPop();
+    }
+
+    /**
+     * reset the current level to the initial one, and reset the movesCount to 0
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/26 16:35
+     * @version:
+     **/
+
+    public void resetCurrentLevel() {
+        currentLevel = movementTracker.resetTrack();
+        movesCount = 0;
     }
 
 

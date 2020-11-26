@@ -33,12 +33,15 @@
             <items>
               <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="Z" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleDebug" text="Toggle Debug" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">

@@ -74,5 +74,25 @@ public class MovementTracker {
         return movingLevelsStack.pop();
     }
 
+    /**
+    * Empty the tracker and return the element pushed into the track at the earliest time
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/11/26 16:26
+     * @param
+    * @return com.ae2dms.model.Level
+    * @version:
+    **/
+
+
+    public Level resetTrack(){
+        if (!movingLevelsStack.empty()){
+            Level firstElement = movingLevelsStack.get(0);
+            movingLevelsStack.clear();
+            return firstElement;
+        } else {
+            return  null;
+        }
+    }
+
 
 }
