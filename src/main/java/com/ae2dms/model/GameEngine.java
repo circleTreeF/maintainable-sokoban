@@ -103,9 +103,6 @@ public class GameEngine {
                 move(new Point(0, -1));
                 break;
 
-            //hot key is tested only on Window OS
-            case CONTROL:
-                undo();
             default:
                 // TODO: implement something funny.
         }
@@ -198,7 +195,7 @@ public class GameEngine {
 
 
     /**
-     * revoke the latest movement of user
+     * revoke the latest movement of user， the shortcut key for this function is ctrl + z set in GamePage.fxml
      *
      * @param
      * @return void
