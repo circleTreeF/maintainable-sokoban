@@ -114,7 +114,8 @@ public class GamePageController {
 
     //TODO: this feature is not implemented yet
     public void undo() {
-        closeGame();
+        gameEngine.undo();
+        reloadGrid();
     }
 
     //TODO: toggle music according to the ratio clicking
