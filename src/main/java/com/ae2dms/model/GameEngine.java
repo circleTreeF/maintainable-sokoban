@@ -263,17 +263,13 @@ public class GameEngine implements Serializable {
     }
 
 
-    public void saveGame(File savedLocation) throws IOException, ClassNotFoundException {
+    public void saveGame(File savedLocation) throws IOException {
         //TODO: store movesCount, map, movementTracker
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
         out.close();
         fileOut.close();
-    }
-
-    public void loadSavedGame() throws IOException, ClassNotFoundException {
-
     }
 
 
