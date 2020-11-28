@@ -263,6 +263,18 @@ public class GameEngine implements Serializable {
     }
 
 
+    /**
+     * serialize this GameEngine class into the game state specification file and store at input path to store the current game
+     *
+     * @param savedLocation
+     *         the path of the game state specification file should be stored at
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:26
+     * @version:
+     **/
+
+
     public void saveGame(File savedLocation) throws IOException {
         //TODO: store movesCount, map, movementTracker
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
