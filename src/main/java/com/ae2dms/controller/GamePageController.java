@@ -90,6 +90,16 @@ public class GamePageController {
         }
     }
 
+    /**
+     * load the game state specification file according to the user selection from file chooser
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 17:05
+     * @version: 1.0.0
+     **/
+
     public void loadSavedGame() throws IOException, ClassNotFoundException {
         //TODO: this is same with loadGame. Need to improve!
         FileChooser fileChooser = new FileChooser();
