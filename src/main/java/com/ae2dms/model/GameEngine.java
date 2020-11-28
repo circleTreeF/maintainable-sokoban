@@ -32,9 +32,20 @@ public class GameEngine implements Serializable {
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
 
+    /**
+     * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
+     *
+     * @param inputStream
+     *         the serialized input stream
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:01
+     * @version: 1.0.0
+     **/
+
+
     private void readObject(ObjectInputStream inputStream)
-            throws IOException, ClassNotFoundException
-    {
+            throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         logger = GameLoggerSingleton.getGameLoggerSingleton();
     }
