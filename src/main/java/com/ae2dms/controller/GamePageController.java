@@ -3,7 +3,6 @@ package com.ae2dms.controller;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
-import com.ae2dms.model.GameLoggerSingleton;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObjectFactory;
@@ -64,11 +63,9 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    public void saveGame() throws IOException, ClassNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Save Location:");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Select saved location", "*.skbSaved"));
-        File savedLocation = fileChooser.showSaveDialog(primaryStage);
+    public void saveGame() throws IOException {
+        OperateFile operateFile = new OperateFile();
+        File savedLocation = operateFile.selectSaveGamePath(primaryStage);
         gameEngine.saveGame(savedLocation);
     }
 
@@ -253,22 +250,11 @@ public class GamePageController {
 
 
     private void loadGameFile() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        File saveFile = fileChooser.showOpenDialog(primaryStage);
+        OperateFile operateFile = new OperateFile();
+        File saveFile = operateFile.selectGameFile(primaryStage);
 
         //TODO: refactor the if statement
         if (saveFile != null) {
-            if (GameEngine.isDebugActive()) {
-                GameLoggerSingleton logger = null;
-                try {
-                    logger = GameLoggerSingleton.getGameLoggerSingleton();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                logger.info("Loading save file: " + saveFile.getName());
-            }
             initializeGame(new FileInputStream(saveFile));
         }
     }
