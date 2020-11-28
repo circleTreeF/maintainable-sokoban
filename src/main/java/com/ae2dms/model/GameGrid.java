@@ -3,6 +3,7 @@ package com.ae2dms.model;
 import com.ae2dms.GameObject;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -15,7 +16,7 @@ import java.awt.*;
  * @version: 1.0
  */
 
-public class GameGrid {
+public class GameGrid implements Serializable {
     final int COLUMNS;
     final int ROWS;
     private final GameObject[][] gameObjects;

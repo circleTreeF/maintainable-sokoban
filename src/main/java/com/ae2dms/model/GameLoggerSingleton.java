@@ -57,7 +57,7 @@ public class GameLoggerSingleton extends Logger {
      * @version: 1.0.0
      **/
 
-
+//TODO: could be refactored to initialize this class with init()
     public static GameLoggerSingleton getGameLoggerSingleton() throws IOException {
         if (gameLoggerSingleton == null) {
             gameLoggerSingleton = new GameLoggerSingleton();
