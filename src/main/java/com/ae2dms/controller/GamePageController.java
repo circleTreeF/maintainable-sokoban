@@ -64,7 +64,12 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    public void saveGame() {
+    public void saveGame() throws IOException, ClassNotFoundException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Save Location:");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Select saved location", "*.skbSaved"));
+        File savedLocation = fileChooser.showSaveDialog(primaryStage);
+        gameEngine.saveGame(savedLocation);
     }
 
     /**
@@ -83,6 +88,29 @@ public class GamePageController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * load the game state specification file according to the user selection from file chooser
+     *
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 17:05
+     * @version: 1.0.0
+     **/
+
+    public void loadSavedGame() throws IOException, ClassNotFoundException {
+        //TODO: this is same with loadGame. Need to improve!
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Save File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Saved game file", "*.skbSaved"));
+        File saveFile = fileChooser.showOpenDialog(primaryStage);
+        FileInputStream fileIn = new FileInputStream(saveFile);
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        gameEngine = (GameEngine) in.readObject();
+        in.close();
+        reloadGrid();
     }
 
 
@@ -210,7 +238,7 @@ public class GamePageController {
         setEventFilter();
     }
 
-    //TODO: investigate for these variable, saveFile, gameEngineer, primarilyStage should be in parameters or in the field
+    //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
 
     /**
      * @param

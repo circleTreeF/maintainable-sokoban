@@ -1,5 +1,7 @@
 package com.ae2dms.model;
 
+import java.io.Serializable;
+
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
@@ -9,7 +11,7 @@ package com.ae2dms.model;
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/22 22:34
  */
-public interface IteratorInterface {
+public interface IteratorInterface extends Serializable {
     /**
      * This method narrates navigation. This method returns true, if there is next element in the repository; false, otherwise.
      *

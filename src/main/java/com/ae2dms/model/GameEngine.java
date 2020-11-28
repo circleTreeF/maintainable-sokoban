@@ -4,8 +4,7 @@ import com.ae2dms.GameObject;
 import javafx.scene.input.KeyCode;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.NoSuchElementException;
 
 /**
@@ -19,17 +18,57 @@ import java.util.NoSuchElementException;
  * @version: 1.0
  */
 
-public class GameEngine {
+public class GameEngine implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     public static final String GAME_NAME = "SokobanFX";
-    private GameLoggerSingleton logger;
+    private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
     public int movesCount = 0;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
+    public Map map;
     private IteratorInterface iterator;
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
+
+    /**
+     * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
+     *
+     * @param inputStream
+     *         the serialized input stream
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:01
+     * @version: 1.0.0
+     **/
+
+
+    private void readObject(ObjectInputStream inputStream)
+            throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        logger = GameLoggerSingleton.getGameLoggerSingleton();
+    }
+
+
+    /**
+     * Non-argument constructor
+     *
+     * @param
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 14:33
+     * @version:
+     **/
+
+
+    public GameEngine() {
+        try {
+            logger = GameLoggerSingleton.getGameLoggerSingleton();
+            iterator = map.getIterator();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * constructor
@@ -46,7 +85,7 @@ public class GameEngine {
     public GameEngine(InputStream inputGameFile, boolean production) {
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
-            Map map = new Map(inputGameFile);
+            map = new Map(inputGameFile);
             iterator = map.getIterator();
             mapSetName = map.mapSetName;
             currentLevel = getNextLevel();
@@ -186,7 +225,6 @@ public class GameEngine {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
                 }
-
                 currentLevel = getNextLevel();
             }
         }
@@ -222,6 +260,28 @@ public class GameEngine {
     public void resetCurrentLevel() {
         currentLevel = movementTracker.resetTrack();
         movesCount = 0;
+    }
+
+
+    /**
+     * serialize this GameEngine class into the game state specification file and store at input path to store the current game
+     *
+     * @param savedLocation
+     *         the path of the game state specification file should be stored at
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:26
+     * @version:
+     **/
+
+
+    public void saveGame(File savedLocation) throws IOException {
+        //TODO: store movesCount, map, movementTracker
+        FileOutputStream fileOut = new FileOutputStream(savedLocation);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(this);
+        out.close();
+        fileOut.close();
     }
 
 
