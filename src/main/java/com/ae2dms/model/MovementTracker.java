@@ -2,6 +2,7 @@ package com.ae2dms.model;
 
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 /**
@@ -22,9 +23,10 @@ import java.util.Stack;
  */
 
 
-public class MovementTracker {
+public class MovementTracker implements Serializable {
     private final Stack<Level> movingLevelsStack;
-    private final Gson gson = new Gson();
+    //FIXME: when deserialize the default construct is not called to resume the value of gson, and leads to gson = nullZ
+    //private transient final Gson gson;
 
     /**
      * Constructor
@@ -54,6 +56,7 @@ public class MovementTracker {
 
 
     public void trackerMove(Level currentLevel) {
+        Gson gson = new Gson();
         Level copiedCurrentLevel = gson.fromJson(gson.toJson(currentLevel), Level.class);
         movingLevelsStack.push(copiedCurrentLevel);
     }
