@@ -10,16 +10,16 @@ build_maven:
     - echo "mvn clean"
     - echo "done"
 
-test_springboot:
+test_java:
   stage: test
   script:
     - echo "run java test....."
     - echo "java -test"
     - echo "done"
 
-deploy_springboot:
+deploy_java:
   stage: deploy
   script:
-    - echo "deploy maven...."
+    - echo "deploy java...."
     - echo "run mvn install"
     - echo "done"
