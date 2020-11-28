@@ -19,7 +19,7 @@ import java.util.NoSuchElementException;
  */
 
 public class GameEngine implements Serializable {
-    private static final long serialVersionUID = 6529685098267757690L;
+    private static final long serialVersionUID = 101L;
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
@@ -38,14 +38,17 @@ public class GameEngine implements Serializable {
      * @param inputStream
      *         the serialized input stream
      * @return void
+     * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
+     * @throws ClassNotFoundException
+     *         Class of a serialized object cannot be found
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/28 16:01
      * @version: 1.0.0
      **/
 
 
-    private void readObject(ObjectInputStream inputStream)
-            throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         logger = GameLoggerSingleton.getGameLoggerSingleton();
     }
@@ -264,11 +267,13 @@ public class GameEngine implements Serializable {
 
 
     /**
-     * serialize this GameEngine class into the game state specification file and store at input path to store the current game
+     * serialize this GameEngine class into the game state specification file and store this file in user-defined name and path
      *
      * @param savedLocation
      *         the path of the game state specification file should be stored at
      * @return void
+     * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/28 16:26
      * @version:
