@@ -17,11 +17,11 @@ import java.io.IOException;
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/28 18:03
  */
-public class OperateFile {
+public class FileOperator {
     FileChooser fileChooser;
     GameLoggerSingleton logger;
 
-    public OperateFile() {
+    public FileOperator() {
         fileChooser = new FileChooser();
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
@@ -34,7 +34,7 @@ public class OperateFile {
      * Get the file path and name according to the user selection
      * extracted from GamePageController.loadGameFile()
      *
-     * @param loadStage
+     * @param loadedStage
      *         the stage where the file chooser window should based on
      * @return java.io.File
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -42,10 +42,10 @@ public class OperateFile {
      * @version:
      **/
 
-    public File selectGameFile(Stage loadStage) {
+    public File selectGameFile(Stage loadedStage) {
         fileChooser.setTitle("Open Save File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        File saveFile = fileChooser.showOpenDialog(loadStage);
+        File saveFile = fileChooser.showOpenDialog(loadedStage);
         if (saveFile != null) {
             if (GameEngine.isDebugActive()) {
                 logger.info("Loading save file: " + saveFile.getName());
@@ -55,10 +55,43 @@ public class OperateFile {
         return saveFile;
     }
 
-    public File selectSaveGamePath(Stage loadStage) {
+    /**
+     * Return the file to save the game state specification file. Allow user to specify this file name and path.
+     *
+     * @param loadedStage
+     *         the stage where the file chooser window should based on
+     * @return java.io.File
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 20:01
+     * @version:
+     **/
+
+
+    public File selectSaveGamePath(Stage loadedStage) {
         fileChooser.setTitle("Select Save Location:");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Select saved location", "*.skbSaved"));
-        File savedLocation = fileChooser.showSaveDialog(loadStage);
+        File savedLocation = fileChooser.showSaveDialog(loadedStage);
+        //TODO: do something fun if the user select nothing/cancel
         return savedLocation;
+    }
+
+    /**
+     * Return the game state specification file. Allow user to select the file in GUI file chooser
+     *
+     * @param loadStage
+     *         the stage where the file chooser window should based on
+     * @return java.io.File
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 20:25
+     * @version:
+     **/
+
+
+    public File selectSavedGame(Stage loadStage) {
+        fileChooser.setTitle("Open Save File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Saved game file", "*.skbSaved"));
+        File loadedFile = fileChooser.showOpenDialog(loadStage);
+        //TODO: do something fun if the user select nothing/cancel
+        return loadedFile;
     }
 }
