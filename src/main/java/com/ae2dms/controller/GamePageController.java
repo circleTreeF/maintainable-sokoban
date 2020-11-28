@@ -3,7 +3,6 @@ package com.ae2dms.controller;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
-import com.ae2dms.model.GameLoggerSingleton;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import com.ae2dms.view.GraphicObjectFactory;
@@ -12,7 +11,6 @@ import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -64,11 +62,9 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    public void saveGame() throws IOException, ClassNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Save Location:");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Select saved location", "*.skbSaved"));
-        File savedLocation = fileChooser.showSaveDialog(primaryStage);
+    public void saveGame() throws IOException {
+        FileOperator fileOperator = new FileOperator();
+        File savedLocation = fileOperator.selectSaveGamePath(primaryStage);
         gameEngine.saveGame(savedLocation);
     }
 
@@ -94,7 +90,9 @@ public class GamePageController {
      * load the game state specification file according to the user selection from file chooser
      *
      * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
      * @throws ClassNotFoundException
+     *         Class of a serialized object cannot be found
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/28 17:05
      * @version: 1.0.0
@@ -102,14 +100,12 @@ public class GamePageController {
 
     public void loadSavedGame() throws IOException, ClassNotFoundException {
         //TODO: this is same with loadGame. Need to improve!
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Saved game file", "*.skbSaved"));
-        File saveFile = fileChooser.showOpenDialog(primaryStage);
+        FileOperator fileOperator = new FileOperator();
+        File saveFile = fileOperator.selectSavedGame(primaryStage);
         FileInputStream fileIn = new FileInputStream(saveFile);
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        gameEngine = (GameEngine) in.readObject();
-        in.close();
+        ObjectInputStream inputStream = new ObjectInputStream(fileIn);
+        gameEngine = (GameEngine) inputStream.readObject();
+        inputStream.close();
         reloadGrid();
     }
 
@@ -253,22 +249,11 @@ public class GamePageController {
 
 
     private void loadGameFile() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        File saveFile = fileChooser.showOpenDialog(primaryStage);
+        FileOperator fileOperator = new FileOperator();
+        File saveFile = fileOperator.selectGameFile(primaryStage);
 
         //TODO: refactor the if statement
         if (saveFile != null) {
-            if (GameEngine.isDebugActive()) {
-                GameLoggerSingleton logger = null;
-                try {
-                    logger = GameLoggerSingleton.getGameLoggerSingleton();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                logger.info("Loading save file: " + saveFile.getName());
-            }
             initializeGame(new FileInputStream(saveFile));
         }
     }

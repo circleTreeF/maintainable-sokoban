@@ -4,8 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
@@ -59,5 +57,9 @@ class GamePageControllerTest {
 
     @Test
     void showAbout() {
+    }
+
+    @Test
+    void loadSavedGame() {
     }
 }
