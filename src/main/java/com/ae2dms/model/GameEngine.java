@@ -1,11 +1,12 @@
 package com.ae2dms.model;
 
 import com.ae2dms.GameObject;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
 
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.NoSuchElementException;
 
 /**
@@ -19,16 +20,43 @@ import java.util.NoSuchElementException;
  * @version: 1.0
  */
 
-public class GameEngine {
+public class GameEngine implements Serializable {
+    private static final long serialVersionUID = 101L;
     public static final String GAME_NAME = "SokobanFX";
-    private GameLoggerSingleton logger;
+    private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
-    public int movesCount = 0;
+    public transient IntegerProperty movesCountsProperty;
+    private int savedMovesCount;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
+    public Map map;
     private IteratorInterface iterator;
     private boolean gameComplete = false;
+    private MovementTracker movementTracker;
+
+    /**
+     * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
+     *
+     * @param inputStream
+     *         the serialized input stream
+     * @return void
+     * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
+     * @throws ClassNotFoundException
+     *         Class of a serialized object cannot be found
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:01
+     * @version: 1.0.0
+     **/
+
+
+    private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
+        inputStream.defaultReadObject();
+        logger = GameLoggerSingleton.getGameLoggerSingleton();
+        movesCountsProperty = new SimpleIntegerProperty(savedMovesCount);
+    }
+
 
     /**
      * constructor
@@ -45,10 +73,13 @@ public class GameEngine {
     public GameEngine(InputStream inputGameFile, boolean production) {
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
-            Map map = new Map(inputGameFile);
+            map = new Map(inputGameFile);
             iterator = map.getIterator();
             mapSetName = map.mapSetName;
             currentLevel = getNextLevel();
+            movementTracker = new MovementTracker();
+            movesCountsProperty = new SimpleIntegerProperty(0);
+            //notifyAllObservers();
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -81,6 +112,7 @@ public class GameEngine {
      **/
 
     //TODO: refactor switch statement
+    //TODO: use a adapter design pattern to refactor the input variable in KeyCode data type to Event data type for the key combination
     public void handleKey(KeyCode pressedKeyCode) {
         switch (pressedKeyCode) {
             case UP:
@@ -113,7 +145,7 @@ public class GameEngine {
      * @param delta
      *         the difference of location between current location and the destination in Point format about the movement
      * @return void
-     * @description: move the keeper according to input movement direction and distance
+     * @description: move the keeper according to input movement direction and distance, and store the level before moving
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
@@ -153,6 +185,8 @@ public class GameEngine {
                     break;
                 }
 
+                movementTracker.trackerMove(currentLevel);
+
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(targetObjectPoint, delta)), targetObjectPoint);
                 currentLevel.objectsGrid.putGameObjectAt(keeperTarget, GameGrid.translatePoint(targetObjectPoint, delta));
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(keeperPosition, delta)), keeperPosition);
@@ -161,6 +195,8 @@ public class GameEngine {
                 break;
 
             case FLOOR:
+                movementTracker.trackerMove(currentLevel);
+
                 currentLevel.objectsGrid.putGameObjectAt(currentLevel.objectsGrid.getGameObjectAt(GameGrid.translatePoint(keeperPosition, delta)), keeperPosition);
                 currentLevel.objectsGrid.putGameObjectAt(keeper, GameGrid.translatePoint(keeperPosition, delta));
                 keeperMoved = true;
@@ -174,15 +210,72 @@ public class GameEngine {
         //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
-            movesCount++;
+            int newMovesCount = movesCountsProperty.get() +1;
+            movesCountsProperty.setValue(newMovesCount);
             if (currentLevel.isComplete()) {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
                 }
-
                 currentLevel = getNextLevel();
             }
         }
+    }
+
+
+    /**
+     * revoke the latest movement of user， the shortcut key for this function is ctrl + z set in GamePage.fxml
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/25 21:36
+     * @version: 1.0.0
+     **/
+
+
+    public void undo() {
+        //TODO: when undo, the movesCount is set to be not changed by design
+        currentLevel = movementTracker.trackerPop();
+    }
+
+    /**
+     * reset the current level to the initial one, and reset the movesCount to 0
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/26 16:35
+     * @version:
+     **/
+
+    public void resetCurrentLevel() {
+        currentLevel = movementTracker.resetTrack();
+        movesCountsProperty.setValue(0);
+    }
+
+
+    /**
+     * serialize this GameEngine class into the game state specification file and store this file in user-defined name and path
+     *
+     * @param savedLocation
+     *         the path of the game state specification file should be stored at
+     * @return void
+     * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 16:26
+     * @version:
+     **/
+
+
+    public void saveGame(File savedLocation) throws IOException {
+        //TODO: store movesCount, map, movementTracker
+        savedMovesCount = movesCountsProperty.get();
+        FileOutputStream fileOut = new FileOutputStream(savedLocation);
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(this);
+        out.close();
+        fileOut.close();
     }
 
 
@@ -244,4 +337,7 @@ public class GameEngine {
     public void toggleDebug() {
         debug = !debug;
     }
+
+
+
 }

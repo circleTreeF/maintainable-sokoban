@@ -5,36 +5,47 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="637.0" maxWidth="607.0" minHeight="637.0" minWidth="607.0" prefHeight="637.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.GamePageController">
+<GridPane maxHeight="667.0" maxWidth="607.0" minHeight="667.0" minWidth="607.0" prefHeight="667.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.GamePageController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="607.0" minWidth="607.0" prefWidth="607.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="600.0" minHeight="600.0" prefHeight="600.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="600.0" minHeight="600.0" prefHeight="600.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <MenuBar maxHeight="30.0" maxWidth="607.0" minHeight="30.0" minWidth="607.0" prefHeight="30.0" prefWidth="607.0" GridPane.rowIndex="0">
+      <MenuBar maxHeight="30.0" maxWidth="607.0" minHeight="30.0" minWidth="607.0" prefHeight="30.0" prefWidth="607.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem disable="true" mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
+              <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
                   <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadSavedGame" text="Load Saved File" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#closeGame" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Level">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
+              <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleDebug" text="Toggle Debug" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level" />
+                  <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                     </accelerator></MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">
@@ -44,7 +55,16 @@
           </Menu>
         </menus>
       </MenuBar>
-      <GridPane fx:id="gameGrid" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" GridPane.rowIndex="1">
+      <Text fill="#51c2ff" strokeType="OUTSIDE" strokeWidth="0.0" text="You have moved: " translateX="20.0" wrappingWidth="140.0" GridPane.rowIndex="1">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="movesCount" fill="#51c2ff" lineSpacing="1.0" stroke="#4dc7ff" strokeType="OUTSIDE" strokeWidth="0.0" translateX="160.0" wrappingWidth="30.0" GridPane.rowIndex="1">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <GridPane fx:id="gameGrid" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" GridPane.rowIndex="2">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
           <ColumnConstraints hgrow="SOMETIMES" />

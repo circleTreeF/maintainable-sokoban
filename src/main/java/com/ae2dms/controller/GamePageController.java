@@ -3,16 +3,17 @@ package com.ae2dms.controller;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
-import com.ae2dms.model.GameLoggerSingleton;
+import com.ae2dms.model.GraphicObjectFactory;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
-import com.ae2dms.view.GraphicObjectFactory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.FileChooser;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -35,7 +36,10 @@ public class GamePageController {
     public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
+    @FXML
+    Text movesCount;
     MusicPlayer musicPlayer;
+    //MovesCountObserver movesCountObserver;
 
     /**
      * @param
@@ -48,11 +52,15 @@ public class GamePageController {
 
 
     public void initialize() {
-        String defaultFile = "puzzle_theme.wav";
+        String defaultMusic = "puzzle_theme.wav";
         primaryStage.show();
+
         loadDefaultSaveFile(primaryStage);
-        musicPlayer = new MusicPlayer(defaultFile);
+        setMovesCountEventListener();
+        musicPlayer = new MusicPlayer(defaultMusic);
+        //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
+
 
     /**
      * @param
@@ -64,7 +72,10 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    public void saveGame() {
+    public void saveGame() throws IOException {
+        FileOperator fileOperator = new FileOperator();
+        File savedLocation = fileOperator.selectSaveGamePath(primaryStage);
+        gameEngine.saveGame(savedLocation);
     }
 
     /**
@@ -83,6 +94,30 @@ public class GamePageController {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * load the game state specification file according to the user selection from file chooser
+     *
+     * @throws IOException
+     *         Any of the usual Input/Output related exceptions.
+     * @throws ClassNotFoundException
+     *         Class of a serialized object cannot be found
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/28 17:05
+     * @version: 1.0.0
+     **/
+
+    public void loadSavedGame() throws IOException, ClassNotFoundException {
+        //TODO: this is same with loadGame. Need to improve!
+        FileOperator fileOperator = new FileOperator();
+        File saveFile = fileOperator.selectSavedGame(primaryStage);
+        FileInputStream fileIn = new FileInputStream(saveFile);
+        ObjectInputStream inputStream = new ObjectInputStream(fileIn);
+        gameEngine = (GameEngine) inputStream.readObject();
+        inputStream.close();
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
+        reloadGrid();
     }
 
 
@@ -114,7 +149,8 @@ public class GamePageController {
 
     //TODO: this feature is not implemented yet
     public void undo() {
-        closeGame();
+        gameEngine.undo();
+        reloadGrid();
     }
 
     //TODO: toggle music according to the ratio clicking
@@ -167,6 +203,8 @@ public class GamePageController {
 
     //TODO: reset this level to the initial scene
     public void resetLevel() {
+        gameEngine.resetCurrentLevel();
+        reloadGrid();
     }
 
 
@@ -207,7 +245,7 @@ public class GamePageController {
         setEventFilter();
     }
 
-    //TODO: investigate for these variable, saveFile, gameEngineer, primarilyStage should be in parameters or in the field
+    //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
 
     /**
      * @param
@@ -222,22 +260,11 @@ public class GamePageController {
 
 
     private void loadGameFile() throws FileNotFoundException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Save File");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Sokoban save file", "*.skb"));
-        File saveFile = fileChooser.showOpenDialog(primaryStage);
+        FileOperator fileOperator = new FileOperator();
+        File saveFile = fileOperator.selectGameFile(primaryStage);
 
         //TODO: refactor the if statement
         if (saveFile != null) {
-            if (GameEngine.isDebugActive()) {
-                GameLoggerSingleton logger = null;
-                try {
-                    logger = GameLoggerSingleton.getGameLoggerSingleton();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                logger.info("Loading save file: " + saveFile.getName());
-            }
             initializeGame(new FileInputStream(saveFile));
         }
     }
@@ -256,6 +283,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
         reloadGrid();
     }
 
@@ -276,7 +304,6 @@ public class GamePageController {
             showVictoryMessage();
             return;
         }
-
         Level currentLevel = gameEngine.getCurrentLevel();
         Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
@@ -319,7 +346,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
@@ -341,6 +368,29 @@ public class GamePageController {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
+    }
+
+
+    /**
+     * set a change listener to be notified automatically when the move count has changed
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 22:29
+     * @version: 1.0.0
+     **/
+
+
+    public void setMovesCountEventListener() {
+        gameEngine.movesCountsProperty.addListener(
+                new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                        movesCount.setText(newValue.toString());
+                    }
+                }
+        );
     }
 }
 

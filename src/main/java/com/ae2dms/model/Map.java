@@ -17,8 +17,8 @@ import java.util.List;
  * @date: 2020/11/23 22:18
  */
 
-public class Map implements ContainerInterface {
-    private GameLoggerSingleton logger;
+public class Map implements ContainerInterface{
+    private transient GameLoggerSingleton logger;
     public String mapSetName;
     private final List<Level> levels;
 
