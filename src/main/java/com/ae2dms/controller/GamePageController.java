@@ -3,9 +3,9 @@ package com.ae2dms.controller;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GraphicObjectFactory;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
-import com.ae2dms.model.GraphicObjectFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -56,15 +56,15 @@ public class GamePageController {
         primaryStage.show();
 
         loadDefaultSaveFile(primaryStage);
-        musicPlayer = new MusicPlayer(defaultMusic);
         gameEngine.movesCountsProperty.addListener(
-                new ChangeListener<Number>() {
+                new ChangeListener<>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
                         movesCount.setText(newValue.toString());
                     }
                 }
         );
+        musicPlayer = new MusicPlayer(defaultMusic);
         //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
 
@@ -288,7 +288,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
-//        movesCountObserver = new MovesCountObserver(gameEngine);
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
         reloadGrid();
     }
 
@@ -309,7 +309,6 @@ public class GamePageController {
             showVictoryMessage();
             return;
         }
-        //movesCount.textProperty().set(MovesCountPrompt + movesCountObserver.movesCount);
         Level currentLevel = gameEngine.getCurrentLevel();
         Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
