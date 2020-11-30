@@ -1,7 +1,8 @@
-package com.ae2dms.model;
+package com.ae2dms.view;
 
 import com.ae2dms.GameObject;
-import com.ae2dms.view.*;
+import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GameLoggerSingleton;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
