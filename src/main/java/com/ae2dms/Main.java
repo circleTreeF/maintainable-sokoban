@@ -50,8 +50,8 @@ public class Main extends Application {
         GamePageController.primaryStage = primaryStage;
         GridPane root = FXMLLoader.load(getClass().getResource("/view/GamePage.fxml"));
         GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
-        GamePageController.primaryStage.setScene(new Scene(root, 607, 637));
-        GamePageController.primaryStage.setResizable(false);
+        GamePageController.primaryStage.setScene(new Scene(root, 607, 667));
+        //GamePageController.primaryStage.setResizable(false);
     }
 
 }

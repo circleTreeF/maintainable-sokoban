@@ -5,7 +5,9 @@ import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
-import com.ae2dms.view.GraphicObjectFactory;
+import com.ae2dms.model.GraphicObjectFactory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
@@ -37,7 +39,7 @@ public class GamePageController {
     @FXML
     Text movesCount;
     MusicPlayer musicPlayer;
-    MovesCountObserver movesCountObserver;
+    //MovesCountObserver movesCountObserver;
 
     /**
      * @param
@@ -55,7 +57,14 @@ public class GamePageController {
 
         loadDefaultSaveFile(primaryStage);
         musicPlayer = new MusicPlayer(defaultMusic);
-
+        gameEngine.movesCountsProperty.addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                        movesCount.setText(newValue.toString());
+                    }
+                }
+        );
         //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
 
@@ -279,7 +288,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
-        movesCountObserver = new MovesCountObserver(gameEngine);
+//        movesCountObserver = new MovesCountObserver(gameEngine);
         reloadGrid();
     }
 
@@ -300,7 +309,7 @@ public class GamePageController {
             showVictoryMessage();
             return;
         }
-        movesCount.textProperty().set("You have moved: " + movesCountObserver.movesCount);
+        //movesCount.textProperty().set(MovesCountPrompt + movesCountObserver.movesCount);
         Level currentLevel = gameEngine.getCurrentLevel();
         Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
@@ -343,7 +352,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.getMovesCount() + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
