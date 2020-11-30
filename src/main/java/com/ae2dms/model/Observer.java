@@ -10,17 +10,18 @@ package com.ae2dms.model;
  * @date: 2020/11/29 1:55
  */
 public abstract class Observer {
-    //the subject to be observed
+    /**the subject to be observed*/
     public GameEngine gameEngine;
 
     /**
-    * Update the value in observers
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/11/29 17:17
+     * Update the value in observers
+     *
      * @param
-    * @return void
-    * @version:
-    **/
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/29 17:17
+     * @version:
+     **/
 
 
     public abstract void update();
