@@ -7,8 +7,6 @@ import javafx.scene.input.KeyCode;
 
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -27,8 +25,8 @@ public class GameEngine implements Serializable {
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
-    //private int movesCount = 0;
     public transient IntegerProperty movesCountsProperty;
+    private int savedMovesCount;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
@@ -36,39 +34,6 @@ public class GameEngine implements Serializable {
     private IteratorInterface iterator;
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
-    private List<Observer> observers = new ArrayList<>();
-
-//    /**
-//    * get the state in this class, movesCount
-//    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-//    * @date: 2020/11/30 0:11
-//     * @param
-//    * @return int
-//    * @version: 1.0.0
-//    **/
-//
-//
-//    public int getMovesCount() {
-//        return movesCount;
-//    }
-//
-//
-//    public void setMovesCount(int newMoveCount) {
-//        this.movesCount = newMoveCount;
-//        notifyAllObservers();
-//    }
-//
-//
-//    public void attach(Observer observer){
-//        observers.add(observer);
-//    }
-//
-//
-//    public void notifyAllObservers(){
-//        for (Observer observer : observers) {
-//            observer.update();
-//        }
-//    }
 
     /**
      * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
@@ -304,6 +269,7 @@ public class GameEngine implements Serializable {
 
     public void saveGame(File savedLocation) throws IOException {
         //TODO: store movesCount, map, movementTracker
+        savedMovesCount = movesCountsProperty.get();
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
