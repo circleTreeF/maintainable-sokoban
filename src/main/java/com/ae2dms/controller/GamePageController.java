@@ -56,17 +56,11 @@ public class GamePageController {
         primaryStage.show();
 
         loadDefaultSaveFile(primaryStage);
-        gameEngine.movesCountsProperty.addListener(
-                new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        movesCount.setText(newValue.toString());
-                    }
-                }
-        );
+        setMovesCountEventListener();
         musicPlayer = new MusicPlayer(defaultMusic);
         //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
+
 
     /**
      * @param
@@ -374,6 +368,29 @@ public class GamePageController {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
+    }
+
+
+    /**
+     * set a change listener to be notified automatically when the move count has changed
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 22:29
+     * @version: 1.0.0
+     **/
+
+
+    public void setMovesCountEventListener() {
+        gameEngine.movesCountsProperty.addListener(
+                new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                        movesCount.setText(newValue.toString());
+                    }
+                }
+        );
     }
 }
 
