@@ -4,7 +4,7 @@ import com.ae2dms.controller.GamePageController;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
-import java.io.InputStream;
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -58,12 +58,13 @@ class GameEngineTest {
         GameEngine gameEngine = new GameEngine(inputStream, true);
         gameEngine.handleKey(KeyCode.LEFT);
         gameEngine.undo();
-        assertEquals(1, gameEngine.movesCount);
+        int actualMoveCount = gameEngine.movesCountsProperty.get();
+        assertEquals(1, actualMoveCount);
 
         InputStream sameInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
         GameEngine sameGameEngine = new GameEngine(sameInputStream, true);
         assertEquals(sameGameEngine.getCurrentLevel().objectsGrid.toString(), gameEngine.getCurrentLevel().objectsGrid.toString());
-        assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(),gameEngine.getCurrentLevel().diamondsGrid.toString());
+        assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(), gameEngine.getCurrentLevel().diamondsGrid.toString());
     }
 
     @Test
@@ -77,9 +78,47 @@ class GameEngineTest {
 
         InputStream sameInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
         GameEngine sameGameEngine = new GameEngine(sameInputStream, true);
-        assertEquals(0, gameEngine.movesCount);
+        int actualMoveCount = gameEngine.movesCountsProperty.get();
+        assertEquals(0, actualMoveCount);
         assertEquals(sameGameEngine.getCurrentLevel().objectsGrid.toString(), gameEngine.getCurrentLevel().objectsGrid.toString());
-        assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(),gameEngine.getCurrentLevel().diamondsGrid.toString());
+        assertEquals(sameGameEngine.getCurrentLevel().diamondsGrid.toString(), gameEngine.getCurrentLevel().diamondsGrid.toString());
 
+    }
+
+    @Test
+    void saveGame() throws IOException, ClassNotFoundException {
+        String testFileName = "gameEngine.json";
+        File file = new File(testFileName);
+        InputStream defaultInputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/DebugLevel.skb");
+        GameEngine gameEngine = new GameEngine(defaultInputStream, true);
+        gameEngine.saveGame(file);
+    }
+
+    @Test
+    void getMovesCount() {
+    }
+
+    @Test
+    void setMovesCount() {
+    }
+
+    @Test
+    void attach() {
+    }
+
+    @Test
+    void notifyAllObservers() {
+
+    }
+
+    @Test
+    void movesCountTest() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream, true);
+        gameEngine.handleKey(KeyCode.LEFT);
+        gameEngine.handleKey(KeyCode.UP);
+        gameEngine.handleKey(KeyCode.RIGHT);
+        gameEngine.handleKey(KeyCode.DOWN);
+        assertEquals(4, gameEngine.movesCountsProperty.get());
     }
 }
