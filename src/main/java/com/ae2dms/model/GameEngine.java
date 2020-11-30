@@ -1,6 +1,8 @@
 package com.ae2dms.model;
 
 import com.ae2dms.GameObject;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
 
 import java.awt.*;
@@ -23,7 +25,8 @@ public class GameEngine implements Serializable {
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
-    public int movesCount = 0;
+    public transient IntegerProperty movesCountsProperty;
+    private int savedMovesCount;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
@@ -51,27 +54,9 @@ public class GameEngine implements Serializable {
     private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         logger = GameLoggerSingleton.getGameLoggerSingleton();
+        movesCountsProperty = new SimpleIntegerProperty(savedMovesCount);
     }
 
-
-    /**
-     * Non-argument constructor
-     *
-     * @param
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/28 14:33
-     * @version:
-     **/
-
-
-    public GameEngine() {
-        try {
-            logger = GameLoggerSingleton.getGameLoggerSingleton();
-            iterator = map.getIterator();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * constructor
@@ -93,6 +78,8 @@ public class GameEngine implements Serializable {
             mapSetName = map.mapSetName;
             currentLevel = getNextLevel();
             movementTracker = new MovementTracker();
+            movesCountsProperty = new SimpleIntegerProperty(0);
+            //notifyAllObservers();
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -223,7 +210,8 @@ public class GameEngine implements Serializable {
         //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
-            movesCount++;
+            int newMovesCount = movesCountsProperty.get() +1;
+            movesCountsProperty.setValue(newMovesCount);
             if (currentLevel.isComplete()) {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
@@ -262,7 +250,7 @@ public class GameEngine implements Serializable {
 
     public void resetCurrentLevel() {
         currentLevel = movementTracker.resetTrack();
-        movesCount = 0;
+        movesCountsProperty.setValue(0);
     }
 
 
@@ -282,6 +270,7 @@ public class GameEngine implements Serializable {
 
     public void saveGame(File savedLocation) throws IOException {
         //TODO: store movesCount, map, movementTracker
+        savedMovesCount = movesCountsProperty.get();
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
@@ -348,4 +337,7 @@ public class GameEngine implements Serializable {
     public void toggleDebug() {
         debug = !debug;
     }
+
+
+
 }

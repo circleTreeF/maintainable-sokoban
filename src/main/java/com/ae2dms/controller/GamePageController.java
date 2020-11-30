@@ -3,14 +3,17 @@ package com.ae2dms.controller;
 
 import com.ae2dms.GameObject;
 import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GraphicObjectFactory;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
-import com.ae2dms.view.GraphicObjectFactory;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -33,7 +36,10 @@ public class GamePageController {
     public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
+    @FXML
+    Text movesCount;
     MusicPlayer musicPlayer;
+    //MovesCountObserver movesCountObserver;
 
     /**
      * @param
@@ -48,9 +54,13 @@ public class GamePageController {
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
         primaryStage.show();
+
         loadDefaultSaveFile(primaryStage);
+        setMovesCountEventListener();
         musicPlayer = new MusicPlayer(defaultMusic);
+        //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
+
 
     /**
      * @param
@@ -106,6 +116,7 @@ public class GamePageController {
         ObjectInputStream inputStream = new ObjectInputStream(fileIn);
         gameEngine = (GameEngine) inputStream.readObject();
         inputStream.close();
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
         reloadGrid();
     }
 
@@ -272,6 +283,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
         reloadGrid();
     }
 
@@ -292,7 +304,6 @@ public class GamePageController {
             showVictoryMessage();
             return;
         }
-
         Level currentLevel = gameEngine.getCurrentLevel();
         Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
@@ -335,7 +346,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
@@ -357,6 +368,29 @@ public class GamePageController {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
         });
+    }
+
+
+    /**
+     * set a change listener to be notified automatically when the move count has changed
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 22:29
+     * @version: 1.0.0
+     **/
+
+
+    public void setMovesCountEventListener() {
+        gameEngine.movesCountsProperty.addListener(
+                new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                        movesCount.setText(newValue.toString());
+                    }
+                }
+        );
     }
 }
 
