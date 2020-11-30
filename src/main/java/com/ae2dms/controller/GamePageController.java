@@ -37,9 +37,10 @@ public class GamePageController {
     @FXML
     private GridPane gameGrid;
     @FXML
-    Text movesCount;
+    Text currentMovesCount;
+    @FXML
+    Text previousMoves;
     MusicPlayer musicPlayer;
-    //MovesCountObserver movesCountObserver;
 
     /**
      * @param
@@ -58,7 +59,6 @@ public class GamePageController {
         loadDefaultSaveFile(primaryStage);
         setMovesCountEventListener();
         musicPlayer = new MusicPlayer(defaultMusic);
-        //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
 
 
@@ -116,7 +116,8 @@ public class GamePageController {
         ObjectInputStream inputStream = new ObjectInputStream(fileIn);
         gameEngine = (GameEngine) inputStream.readObject();
         inputStream.close();
-        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
+        initializeGameStateBrief();
+        //setMovesCountEventListener();
         reloadGrid();
     }
 
@@ -283,7 +284,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
-        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
+        initializeGameStateBrief();
         reloadGrid();
     }
 
@@ -346,7 +347,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCountsProperty.get() + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.currentLevelMovesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
@@ -367,7 +368,7 @@ public class GamePageController {
         primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
-        });
+       });
     }
 
 
@@ -382,15 +383,40 @@ public class GamePageController {
      **/
 
 
-    public void setMovesCountEventListener() {
-        gameEngine.movesCountsProperty.addListener(
+    private void setMovesCountEventListener() {
+        gameEngine.currentLevelMovesCountsProperty.addListener(
                 new ChangeListener<>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        movesCount.setText(newValue.toString());
+                        currentMovesCount.setText(newValue.toString());
                     }
                 }
         );
+        gameEngine.previousLevelsMovesCountsProperty.addListener(
+                new ChangeListener<>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
+                        previousMoves.setText(newValue.toString());
+                    }
+                }
+        );
+    }
+
+
+    /**
+     * set the initial value for the information in the game state brief component
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 23:38
+     * @version: 1.0.0
+     **/
+
+
+    private void initializeGameStateBrief() {
+        currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
+        previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
     }
 }
 
