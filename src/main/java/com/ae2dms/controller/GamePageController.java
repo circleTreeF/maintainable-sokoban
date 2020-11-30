@@ -122,6 +122,7 @@ public class GamePageController {
         ObjectInputStream inputStream = new ObjectInputStream(fileIn);
         gameEngine = (GameEngine) inputStream.readObject();
         inputStream.close();
+        movesCount.setText(String.valueOf(gameEngine.movesCountsProperty.get()));
         reloadGrid();
     }
 

@@ -54,6 +54,7 @@ public class GameEngine implements Serializable {
     private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         logger = GameLoggerSingleton.getGameLoggerSingleton();
+        movesCountsProperty = new SimpleIntegerProperty(savedMovesCount);
     }
 
 
