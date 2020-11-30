@@ -12,12 +12,26 @@ import com.ae2dms.model.Observer;
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/29 17:11
  */
-public class GamePageObserver extends Observer {
+
+//TODO: could be refactor to use the JavaFX build in class IntegerProperty(wrapper class)
+public class MovesCountObserver extends Observer {
     int movesCount;
 
+    /**
+     * constructor
+     * <p>
+     * construct this GamePageObserver
+     *
+     * @param gameEngine
+     *         the subject this observer to attach on
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 15:32
+     * @version:
+     **/
 
-    public GamePageObserver(GameEngine gameEngine) {
+    public MovesCountObserver(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
+        this.gameEngine.attach(this);
     }
 
     /**

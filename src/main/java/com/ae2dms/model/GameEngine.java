@@ -5,6 +5,8 @@ import javafx.scene.input.KeyCode;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -23,7 +25,7 @@ public class GameEngine implements Serializable {
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
-    public int movesCount = 0;
+    private int movesCount = 0;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
@@ -31,6 +33,38 @@ public class GameEngine implements Serializable {
     private IteratorInterface iterator;
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
+    private List<Observer> observers = new ArrayList<>();
+
+    /**
+    * get the state in this class, movesCount
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/11/30 0:11
+     * @param
+    * @return int
+    * @version: 1.0.0
+    **/
+
+
+    public int getMovesCount() {
+        return movesCount;
+    }
+
+
+    public void setMovesCount(int newMoveCount) {
+        this.movesCount = newMoveCount;
+        notifyAllObservers();
+    }
+
+
+    public void attach(Observer observer){
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers(){
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
 
     /**
      * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
@@ -93,6 +127,7 @@ public class GameEngine implements Serializable {
             mapSetName = map.mapSetName;
             currentLevel = getNextLevel();
             movementTracker = new MovementTracker();
+            notifyAllObservers();
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -223,7 +258,8 @@ public class GameEngine implements Serializable {
         //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
-            movesCount++;
+            int newMovesCount = movesCount +1;
+            setMovesCount(newMovesCount);
             if (currentLevel.isComplete()) {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
@@ -348,4 +384,7 @@ public class GameEngine implements Serializable {
     public void toggleDebug() {
         debug = !debug;
     }
+
+
+
 }

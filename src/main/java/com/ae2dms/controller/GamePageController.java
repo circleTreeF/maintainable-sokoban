@@ -11,6 +11,7 @@ import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -33,7 +34,10 @@ public class GamePageController {
     public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
+    @FXML
+    Text movesCount;
     MusicPlayer musicPlayer;
+    MovesCountObserver movesCountObserver;
 
     /**
      * @param
@@ -48,8 +52,11 @@ public class GamePageController {
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
         primaryStage.show();
+
         loadDefaultSaveFile(primaryStage);
         musicPlayer = new MusicPlayer(defaultMusic);
+
+        //movesCount.textProperty().set("You have moved: "+ gameEngine.movesCount);
     }
 
     /**
@@ -272,6 +279,7 @@ public class GamePageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
+        movesCountObserver = new MovesCountObserver(gameEngine);
         reloadGrid();
     }
 
@@ -292,7 +300,7 @@ public class GamePageController {
             showVictoryMessage();
             return;
         }
-
+        movesCount.textProperty().set("You have moved: " + movesCountObserver.movesCount);
         Level currentLevel = gameEngine.getCurrentLevel();
         Level.LevelIterator levelIterator = currentLevel.getIterator();
         gameGrid.getChildren().clear();
@@ -335,7 +343,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.movesCount + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.getMovesCount() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
