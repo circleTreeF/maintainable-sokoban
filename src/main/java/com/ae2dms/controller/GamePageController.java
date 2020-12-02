@@ -9,7 +9,11 @@ import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
@@ -19,9 +23,11 @@ import javafx.scene.text.Text;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 
 import static com.ae2dms.Main.gameEngine;
+import static com.ae2dms.Main.primaryStage;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -34,7 +40,7 @@ import static com.ae2dms.Main.gameEngine;
  * @date: 2020/11/14 22:57
  */
 public class GamePageController {
-//    public static Stage Main.primaryStage;
+    //    public static Stage Main.primaryStage;
 //    public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
@@ -234,6 +240,31 @@ public class GamePageController {
     }
 
 
+    /**
+     * Back to the main starting page from the game page
+     *
+     * @param actionEvent
+     *         the mouse event of the user
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/2 15:33
+     * @version:
+     **/
+
+
+    public void backToMain(ActionEvent actionEvent) {
+        Parent root;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+            musicPlayer.stop();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 //    /**
 //     * @return void
 //     * @description: load the default file of the map for the game
@@ -371,7 +402,7 @@ public class GamePageController {
         Main.primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
-       });
+        });
     }
 
 
@@ -421,5 +452,7 @@ public class GamePageController {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
     }
+
+
 }
 
