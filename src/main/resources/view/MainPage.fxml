@@ -33,12 +33,12 @@
             <Image url="@../images/load_saved_game.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="exitButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="575.0" onMouseClicked="#onExitClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exitButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="650.0" onMouseClicked="#onExitClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/exit.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="aboutButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="650.0" onMouseClicked="#onAboutClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="aboutButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="575.0" onMouseClicked="#onAboutClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/about.png" />
          </image>
