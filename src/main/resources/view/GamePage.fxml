@@ -5,30 +5,28 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="667.0" maxWidth="607.0" minHeight="667.0" minWidth="607.0" prefHeight="667.0" prefWidth="607.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.GamePageController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="607.0" minWidth="607.0" prefWidth="607.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="30.0" minHeight="24.799993896484374" prefHeight="24.799993896484374" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="600.0" minHeight="600.0" prefHeight="600.0" vgrow="SOMETIMES" />
-  </rowConstraints>
+<AnchorPane prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.GamePageController">
    <children>
-      <MenuBar maxHeight="30.0" maxWidth="607.0" minHeight="30.0" minWidth="607.0" prefHeight="30.0" prefWidth="607.0">
+      <ImageView fitHeight="720.0" fitWidth="1000.0" pickOnBounds="true" translateY="30.0">
+         <image>
+            <Image url="@../images/game_background.png" />
+         </image>
+      </ImageView>
+      <MenuBar maxHeight="30.0" maxWidth="1000.0" minHeight="30.0" minWidth="1000.0" prefHeight="30.0" prefWidth="1000.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadGame" text="Load Game" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadSavedGame" text="Load Saved File" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#closeGame" text="Exit" />
             </items>
@@ -38,14 +36,16 @@
               <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleDebug" text="Toggle Debug" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
-                     </accelerator></MenuItem>
+                     </accelerator>
+                  </MenuItem>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="About">
@@ -55,26 +55,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Text fill="#51c2ff" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Level Moves:" translateX="10.0" wrappingWidth="165.0" GridPane.rowIndex="1">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="currentMovesCount" fill="#51c2ff" lineSpacing="1.0" stroke="#4dc7ff" strokeType="OUTSIDE" strokeWidth="0.0" translateX="175.0" wrappingWidth="120.0" GridPane.rowIndex="1">
-         <font>
-            <Font size="20.0" />
-         </font></Text>
-      <Text fill="#ff2b00" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Previous Moves:" translateX="300.0" wrappingWidth="180.0" GridPane.rowIndex="1">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Text fx:id="previousMoves" fill="#ff2b00" strokeType="OUTSIDE" strokeWidth="0.0" translateX="480.0" wrappingWidth="120.0" GridPane.rowIndex="1">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <GridPane fx:id="gameGrid" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" GridPane.rowIndex="2">
+      <GridPane fx:id="gameGrid" layoutX="200.0" layoutY="75.0" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" />
           <ColumnConstraints hgrow="SOMETIMES" />
@@ -83,8 +64,27 @@
             <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
             <RowConstraints vgrow="SOMETIMES" />
-            <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
       </GridPane>
+      <Text fill="#51c2ff" layoutX="13.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Current Level Moves:" wrappingWidth="165.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="currentMovesCount" fill="#51c2ff" layoutX="184.0" layoutY="56.0" lineSpacing="1.0" stroke="#4dc7ff" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="120.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#ff2b00" layoutX="382.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Previous Moves:" wrappingWidth="180.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="previousMoves" fill="#ff2b00" layoutX="562.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="120.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
-</GridPane>
+</AnchorPane>

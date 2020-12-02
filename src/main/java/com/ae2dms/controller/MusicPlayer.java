@@ -163,4 +163,21 @@ public class MusicPlayer {
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
+
+
+    /**
+     * terminate the current music playing
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/2 14:36
+     * @version:
+     **/
+
+    public void stop() {
+        currentFrame = 0L;
+        clip.stop();
+        clip.close();
+    }
 }
