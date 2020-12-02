@@ -29,6 +29,7 @@ public class MainPageController {
 
     /**
      * @param mouseEvent
+     *         the mouse event of the user
      * @return void
      * @description start game when the start button is clicked
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -43,11 +44,11 @@ public class MainPageController {
     }
 
 
-
     /**
      * Start the new game selected by the user from the file chooser
      *
      * @param mouseEvent
+     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:14
@@ -64,6 +65,7 @@ public class MainPageController {
      * Resume the saved game selected by the user from the file chooser
      *
      * @param mouseEvent
+     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:15
@@ -80,6 +82,7 @@ public class MainPageController {
      * Exit the game
      *
      * @param mouseEvent
+     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:16
@@ -94,6 +97,7 @@ public class MainPageController {
 
     /**
      * @param mouseEvent
+     *         the mouse event of the user
      * @return void
      * @description new dialog for about information
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -108,7 +112,6 @@ public class MainPageController {
         DialogWindow aboutWindow = new DialogWindow(primaryStage, title, message, null);
         aboutWindow.show();
     }
-
 
 
     private void loadGamePage() {
@@ -166,7 +169,7 @@ public class MainPageController {
      **/
 
 
-    public void loadGame() {
+    private void loadGame() {
         try {
             loadGameFile();
         } catch (FileNotFoundException e) {
@@ -197,11 +200,10 @@ public class MainPageController {
     }
 
 
-
     private void loadSavedGame() {
         FileOperator fileOperator = new FileOperator();
         File saveFile = fileOperator.selectSavedGame(Main.primaryStage);
-        FileInputStream fileIn = null;
+        FileInputStream fileIn;
         try {
             fileIn = new FileInputStream(saveFile);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
