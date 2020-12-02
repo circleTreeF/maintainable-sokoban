@@ -25,8 +25,10 @@ public class GameEngine implements Serializable {
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
     //FIXME: should movesCount be statics or final?
-    public transient IntegerProperty movesCountsProperty;
-    private int savedMovesCount;
+    public transient IntegerProperty currentLevelMovesCountsProperty;
+    private int savedCurrentMovesCount;
+    public transient IntegerProperty previousLevelsMovesCountsProperty;
+    private int savedPreviousMovesCount;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
@@ -54,7 +56,8 @@ public class GameEngine implements Serializable {
     private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();
         logger = GameLoggerSingleton.getGameLoggerSingleton();
-        movesCountsProperty = new SimpleIntegerProperty(savedMovesCount);
+        currentLevelMovesCountsProperty = new SimpleIntegerProperty(savedCurrentMovesCount);
+        previousLevelsMovesCountsProperty = new SimpleIntegerProperty(savedPreviousMovesCount);
     }
 
 
@@ -76,10 +79,11 @@ public class GameEngine implements Serializable {
             map = new Map(inputGameFile);
             iterator = map.getIterator();
             mapSetName = map.mapSetName;
+            currentLevelMovesCountsProperty = new SimpleIntegerProperty(0);
+            previousLevelsMovesCountsProperty = new SimpleIntegerProperty(0);
             currentLevel = getNextLevel();
             movementTracker = new MovementTracker();
-            movesCountsProperty = new SimpleIntegerProperty(0);
-            //notifyAllObservers();
+
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -210,8 +214,8 @@ public class GameEngine implements Serializable {
         //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
-            int newMovesCount = movesCountsProperty.get() +1;
-            movesCountsProperty.setValue(newMovesCount);
+            incrementCurrentLevelMovesCountByOne();
+
             if (currentLevel.isComplete()) {
                 if (isDebugActive()) {
                     System.out.println("Level complete!");
@@ -250,7 +254,7 @@ public class GameEngine implements Serializable {
 
     public void resetCurrentLevel() {
         currentLevel = movementTracker.resetTrack();
-        movesCountsProperty.setValue(0);
+        currentLevelMovesCountsProperty.setValue(0);
     }
 
 
@@ -270,7 +274,8 @@ public class GameEngine implements Serializable {
 
     public void saveGame(File savedLocation) throws IOException {
         //TODO: store movesCount, map, movementTracker
-        savedMovesCount = movesCountsProperty.get();
+        savedCurrentMovesCount = currentLevelMovesCountsProperty.get();
+        savedPreviousMovesCount = previousLevelsMovesCountsProperty.get();
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
@@ -309,6 +314,8 @@ public class GameEngine implements Serializable {
         if (!iterator.hasNext()) {
             gameComplete = true;
         }
+        updatePreviousLevelsMovesCount();
+        currentLevelMovesCountsProperty.set(0);
         return (Level) iterator.next();
     }
 
@@ -338,6 +345,36 @@ public class GameEngine implements Serializable {
         debug = !debug;
     }
 
+    /**
+     * increment the value of current moves count in field variable, currentLevelMovesCountsProperty, by one
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 23:14
+     * @version: 1.0.0
+     **/
+
+
+    private void incrementCurrentLevelMovesCountByOne() {
+        int newMovesCount = currentLevelMovesCountsProperty.get() + 1;
+        currentLevelMovesCountsProperty.setValue(newMovesCount);
+    }
+
+    /**
+     * update the moves count in the previous levels
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/30 23:31
+     * @version: 1.0.0
+     **/
+
+    private void updatePreviousLevelsMovesCount() {
+        int newPreviousMovesCount = previousLevelsMovesCountsProperty.get() + currentLevelMovesCountsProperty.get();
+        previousLevelsMovesCountsProperty.set(newPreviousMovesCount);
+    }
 
 
 }
