@@ -61,6 +61,7 @@ public class GamePageController {
         //loadDefaultSaveFile();
         setEventFilter();
         setMovesCountEventListener();
+        initializeGameStateBrief();
         musicPlayer = new MusicPlayer(defaultMusic);
         reloadGrid();
     }
@@ -349,7 +350,7 @@ public class GamePageController {
 
     private static void showVictoryMessage() {
         String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.currentLevelMovesCountsProperty.get() + " moves!";
+        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.previousLevelsMovesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
         DialogWindow messageWindow = new DialogWindow(Main.primaryStage, dialogTitle, dialogMessage, motionBlur);
