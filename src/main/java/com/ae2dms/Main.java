@@ -1,11 +1,10 @@
 package com.ae2dms;
 
-import com.ae2dms.controller.GamePageController;
 import com.ae2dms.model.GameEngine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -19,6 +18,9 @@ import javafx.stage.Stage;
  * @version: 1.0
  */
 public class Main extends Application {
+
+    public static Stage primaryStage;
+    public static GameEngine gameEngine;
 
     public static void main(String[] args) {
         launch(args);
@@ -47,10 +49,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        GamePageController.primaryStage = primaryStage;
-        GridPane root = FXMLLoader.load(getClass().getResource("/view/GamePage.fxml"));
-        GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
-        GamePageController.primaryStage.setScene(new Scene(root, 607, 667));
+        Main.primaryStage = primaryStage;
+        Main.primaryStage.setTitle(GameEngine.GAME_NAME);
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
+        Main.primaryStage.setScene(new Scene(root, 1000, 750));
+        Main.primaryStage.show();
+        Main.primaryStage.setResizable(false);
+        //GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
+        //GamePageController.primaryStage.setScene(new Scene(root, 600, 800));
         //GamePageController.primaryStage.setResizable(false);
     }
 

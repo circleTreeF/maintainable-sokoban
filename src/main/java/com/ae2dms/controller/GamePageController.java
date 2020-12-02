@@ -2,6 +2,7 @@ package com.ae2dms.controller;
 
 
 import com.ae2dms.GameObject;
+import com.ae2dms.Main;
 import com.ae2dms.model.GameEngine;
 import com.ae2dms.model.GraphicObjectFactory;
 import com.ae2dms.model.Level;
@@ -14,12 +15,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.*;
+
+import static com.ae2dms.Main.gameEngine;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -32,8 +34,8 @@ import java.io.*;
  * @date: 2020/11/14 22:57
  */
 public class GamePageController {
-    public static Stage primaryStage;
-    public static GameEngine gameEngine;
+//    public static Stage Main.primaryStage;
+//    public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -54,11 +56,13 @@ public class GamePageController {
 
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
-        primaryStage.show();
+        //Main.primaryStage.show();
 
-        loadDefaultSaveFile(primaryStage);
+        //loadDefaultSaveFile();
+        setEventFilter();
         setMovesCountEventListener();
         musicPlayer = new MusicPlayer(defaultMusic);
+        reloadGrid();
     }
 
 
@@ -74,27 +78,28 @@ public class GamePageController {
 
     public void saveGame() throws IOException {
         FileOperator fileOperator = new FileOperator();
-        File savedLocation = fileOperator.selectSaveGamePath(primaryStage);
+        File savedLocation = fileOperator.selectSaveGamePath(Main.primaryStage);
         gameEngine.saveGame(savedLocation);
     }
 
-    /**
-     * @param
-     * @return void
-     * @description: load the game file
-     * extracted from Main.loadGame()
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 15:13
-     * @version: 1.0.0
-     **/
-
-    public void loadGame() {
-        try {
-            loadGameFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * @param
+//     * @return void
+//     * @description: load the game file
+//     * extracted from Main.loadGame()
+//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+//     * @date: 2020/11/15 15:13
+//     * @version: 1.0.0
+//     **/
+//
+//
+//    public void loadGame() {
+//        try {
+//            loadGameFile();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * load the game state specification file according to the user selection from file chooser
@@ -110,12 +115,12 @@ public class GamePageController {
 
     public void loadSavedGame() throws IOException, ClassNotFoundException {
         //TODO: this is same with loadGame. Need to improve!
-        FileOperator fileOperator = new FileOperator();
-        File saveFile = fileOperator.selectSavedGame(primaryStage);
-        FileInputStream fileIn = new FileInputStream(saveFile);
-        ObjectInputStream inputStream = new ObjectInputStream(fileIn);
-        gameEngine = (GameEngine) inputStream.readObject();
-        inputStream.close();
+//        FileOperator fileOperator = new FileOperator();
+//        File saveFile = fileOperator.selectSavedGame(Main.primaryStage);
+//        FileInputStream fileIn = new FileInputStream(saveFile);
+//        ObjectInputStream inputStream = new ObjectInputStream(fileIn);
+//        gameEngine = (GameEngine) inputStream.readObject();
+//        inputStream.close();
         initializeGameStateBrief();
         //setMovesCountEventListener();
         reloadGrid();
@@ -223,52 +228,49 @@ public class GamePageController {
         String title = "About this game";
         String message = "Game created by Yizirui FANG 20127901\n";
 
-        DialogWindow aboutWindow = new DialogWindow(primaryStage, title, message, null);
+        DialogWindow aboutWindow = new DialogWindow(Main.primaryStage, title, message, null);
         aboutWindow.show();
     }
 
 
-    /**
-     * @param primaryStage
-     *         the primary stage of this game page scene
-     * @return void
-     * @description: load the default file of the map for the game
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 21:08
-     * @version:
-     **/
-
-
-    private void loadDefaultSaveFile(Stage primaryStage) {
-        GamePageController.primaryStage = primaryStage;
-        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
-        initializeGame(defaultInputStream);
-        setEventFilter();
-    }
+//    /**
+//     * @return void
+//     * @description: load the default file of the map for the game
+//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+//     * @date: 2020/11/15 21:08
+//     * @version:
+//     **/
+//
+//
+//    private void loadDefaultSaveFile() {
+//        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
+//        initializeGame(defaultInputStream);
+//        setEventFilter();
+//    }
 
     //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
 
-    /**
-     * @param
-     * @return void
-     * @throw FileNotFoundException
-     * @description: load the user defined map file
-     * extracted from Main.loadGameFile()
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 15:14
-     * @version: 1.0.0
-     **/
-
-
-    private void loadGameFile() throws FileNotFoundException {
-        FileOperator fileOperator = new FileOperator();
-        File saveFile = fileOperator.selectGameFile(primaryStage);
-
-        //TODO: refactor the if statement
-        if (saveFile != null) {
-            initializeGame(new FileInputStream(saveFile));
-        }
-    }
+//    /**
+//     * @param
+//     * @return void
+//     * @throw FileNotFoundException
+//     * @description: load the user defined map file
+//     * extracted from Main.loadGameFile()
+//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+//     * @date: 2020/11/15 15:14
+//     * @version: 1.0.0
+//     **/
+//
+//
+//    private void loadGameFile() throws FileNotFoundException {
+//        FileOperator fileOperator = new FileOperator();
+//        File saveFile = fileOperator.selectGameFile(Main.primaryStage);
+//
+//        //TODO: refactor the if statement
+//        if (saveFile != null) {
+//            initializeGame(new FileInputStream(saveFile));
+//        }
+//    }
 
 
     /**
@@ -282,11 +284,11 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    private void initializeGame(InputStream inputGameFile) {
-        gameEngine = new GameEngine(inputGameFile, true);
-        initializeGameStateBrief();
-        reloadGrid();
-    }
+//    private void initializeGame(InputStream inputGameFile) {
+//        gameEngine = new GameEngine(inputGameFile, true);
+//        initializeGameStateBrief();
+//        reloadGrid();
+//    }
 
 
     /**
@@ -312,7 +314,7 @@ public class GamePageController {
             addObjectToGrid(levelIterator.next(), levelIterator.getCurrentPosition());
         }
         gameGrid.autosize();
-        primaryStage.sizeToScene();
+        Main.primaryStage.sizeToScene();
     }
 
     /**
@@ -350,7 +352,7 @@ public class GamePageController {
         String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.currentLevelMovesCountsProperty.get() + " moves!";
         MotionBlur motionBlur = new MotionBlur(2, 3);
 
-        DialogWindow messageWindow = new DialogWindow(primaryStage, dialogTitle, dialogMessage, motionBlur);
+        DialogWindow messageWindow = new DialogWindow(Main.primaryStage, dialogTitle, dialogMessage, motionBlur);
         messageWindow.show();
     }
 
@@ -365,7 +367,7 @@ public class GamePageController {
 
 
     private void setEventFilter() {
-        primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        Main.primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
        });
