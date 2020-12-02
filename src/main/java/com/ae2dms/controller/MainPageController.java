@@ -154,8 +154,6 @@ public class MainPageController {
 
     private void initializeGame(InputStream inputGameFile) {
         gameEngine = new GameEngine(inputGameFile, true);
-//        initializeGameStateBrief();
-//        reloadGrid();
     }
 
     /**

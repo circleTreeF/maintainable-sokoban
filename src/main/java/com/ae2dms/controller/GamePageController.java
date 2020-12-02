@@ -40,8 +40,6 @@ import static com.ae2dms.Main.primaryStage;
  * @date: 2020/11/14 22:57
  */
 public class GamePageController {
-    //    public static Stage Main.primaryStage;
-//    public static GameEngine gameEngine;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -62,9 +60,6 @@ public class GamePageController {
 
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
-        //Main.primaryStage.show();
-
-        //loadDefaultSaveFile();
         setEventFilter();
         setMovesCountEventListener();
         initializeGameStateBrief();
@@ -89,49 +84,6 @@ public class GamePageController {
         gameEngine.saveGame(savedLocation);
     }
 
-//    /**
-//     * @param
-//     * @return void
-//     * @description: load the game file
-//     * extracted from Main.loadGame()
-//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-//     * @date: 2020/11/15 15:13
-//     * @version: 1.0.0
-//     **/
-//
-//
-//    public void loadGame() {
-//        try {
-//            loadGameFile();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    /**
-     * load the game state specification file according to the user selection from file chooser
-     *
-     * @throws IOException
-     *         Any of the usual Input/Output related exceptions.
-     * @throws ClassNotFoundException
-     *         Class of a serialized object cannot be found
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/28 17:05
-     * @version: 1.0.0
-     **/
-
-    public void loadSavedGame() throws IOException, ClassNotFoundException {
-        //TODO: this is same with loadGame. Need to improve!
-//        FileOperator fileOperator = new FileOperator();
-//        File saveFile = fileOperator.selectSavedGame(Main.primaryStage);
-//        FileInputStream fileIn = new FileInputStream(saveFile);
-//        ObjectInputStream inputStream = new ObjectInputStream(fileIn);
-//        gameEngine = (GameEngine) inputStream.readObject();
-//        inputStream.close();
-        initializeGameStateBrief();
-        //setMovesCountEventListener();
-        reloadGrid();
-    }
 
 
     /**
@@ -265,44 +217,8 @@ public class GamePageController {
     }
 
 
-//    /**
-//     * @return void
-//     * @description: load the default file of the map for the game
-//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-//     * @date: 2020/11/15 21:08
-//     * @version:
-//     **/
-//
-//
-//    private void loadDefaultSaveFile() {
-//        InputStream defaultInputStream = GamePageController.class.getClassLoader().getResourceAsStream("level/SampleGame.skb");
-//        initializeGame(defaultInputStream);
-//        setEventFilter();
-//    }
 
     //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
-
-//    /**
-//     * @param
-//     * @return void
-//     * @throw FileNotFoundException
-//     * @description: load the user defined map file
-//     * extracted from Main.loadGameFile()
-//     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-//     * @date: 2020/11/15 15:14
-//     * @version: 1.0.0
-//     **/
-//
-//
-//    private void loadGameFile() throws FileNotFoundException {
-//        FileOperator fileOperator = new FileOperator();
-//        File saveFile = fileOperator.selectGameFile(Main.primaryStage);
-//
-//        //TODO: refactor the if statement
-//        if (saveFile != null) {
-//            initializeGame(new FileInputStream(saveFile));
-//        }
-//    }
 
 
     /**
@@ -315,12 +231,6 @@ public class GamePageController {
      * @date: 2020/11/15 17:06
      * @version: 1.0.0
      **/
-
-//    private void initializeGame(InputStream inputGameFile) {
-//        gameEngine = new GameEngine(inputGameFile, true);
-//        initializeGameStateBrief();
-//        reloadGrid();
-//    }
 
 
     /**

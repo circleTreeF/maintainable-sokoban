@@ -55,9 +55,6 @@ public class Main extends Application {
         Main.primaryStage.setScene(new Scene(root, 1000, 750));
         Main.primaryStage.show();
         Main.primaryStage.setResizable(false);
-        //GamePageController.primaryStage.setTitle(GameEngine.GAME_NAME);
-        //GamePageController.primaryStage.setScene(new Scene(root, 600, 800));
-        //GamePageController.primaryStage.setResizable(false);
     }
 
 }
