@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -30,6 +31,8 @@ import java.util.List;
 public class MarkBoardController {
     public ComboBox<String> mapSelectionComboBox;
     public GridPane markBoard;
+    public AnchorPane pagePane;
+    public Text noRecordPrompt;
     private ArrayList<MarkKeeper> markKeepers;
     private String DEFAULT_MAP_NAME = "Example Game!";
     private final int NUMBER_OF_SHOWN_ITEM = 5;
@@ -37,16 +40,20 @@ public class MarkBoardController {
     public void initialize() throws IOException {
         readMarks();
         initializeComboBox();
-
-        mapSelectionComboBox.getSelectionModel().selectedItemProperty().addListener(
-                new ChangeListener<String>() {
-                    @Override
-                    public void changed(ObservableValue<? extends String> observableValue, String oldItem, String newItem) {
-                        setMarkBoardForMap(newItem);
+        if (markKeepers!=null){
+            mapSelectionComboBox.getSelectionModel().selectedItemProperty().addListener(
+                    new ChangeListener<String>() {
+                        @Override
+                        public void changed(ObservableValue<? extends String> observableValue, String oldItem, String newItem) {
+                            setMarkBoardForMap(newItem);
+                        }
                     }
-                }
-        );
-        setMarkBoardForMap(DEFAULT_MAP_NAME);
+            );
+            setMarkBoardForMap(DEFAULT_MAP_NAME);
+        }else {
+            noRecordPrompt.visibleProperty().setValue(true);
+        }
+
     }
 
     private void readMarks() throws IOException {
@@ -63,6 +70,7 @@ public class MarkBoardController {
         ObservableList<String> comboBoxOptions = FXCollections.observableArrayList();
         if (markKeepers == null){
             mapSelectionComboBox.setDisable(true);
+            return;
         }
         for (MarkKeeper currentMark : markKeepers) {
             if (!comboBoxOptions.contains(currentMark.mapName)) {
