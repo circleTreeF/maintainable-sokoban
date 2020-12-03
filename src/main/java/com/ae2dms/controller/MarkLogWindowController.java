@@ -53,7 +53,7 @@ public class MarkLogWindowController {
     }
 
     /**
-     * save the user's game record on the specific map {@code gameEngine.mapSetName}, the moves count {@code movesCount}, and the user-inputted user name {@code String userName = inputName.getText()} in the serialized file, ranking.json in the rank directory of project resources path.
+     * save the users' game record on the specific map {@code gameEngine.mapSetName}, the moves count {@code movesCount}, and the user-inputted user name {@code String userName = inputName.getText()} in the serialized file, ranking.json in the rank directory of project resources path.
      *
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -82,5 +82,7 @@ public class MarkLogWindowController {
         fileWriter.close();
         Stage currentStage = (Stage) saveAndBack.getScene().getWindow();
         currentStage.close();
+        BackToMain.back();
     }
+
 }

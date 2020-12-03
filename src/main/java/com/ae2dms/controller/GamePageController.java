@@ -210,16 +210,9 @@ public class GamePageController {
 
 
     public void backToMain() {
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            musicPlayer.stop();
-            removeEventFilter();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BackToMain.back();
+        musicPlayer.stop();
+        removeEventFilter();
     }
 
 
