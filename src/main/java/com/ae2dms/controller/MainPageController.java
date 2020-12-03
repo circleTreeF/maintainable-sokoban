@@ -26,6 +26,11 @@ import static com.ae2dms.Main.primaryStage;
 public class MainPageController {
     public ImageView startButton;
     public ImageView aboutButton;
+    public ImageView highMarkBoardButton;
+    public ImageView loadNewGameButton;
+    public ImageView loadSavedGameButton;
+    public ImageView exitButton;
+
 
     /**
      * @param mouseEvent
@@ -114,6 +119,18 @@ public class MainPageController {
     }
 
 
+    public void onHighMarkBoardClicked(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/MarkBoard.fxml"));
+            Parent page = loader.load();
+            primaryStage.setScene(new Scene(page, 1000, 750));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private void loadGamePage() {
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/GamePage.fxml"));
@@ -123,7 +140,6 @@ public class MainPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -216,4 +232,6 @@ public class MainPageController {
         }
 
     }
+
+
 }
