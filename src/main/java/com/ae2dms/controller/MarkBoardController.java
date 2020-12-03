@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -33,15 +34,15 @@ public class MarkBoardController {
     public GridPane markBoard;
     public AnchorPane pagePane;
     public Text noRecordPrompt;
+    public ImageView backButton;
     private ArrayList<MarkKeeper> markKeepers;
-    private String DEFAULT_MAP_NAME = "Example Game!";
+    private final String DEFAULT_MAP_NAME = "Example Game!";
     private final int NUMBER_OF_SHOWN_ITEM = 5;
 
     /**
      * initialize the mark board page. This page will present the game records and combobox for map selection. By default, the default map records will be present.
      * <p>If there is not any record of any map of this sokoban game, the warning text, "No Record" will be present </p>
      *
-     * @param
      * @return void
      * @throws IOException
      *         Signals that an I/O exception of some sort has occurred
@@ -96,7 +97,6 @@ public class MarkBoardController {
      * <p>If there is map record in the ranking file, all available map name stored in the ranking file will be present in this node.</p>
      * <p>Otherwise, the combo box will be disabled.</p>
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 1:09
@@ -175,4 +175,18 @@ public class MarkBoardController {
         markBoard.add(textContent, column, row);
     }
 
+    /**
+     * This method will be called when the button, back, is clicked.
+     * <p>This method is to set the scene back to the main dashboard scene of this game</p>
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 3:11
+     * @version:
+     **/
+
+
+    public void onBackClicked() {
+        BackToMain.back();
+    }
 }

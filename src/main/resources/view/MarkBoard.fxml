@@ -60,5 +60,10 @@
          </image>
       </ImageView>
       <ComboBox fx:id="mapSelectionComboBox" layoutX="50.0" layoutY="75.0" opacity="0.8" prefHeight="30.0" prefWidth="250.0" promptText="Select A Map" visibleRowCount="20" />
+      <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="250.0" layoutX="50.0" layoutY="645.0" onMouseClicked="#onBackClicked" pickOnBounds="true">
+         <image>
+            <Image url="@../images/back.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
