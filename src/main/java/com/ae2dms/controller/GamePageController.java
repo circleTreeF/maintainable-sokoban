@@ -9,7 +9,6 @@ import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -38,7 +38,7 @@ import static com.ae2dms.Main.primaryStage;
  * Package: com.ae2dms.controller
  *
  * @className: MenuBarController
- * @description: This class includes controller for the GamePage.fxml, which is the page of playing this game
+ * @description: This class includes controller for the {@code GamePage.fxml}, which is the page of playing this game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/14 22:57
  */
@@ -52,12 +52,13 @@ public class GamePageController {
     @FXML
     Text previousMoves;
     MusicPlayer musicPlayer;
-    private EventHandler movesFilter;
+    private EventHandler<KeyEvent> movesFilter;
 
     /**
+     * initialize the game page element, gameGrid. Display the initial level of the map to the game page
+     *
      * @param
      * @return void
-     * @description: initialize the game page element, gameGrid. Display the initial level of the map to the game page
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 13:23
      * @version: 1.0.0
@@ -90,7 +91,6 @@ public class GamePageController {
         File savedLocation = fileOperator.selectSaveGamePath(Main.primaryStage);
         gameEngine.saveGame(savedLocation);
     }
-
 
 
     /**
@@ -202,8 +202,6 @@ public class GamePageController {
     /**
      * Back to the main starting page from the game page
      *
-     * @param actionEvent
-     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/2 15:33
@@ -211,23 +209,18 @@ public class GamePageController {
      **/
 
 
-    public void backToMain(ActionEvent actionEvent) {
+    public void backToMain() {
         Parent root;
         try {
             root = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
             musicPlayer.stop();
-//            primaryStage.removeEventFilter(KeyEvent.KEY_PRESSED, event -> {
-//                gameEngine.handleKey(event.getCode());
-//                reloadGrid();
-//            });
-            //primaryStage.getScene().
+            removeEventFilter();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 
     //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
@@ -307,7 +300,7 @@ public class GamePageController {
 
     private void showVictoryMessage() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/MarkLogWindow.fxml"));
-        Parent page = null;
+        Parent page;
         try {
             page = loader.load();
             Scene gameScene = new Scene(page, 400, 300);
@@ -315,21 +308,16 @@ public class GamePageController {
             victoryStage.initModality(Modality.APPLICATION_MODAL);
             victoryStage.initOwner(primaryStage);
             victoryStage.sizeToScene();
-            //victoryStage.setResizable(false);
+            victoryStage.setResizable(false);
             victoryStage.setTitle("Game Over!");
+            victoryStage.initStyle(StageStyle.UNDECORATED);
             victoryStage.setScene(gameScene);
             victoryStage.show();
+            musicPlayer.stop();
+            removeEventFilter();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-//        String dialogTitle = "Game Over!";
-//        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.previousLevelsMovesCountsProperty.get() + " moves!";
-//        MotionBlur motionBlur = new MotionBlur(2, 3);
-//
-//        DialogWindow messageWindow = new DialogWindow(Main.primaryStage, dialogTitle, dialogMessage, motionBlur);
-//        messageWindow.show();
     }
 
     /**
@@ -343,18 +331,29 @@ public class GamePageController {
 
 
     private void setEventFilter() {
-        //Scene testScene = primaryStage.getScene();
-        primaryStage.getScene().getWindow().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        movesFilter = event -> {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
-        });
+        };
+        primaryStage.getScene().getWindow().addEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
     }
 
 
-//    private EventHandler movesEvent(KeyEvent event) {
-//        gameEngine.handleKey(event.getCode());
-//        reloadGrid();
-//    }
+    /**
+     * remove the event filter set on this scene, before changing the scene
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 1:54
+     * @version:
+     **/
+
+
+    private void removeEventFilter() {
+        primaryStage.getScene().getWindow().removeEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
+    }
+
 
     /**
      * set a change listener to be notified automatically when the move count has changed
@@ -369,20 +368,10 @@ public class GamePageController {
 
     private void setMovesCountEventListener() {
         gameEngine.currentLevelMovesCountsProperty.addListener(
-                new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        currentMovesCount.setText(newValue.toString());
-                    }
-                }
+                (observableValue, oldValue, newValue) -> currentMovesCount.setText(newValue.toString())
         );
         gameEngine.previousLevelsMovesCountsProperty.addListener(
-                new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        previousMoves.setText(newValue.toString());
-                    }
-                }
+                (observableValue, oldValue, newValue) -> previousMoves.setText(newValue.toString())
         );
     }
 
@@ -409,7 +398,7 @@ public class GamePageController {
                 new ChangeListener<Number>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number oldWidth, Number newWidth) {
-                       gameGrid.layoutXProperty().setValue(BigDecimal.valueOf(PAGE_WIDTH.floatValue()/2).subtract(BigDecimal.valueOf(newWidth.floatValue()/2)));
+                        gameGrid.layoutXProperty().setValue(BigDecimal.valueOf(PAGE_WIDTH.floatValue() / 2).subtract(BigDecimal.valueOf(newWidth.floatValue() / 2)));
                     }
                 }
         );
@@ -418,7 +407,7 @@ public class GamePageController {
                 new ChangeListener<Number>() {
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number oldHeight, Number newHeight) {
-                        gameGrid.layoutYProperty().setValue(BigDecimal.valueOf(PAGE_HEIGHT.floatValue()/2).subtract(BigDecimal.valueOf(newHeight.floatValue()/2)));
+                        gameGrid.layoutYProperty().setValue(BigDecimal.valueOf(PAGE_HEIGHT.floatValue() / 2).subtract(BigDecimal.valueOf(newHeight.floatValue() / 2)));
                     }
                 }
         );
