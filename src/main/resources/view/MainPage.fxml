@@ -18,29 +18,34 @@
             <Font name="Calibri Bold" size="36.0" />
          </font>
       </Text>
-      <ImageView fx:id="startButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="350.0" onMouseClicked="#onStartClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="startButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="300.0" onMouseClicked="#onStartClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/start.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="loadNewGameButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="425.0" onMouseClicked="#onLoadNewGameClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loadNewGameButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="375.0" onMouseClicked="#onLoadNewGameClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/load_new_game.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="loadSavedGameButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="500.0" onMouseClicked="#onLoadSavedGameClick" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="loadSavedGameButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="450.0" onMouseClicked="#onLoadSavedGameClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/load_saved_game.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="exitButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="650.0" onMouseClicked="#onExitClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="exitButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="675.0" onMouseClicked="#onExitClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/exit.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="aboutButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="575.0" onMouseClicked="#onAboutClicked" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="aboutButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="600.0" onMouseClicked="#onAboutClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/about.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="highMarkBoardButton" fitHeight="40.0" fitWidth="180.0" layoutX="660.0" layoutY="525.0" onMouseClicked="#onHighMarkBoardClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/mark_board.png" />
          </image>
       </ImageView>
    </children>

@@ -10,13 +10,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.MarkBoardController">
+<AnchorPane fx:id="pagePane" maxHeight="750.0" maxWidth="1000.0" minHeight="750.0" minWidth="1000.0" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ae2dms.controller.MarkBoardController">
    <children>
       <ImageView fitHeight="750.0" fitWidth="1000.0" pickOnBounds="true">
          <image>
             <Image url="@../images/game_background.png" />
          </image>
       </ImageView>
+      <Text fx:id="noRecordPrompt" fill="#ff1a1a" layoutX="450.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Record" textAlignment="CENTER" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
       <ImageView layoutX="-21.0" pickOnBounds="true">
          <image>
             <Image url="@../images/mark_board_hander.png" />
@@ -54,6 +59,6 @@
             <Image url="@../images/navigation_icon.png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="mapSelectionComboBox" editable="true" layoutX="50.0" layoutY="75.0" opacity="0.8" prefHeight="30.0" prefWidth="250.0" promptText="Select A Map" visibleRowCount="20" />
+      <ComboBox fx:id="mapSelectionComboBox" layoutX="50.0" layoutY="75.0" opacity="0.8" prefHeight="30.0" prefWidth="250.0" promptText="Select A Map" visibleRowCount="20" />
    </children>
 </AnchorPane>
