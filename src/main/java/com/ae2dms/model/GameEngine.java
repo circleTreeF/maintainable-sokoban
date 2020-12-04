@@ -382,17 +382,22 @@ public class GameEngine implements Serializable {
         previousLevelsMovesCountsProperty.set(newPreviousMovesCount);
     }
 
-    
-    /** 
-    * //TODO
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/12/5 4:10
+
+    /**
+     * when the game object in the input specified location {@code int column, int row} is at the keeper position, print prompt message;
+     * <p>If the current user has any available bomb specified by the value of {@code bombCountProperty.get(), set the clicked position to floor, {@code GameObject.FLOOR}</p>
+     * <p>Otherwise, do nothing.
+     *
      * @param column
-     * @param row 
-    * @return void
-    * @version:
-    **/
-    
+     *         the index of column of {@code gameGrid}
+     * @param row
+     *         the index of row of {@code gameGrid}
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 4:10
+     * @version:
+     **/
+
 
     public void wallBomb(int column, int row) {
         if (column == currentLevel.getKeeperPosition().y && row == currentLevel.getKeeperPosition().x) {
@@ -404,6 +409,19 @@ public class GameEngine implements Serializable {
             bombCountProperty.set(bombCountProperty.get() - 1);
         }
     }
+
+    /**
+     * set the location of keeper in {@code currentLevel}, and set the old and new game object in the {@code currentLevel.objectsGrid} to the updated value.
+     *
+     * @param column
+     *         the index of column of {@code gameGrid}
+     * @param row
+     *         the index of row of {@code gameGrid}
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 4:15
+     * @version:
+     **/
 
 
     public void keeperTransport(int column, int row) {
