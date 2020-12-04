@@ -28,6 +28,8 @@ public class GameEngine implements Serializable {
     private int savedCurrentMovesCount;
     public transient IntegerProperty previousLevelsMovesCountsProperty;
     private int savedPreviousMovesCount;
+    public transient IntegerProperty bombCountProperty;
+    private int savedBombCount;
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
@@ -35,8 +37,6 @@ public class GameEngine implements Serializable {
     private IteratorInterface iterator;
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
-    public transient IntegerProperty bombCountProperty;
-    private int savedBombCount;
 
     /**
      * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
@@ -281,6 +281,7 @@ public class GameEngine implements Serializable {
         //TODO: store movesCount, map, movementTracker
         savedCurrentMovesCount = currentLevelMovesCountsProperty.get();
         savedPreviousMovesCount = previousLevelsMovesCountsProperty.get();
+        savedBombCount = bombCountProperty.get();
         FileOutputStream fileOut = new FileOutputStream(savedLocation);
         ObjectOutputStream out = new ObjectOutputStream(fileOut);
         out.writeObject(this);
