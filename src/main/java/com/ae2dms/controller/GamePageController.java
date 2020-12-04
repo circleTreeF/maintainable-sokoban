@@ -9,22 +9,25 @@ import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.effect.MotionBlur;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 import static com.ae2dms.Main.gameEngine;
 import static com.ae2dms.Main.primaryStage;
@@ -35,11 +38,13 @@ import static com.ae2dms.Main.primaryStage;
  * Package: com.ae2dms.controller
  *
  * @className: MenuBarController
- * @description: This class includes controller for the GamePage.fxml, which is the page of playing this game
+ * @description: This class includes controller for the {@code GamePage.fxml}, which is the page of playing this game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/14 22:57
  */
 public class GamePageController {
+    private final Number PAGE_WIDTH = 1000;
+    private final Number PAGE_HEIGHT = 750;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -47,11 +52,13 @@ public class GamePageController {
     @FXML
     Text previousMoves;
     MusicPlayer musicPlayer;
+    private EventHandler<KeyEvent> movesFilter;
 
     /**
+     * initialize the game page element, gameGrid. Display the initial level of the map to the game page
+     *
      * @param
      * @return void
-     * @description: initialize the game page element, gameGrid. Display the initial level of the map to the game page
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 13:23
      * @version: 1.0.0
@@ -64,6 +71,7 @@ public class GamePageController {
         setMovesCountEventListener();
         initializeGameStateBrief();
         musicPlayer = new MusicPlayer(defaultMusic);
+        centerGameGrid();
         reloadGrid();
     }
 
@@ -83,7 +91,6 @@ public class GamePageController {
         File savedLocation = fileOperator.selectSaveGamePath(Main.primaryStage);
         gameEngine.saveGame(savedLocation);
     }
-
 
 
     /**
@@ -195,8 +202,6 @@ public class GamePageController {
     /**
      * Back to the main starting page from the game page
      *
-     * @param actionEvent
-     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/2 15:33
@@ -204,18 +209,11 @@ public class GamePageController {
      **/
 
 
-    public void backToMain(ActionEvent actionEvent) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/view/MainPage.fxml"));
-            primaryStage.setScene(new Scene(root));
-            primaryStage.show();
-            musicPlayer.stop();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void backToMain() {
+        BackToMain.back();
+        musicPlayer.stop();
+        removeEventFilter();
     }
-
 
 
     //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
@@ -255,7 +253,11 @@ public class GamePageController {
         while (levelIterator.hasNext()) {
             addObjectToGrid(levelIterator.next(), levelIterator.getCurrentPosition());
         }
-        gameGrid.autosize();
+        //gameGrid.setAlignment(Pos.CENTER);
+        //gameGrid.setLayoutX((1000-gameGrid.getWidth())/2);
+        //gameGrid.setLayoutY((750-gameGrid.getHeight())/2);
+        //gameGrid.autosize();
+        //centerGameGrid();
         Main.primaryStage.sizeToScene();
     }
 
@@ -289,13 +291,26 @@ public class GamePageController {
      **/
 
 
-    private static void showVictoryMessage() {
-        String dialogTitle = "Game Over!";
-        String dialogMessage = "You completed " + gameEngine.mapSetName + " in " + gameEngine.previousLevelsMovesCountsProperty.get() + " moves!";
-        MotionBlur motionBlur = new MotionBlur(2, 3);
-
-        DialogWindow messageWindow = new DialogWindow(Main.primaryStage, dialogTitle, dialogMessage, motionBlur);
-        messageWindow.show();
+    private void showVictoryMessage() {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/MarkLogWindow.fxml"));
+        Parent page;
+        try {
+            page = loader.load();
+            Scene gameScene = new Scene(page, 400, 300);
+            Stage victoryStage = new Stage();
+            victoryStage.initModality(Modality.APPLICATION_MODAL);
+            victoryStage.initOwner(primaryStage);
+            victoryStage.sizeToScene();
+            victoryStage.setResizable(false);
+            victoryStage.setTitle("Game Over!");
+            victoryStage.initStyle(StageStyle.UNDECORATED);
+            victoryStage.setScene(gameScene);
+            victoryStage.show();
+            musicPlayer.stop();
+            removeEventFilter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -309,10 +324,27 @@ public class GamePageController {
 
 
     private void setEventFilter() {
-        Main.primaryStage.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        movesFilter = event -> {
             gameEngine.handleKey(event.getCode());
             reloadGrid();
-        });
+        };
+        primaryStage.getScene().getWindow().addEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
+    }
+
+
+    /**
+     * remove the event filter set on this scene, before changing the scene
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 1:54
+     * @version:
+     **/
+
+
+    private void removeEventFilter() {
+        primaryStage.getScene().getWindow().removeEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
     }
 
 
@@ -329,20 +361,10 @@ public class GamePageController {
 
     private void setMovesCountEventListener() {
         gameEngine.currentLevelMovesCountsProperty.addListener(
-                new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        currentMovesCount.setText(newValue.toString());
-                    }
-                }
+                (observableValue, oldValue, newValue) -> currentMovesCount.setText(newValue.toString())
         );
         gameEngine.previousLevelsMovesCountsProperty.addListener(
-                new ChangeListener<>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
-                        previousMoves.setText(newValue.toString());
-                    }
-                }
+                (observableValue, oldValue, newValue) -> previousMoves.setText(newValue.toString())
         );
     }
 
@@ -361,6 +383,27 @@ public class GamePageController {
     private void initializeGameStateBrief() {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
+    }
+
+
+    private void centerGameGrid() {
+        gameGrid.widthProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldWidth, Number newWidth) {
+                        gameGrid.layoutXProperty().setValue(BigDecimal.valueOf(PAGE_WIDTH.floatValue() / 2).subtract(BigDecimal.valueOf(newWidth.floatValue() / 2)));
+                    }
+                }
+        );
+
+        gameGrid.heightProperty().addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number oldHeight, Number newHeight) {
+                        gameGrid.layoutYProperty().setValue(BigDecimal.valueOf(PAGE_HEIGHT.floatValue() / 2).subtract(BigDecimal.valueOf(newHeight.floatValue() / 2)));
+                    }
+                }
+        );
     }
 
 

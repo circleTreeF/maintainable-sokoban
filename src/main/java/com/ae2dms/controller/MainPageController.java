@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 import java.io.*;
 
@@ -26,18 +25,22 @@ import static com.ae2dms.Main.primaryStage;
 public class MainPageController {
     public ImageView startButton;
     public ImageView aboutButton;
+    public ImageView highMarkBoardButton;
+    public ImageView loadNewGameButton;
+    public ImageView loadSavedGameButton;
+    public ImageView exitButton;
+
 
     /**
-     * @param mouseEvent
-     *         the mouse event of the user
      * @return void
      * @description start game when the start button is clicked
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/9 22:14
+     * @version: 1.0.0
      **/
 
 
-    public void onStartClicked(MouseEvent mouseEvent) {
+    public void onStartClicked() {
         loadDefaultSaveFile();
         loadGamePage();
 
@@ -47,16 +50,14 @@ public class MainPageController {
     /**
      * Start the new game selected by the user from the file chooser
      *
-     * @param mouseEvent
-     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:14
-     * @version:
+     * @version: 1.0.0
      **/
 
 
-    public void onLoadNewGameClicked(MouseEvent mouseEvent) {
+    public void onLoadNewGameClicked() {
         loadGame();
         loadGamePage();
     }
@@ -64,16 +65,14 @@ public class MainPageController {
     /**
      * Resume the saved game selected by the user from the file chooser
      *
-     * @param mouseEvent
-     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:15
-     * @version:
+     * @version: 1.0.0
      **/
 
 
-    public void onLoadSavedGameClick(MouseEvent mouseEvent) {
+    public void onLoadSavedGameClick() {
         loadSavedGame();
         loadGamePage();
     }
@@ -81,37 +80,65 @@ public class MainPageController {
     /**
      * Exit the game
      *
-     * @param mouseEvent
-     *         the mouse event of the user
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/1 15:16
-     * @version:
+     * @version: 1.0.0
      **/
 
 
-    public void onExitClicked(MouseEvent mouseEvent) {
+    public void onExitClicked() {
         System.exit(0);
     }
 
 
     /**
-     * @param mouseEvent
-     *         the mouse event of the user
      * @return void
      * @description new dialog for about information
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/9 22:15
+     * @version: 1.0.0
      **/
 
 
-    public void onAboutClicked(MouseEvent mouseEvent) {
+    public void onAboutClicked() {
         String title = "About this game";
         String message = "Game created by Yizirui FANG 20127901\n";
 
         DialogWindow aboutWindow = new DialogWindow(primaryStage, title, message, null);
         aboutWindow.show();
     }
+
+    /**
+     * load the highest mark board view page after the button, "High Mark Board", is clicked.
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 0:53
+     * @version: 1.0.0
+     **/
+
+
+    public void onHighMarkBoardClicked() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/MarkBoard.fxml"));
+            Parent page = loader.load();
+            primaryStage.setScene(new Scene(page, 1000, 750));
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * load the game playing page with the user specified map
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 0:53
+     * @version: 1.0.0
+     **/
 
 
     private void loadGamePage() {
@@ -123,7 +150,6 @@ public class MainPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -156,11 +182,12 @@ public class MainPageController {
         gameEngine = new GameEngine(inputGameFile, true);
     }
 
+
     /**
-     * @param
-     * @return void
-     * @description: load the game file
+     * try to load the game file
      * extracted from Main.loadGame()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:13
      * @version: 1.0.0
@@ -175,16 +202,18 @@ public class MainPageController {
         }
     }
 
+
     /**
-     * @param
-     * @return void
-     * @throw FileNotFoundException
-     * @description: load the user defined map file
+     * load the user defined map file in the file chooser
      * extracted from Main.loadGameFile()
+     *
+     * @return void
+     * @throws FileNotFoundException
+     *         Signals that an attempt to open the file denoted by a specified pathname has failed.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:14
      * @version: 1.0.0
-     **/
+     */
 
 
     private void loadGameFile() throws FileNotFoundException {
@@ -197,6 +226,15 @@ public class MainPageController {
         }
     }
 
+    /**
+     * load the saved game map file specified by the user in the file chooser, in format {@code .skbSaved}
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/4 0:58
+     * @version: 1.0.0
+     **/
+
 
     private void loadSavedGame() {
         FileOperator fileOperator = new FileOperator();
@@ -207,13 +245,8 @@ public class MainPageController {
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
             gameEngine = (GameEngine) inputStream.readObject();
             inputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }

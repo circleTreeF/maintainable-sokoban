@@ -17,12 +17,12 @@ import java.util.List;
  * @date: 2020/11/23 22:18
  */
 
-public class Map implements ContainerInterface{
+public class GameMap implements ContainerInterface{
     private transient GameLoggerSingleton logger;
     public String mapSetName;
     private final List<Level> levels;
 
-    public Map(InputStream inputGameFile) {
+    public GameMap(InputStream inputGameFile) {
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
         } catch (IOException e) {
