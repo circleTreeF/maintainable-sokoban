@@ -9,11 +9,13 @@ import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -49,6 +51,7 @@ public class GamePageController {
     private final double GRID_LENGTH = 30.0d;
     @FXML
     public Text bombCount;
+    public MenuItem loadMusicButton;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -77,7 +80,7 @@ public class GamePageController {
         setMovesCountEventListener();
         initializeGameStateBrief();
         useBombEventHandler();
-        musicPlayer = new MusicPlayer(defaultMusic);
+        musicPlayer = new MusicPlayer();
         centerGameGrid();
         reloadGrid();
     }
@@ -445,5 +448,16 @@ public class GamePageController {
     }
 
 
+    public void onLoadMusicButtonClicked(ActionEvent actionEvent) {
+        FileOperator fileOperator = new FileOperator();
+        File musicFile = fileOperator.selectMusic(Main.primaryStage);
+        try {
+            musicPlayer = new MusicPlayer(musicFile);
+        }catch (NullPointerException nullPointerException){
+            nullPointerException.printStackTrace();
+            System.out.println("Select nothing!");
+        }
+        musicPlayer.stop();
+    }
 }
 

@@ -41,7 +41,6 @@
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
                   <RadioMenuItem mnemonicParsing="false" onAction="#toggleDebug" text="Toggle Debug" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#resetLevel" text="Reset Level">
@@ -51,6 +50,12 @@
                   </MenuItem>
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Music">
+              <items>
+                  <RadioMenuItem mnemonicParsing="false" onAction="#toggleMusic" selected="true" text="Toggle Music" />
+                <MenuItem fx:id="loadMusicButton" mnemonicParsing="false" onAction="#onLoadMusicButtonClicked" text="Load Music" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="About">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About This Game" />
