@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -83,12 +84,15 @@ public class MarkBoardController {
      **/
 
     private void readMarks() throws IOException {
-        Type reviewType = new TypeToken<List<MarkKeeper>>() {
-        }.getType();
-        Gson gson = new Gson();
-        FileReader fileReader = new FileReader(String.valueOf(getClass().getClassLoader().getResource("rank/ranking.json").getFile()));
-        markKeepers = gson.fromJson(fileReader, reviewType);
-        fileReader.close();
+        File record = new File(System.getProperty("user.dir") + "/rank/ranking.json");
+        if (record.exists()){
+            FileReader fileReader = new FileReader(record);
+            Type reviewType = new TypeToken<List<MarkKeeper>>() {
+            }.getType();
+            Gson gson = new Gson();
+            markKeepers = gson.fromJson(fileReader, reviewType);
+            fileReader.close();
+        }
     }
 
 
