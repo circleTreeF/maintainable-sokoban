@@ -3,6 +3,7 @@ package com.ae2dms.controller;
 import com.ae2dms.model.GameEngine;
 
 import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
 
 
@@ -26,25 +27,56 @@ public class MusicPlayer {
     Status status;
 
     AudioInputStream audioInputStream;
-    String fileName;
+    File musicFile;
 
     /**
      * constructor
      * <p>
      * Set the audio stream for the specified music file and play the music
      *
-     * @param fileName
-     *         the specified music file need to be played as the background music
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:02
      * @version: 1.0.0
      **/
 
 
-    public MusicPlayer(String fileName) {
-        this.fileName = fileName;
+    public MusicPlayer() {
         try {
-            audioInputStream = AudioSystem.getAudioInputStream(MusicPlayer.class.getClassLoader().getResource("music/" + fileName));
+
+            audioInputStream = AudioSystem.getAudioInputStream(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
+            System.out.println(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
+            musicFile = new File(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").toString());
+            System.out.println(musicFile);
+            // create clip reference
+            clip = AudioSystem.getClip();
+
+            // open audioInputStream to the clip
+            clip.open(audioInputStream);
+
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            status = Status.PLAY;
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+            if (GameEngine.isDebugActive()) {
+                System.out.println(e);
+            }
+        }
+    }
+
+
+    /**
+     * Construct the music playing the music file speficied by the input {@code musicFile}
+     *
+     * @param musicFile
+     *         the specified music file need to be played as the background music
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:55
+     * @version:
+     **/
+
+    public MusicPlayer(File musicFile) {
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(musicFile);
             // create clip reference
             clip = AudioSystem.getClip();
 
@@ -159,7 +191,7 @@ public class MusicPlayer {
 
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
             LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(MusicPlayer.class.getClassLoader().getResource("music/" + fileName));
+        audioInputStream = AudioSystem.getAudioInputStream(musicFile);
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
