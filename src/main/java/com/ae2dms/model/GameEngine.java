@@ -382,6 +382,17 @@ public class GameEngine implements Serializable {
         previousLevelsMovesCountsProperty.set(newPreviousMovesCount);
     }
 
+    
+    /** 
+    * //TODO
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/12/5 4:10
+     * @param column
+     * @param row 
+    * @return void
+    * @version:
+    **/
+    
 
     public void wallBomb(int column, int row) {
         if (column == currentLevel.getKeeperPosition().y && row == currentLevel.getKeeperPosition().x) {
@@ -392,5 +403,12 @@ public class GameEngine implements Serializable {
             currentLevel.objectsGrid.putGameObjectAt(GameObject.FLOOR, row, column);
             bombCountProperty.set(bombCountProperty.get() - 1);
         }
+    }
+
+
+    public void keeperTransport(int column, int row) {
+        currentLevel.objectsGrid.putGameObjectAt(GameObject.FLOOR, currentLevel.getKeeperPosition());
+        currentLevel.getKeeperPosition().setLocation(row, column);
+        currentLevel.objectsGrid.putGameObjectAt(GameObject.KEEPER, row, column);
     }
 }
