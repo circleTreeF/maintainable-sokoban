@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -45,6 +46,8 @@ import static com.ae2dms.Main.primaryStage;
 public class GamePageController {
     private final Number PAGE_WIDTH = 1000;
     private final Number PAGE_HEIGHT = 750;
+    private final double GRID_LENGTH = 30.0d;
+    public Text bombCount;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -53,6 +56,7 @@ public class GamePageController {
     Text previousMoves;
     MusicPlayer musicPlayer;
     private EventHandler<KeyEvent> movesFilter;
+    private EventHandler bombHandler;
 
     /**
      * initialize the game page element, gameGrid. Display the initial level of the map to the game page
@@ -68,8 +72,10 @@ public class GamePageController {
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
         setEventFilter();
+        setBombCountListen();
         setMovesCountEventListener();
         initializeGameStateBrief();
+        useBombEventHandler();
         musicPlayer = new MusicPlayer(defaultMusic);
         centerGameGrid();
         reloadGrid();
@@ -345,6 +351,7 @@ public class GamePageController {
 
     private void removeEventFilter() {
         primaryStage.getScene().getWindow().removeEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
+        gameGrid.removeEventFilter(MouseEvent.MOUSE_CLICKED, bombHandler);
     }
 
 
@@ -383,6 +390,7 @@ public class GamePageController {
     private void initializeGameStateBrief() {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
+        bombCount.setText(String.valueOf(gameEngine.bombCountProperty.get()));
     }
 
 
@@ -404,6 +412,44 @@ public class GamePageController {
                     }
                 }
         );
+    }
+
+
+    private void setBombCountListen(){
+        gameEngine.bombCountProperty.addListener(
+                new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number newNumber) {
+                        bombCount.textProperty().setValue(String.valueOf(newNumber));
+                    }
+                }
+        );
+    }
+
+
+    private void useBombEventHandler() {
+        bombHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
+                destroyWall(mouseEvent.getX(), mouseEvent.getY());
+            }
+        };
+        gameGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, bombHandler);
+    }
+
+
+    private void destroyWall(double x, double y){
+        int column = (int) Math.floor(x/GRID_LENGTH);
+        int row= (int) Math.floor(y/GRID_LENGTH);
+        System.out.println(column+"  "+row);
+        Level currentLevel = gameEngine.getCurrentLevel();
+        System.out.println(currentLevel.objectsGrid.getGameObjectAt(row, column));
+        if (currentLevel.objectsGrid.getGameObjectAt(row, column)==GameObject.WALL){
+            gameEngine.wallBomb(column, row);
+            reloadGrid();
+        }
+
     }
 
 

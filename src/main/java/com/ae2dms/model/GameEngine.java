@@ -24,7 +24,6 @@ public class GameEngine implements Serializable {
     private static final long serialVersionUID = 101L;
     public static final String GAME_NAME = "SokobanFX";
     private transient GameLoggerSingleton logger;
-    //FIXME: should movesCount be statics or final?
     public transient IntegerProperty currentLevelMovesCountsProperty;
     private int savedCurrentMovesCount;
     public transient IntegerProperty previousLevelsMovesCountsProperty;
@@ -32,10 +31,12 @@ public class GameEngine implements Serializable {
     public String mapSetName;
     private static boolean debug = false;
     private Level currentLevel;
-    public Map map;
+    public GameMap gameMap;
     private IteratorInterface iterator;
     private boolean gameComplete = false;
     private MovementTracker movementTracker;
+    public transient IntegerProperty bombCountProperty;
+    private int savedBombCount;
 
     /**
      * initialize the instance of this class when deserializing. Assign default value to those field variables declared as transient
@@ -58,6 +59,7 @@ public class GameEngine implements Serializable {
         logger = GameLoggerSingleton.getGameLoggerSingleton();
         currentLevelMovesCountsProperty = new SimpleIntegerProperty(savedCurrentMovesCount);
         previousLevelsMovesCountsProperty = new SimpleIntegerProperty(savedPreviousMovesCount);
+        bombCountProperty = new SimpleIntegerProperty(savedBombCount);
     }
 
 
@@ -76,14 +78,14 @@ public class GameEngine implements Serializable {
     public GameEngine(InputStream inputGameFile, boolean production) {
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
-            map = new Map(inputGameFile);
-            iterator = map.getIterator();
-            mapSetName = map.mapSetName;
+            gameMap = new GameMap(inputGameFile);
+            iterator = gameMap.getIterator();
+            mapSetName = gameMap.mapSetName;
             currentLevelMovesCountsProperty = new SimpleIntegerProperty(0);
             previousLevelsMovesCountsProperty = new SimpleIntegerProperty(0);
-            currentLevel = getNextLevel();
             movementTracker = new MovementTracker();
-
+            currentLevel = getNextLevel();
+            bombCountProperty = new SimpleIntegerProperty(2);
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
@@ -253,7 +255,10 @@ public class GameEngine implements Serializable {
      **/
 
     public void resetCurrentLevel() {
-        currentLevel = movementTracker.resetTrack();
+        Level initialLevel = movementTracker.resetTrack();
+        if (initialLevel != null) {
+            currentLevel = initialLevel;
+        }
         currentLevelMovesCountsProperty.setValue(0);
     }
 
@@ -307,13 +312,13 @@ public class GameEngine implements Serializable {
      * @version: 1.0.0
      **/
 
-    //FIXME: the second level would be missed
     public Level getNextLevel() {
 
         //TODO: refactor the position of assigning variable $gameComplete$ in this class
         if (!iterator.hasNext()) {
             gameComplete = true;
         }
+        movementTracker.resetTrack();
         updatePreviousLevelsMovesCount();
         currentLevelMovesCountsProperty.set(0);
         return (Level) iterator.next();
@@ -377,4 +382,14 @@ public class GameEngine implements Serializable {
     }
 
 
+    public void wallBomb(int column, int row) {
+        if (column == currentLevel.getKeeperPosition().y && row == currentLevel.getKeeperPosition().x) {
+            System.out.println("This is keeper");
+            return;
+        }
+        if (bombCountProperty.get() > 0) {
+            currentLevel.objectsGrid.putGameObjectAt(GameObject.FLOOR, row, column);
+            bombCountProperty.set(bombCountProperty.get() - 1);
+        }
+    }
 }
