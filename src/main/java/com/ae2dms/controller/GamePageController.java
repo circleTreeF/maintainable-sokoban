@@ -9,7 +9,6 @@ import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,7 +78,7 @@ public class GamePageController {
         setBombCountListen();
         setMovesCountEventListener();
         initializeGameStateBrief();
-        useBombEventHandler();
+        gameGridClickEventListener();
         musicPlayer = new MusicPlayer();
         centerGameGrid();
         reloadGrid();
@@ -417,12 +416,34 @@ public class GamePageController {
     }
 
 
-    private void setBombCountListen(){
+    /**
+     * This method is to bind the text element for presenting the number of available bombs in the game information brief
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:42
+     * @version:
+     **/
+
+
+    private void setBombCountListen() {
         bombCount.textProperty().bind(gameEngine.bombCountProperty.asString());
     }
 
 
-    private void useBombEventHandler() {
+    /**
+     * This method is to set the event listener on the mouse clicking event for the view element {@code gameGrid}
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:44
+     * @version:
+     **/
+
+
+    private void gameGridClickEventListener() {
         bombHandler = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -434,13 +455,27 @@ public class GamePageController {
     }
 
 
-    private void destroyWall(double x, double y){
-        int column = (int) Math.floor(x/GRID_LENGTH);
-        int row= (int) Math.floor(y/GRID_LENGTH);
-        System.out.println(column+"  "+row);
+    /**
+     * destory the wall specified by the horizontal position {@code x} and the vertical position {@code y}
+     *
+     * @param x
+     *         the horizontal x position of the event relative to the source component.
+     * @param y
+     *         the vertical y position of the event relative to the source component.
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:45
+     * @version:
+     **/
+
+
+    private void destroyWall(double x, double y) {
+        int column = (int) Math.floor(x / GRID_LENGTH);
+        int row = (int) Math.floor(y / GRID_LENGTH);
+        System.out.println(column + "  " + row);
         Level currentLevel = gameEngine.getCurrentLevel();
         System.out.println(currentLevel.objectsGrid.getGameObjectAt(row, column));
-        if (currentLevel.objectsGrid.getGameObjectAt(row, column)==GameObject.WALL){
+        if (currentLevel.objectsGrid.getGameObjectAt(row, column) == GameObject.WALL) {
             gameEngine.wallBomb(column, row);
             reloadGrid();
         }
@@ -448,12 +483,22 @@ public class GamePageController {
     }
 
 
-    public void onLoadMusicButtonClicked(ActionEvent actionEvent) {
+    /**
+     * This method is the action on the button clicked for {@code Load Music} to load the user-specified file in the file chooser
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:47
+     * @version:
+     **/
+
+
+    public void onLoadMusicButtonClicked() {
         FileOperator fileOperator = new FileOperator();
         File musicFile = fileOperator.selectMusic(Main.primaryStage);
         try {
             musicPlayer = new MusicPlayer(musicFile);
-        }catch (NullPointerException nullPointerException){
+        } catch (NullPointerException nullPointerException) {
             nullPointerException.printStackTrace();
             System.out.println("Select nothing!");
         }
