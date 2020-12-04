@@ -47,6 +47,7 @@ public class GamePageController {
     private final Number PAGE_WIDTH = 1000;
     private final Number PAGE_HEIGHT = 750;
     private final double GRID_LENGTH = 30.0d;
+    @FXML
     public Text bombCount;
     @FXML
     private GridPane gameGrid;
@@ -56,7 +57,7 @@ public class GamePageController {
     Text previousMoves;
     MusicPlayer musicPlayer;
     private EventHandler<KeyEvent> movesFilter;
-    private EventHandler bombHandler;
+    private EventHandler<MouseEvent> bombHandler;
 
     /**
      * initialize the game page element, gameGrid. Display the initial level of the map to the game page
@@ -125,7 +126,6 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    //TODO: this feature is not implemented yet
     public void undo() {
         gameEngine.undo();
         reloadGrid();
@@ -179,7 +179,6 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    //TODO: reset this level to the initial scene
     public void resetLevel() {
         gameEngine.resetCurrentLevel();
         reloadGrid();
@@ -390,7 +389,7 @@ public class GamePageController {
     private void initializeGameStateBrief() {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
-        bombCount.setText(String.valueOf(gameEngine.bombCountProperty.get()));
+        //bombCount.setText(String.valueOf(gameEngine.bombCountProperty.get()));
     }
 
 
@@ -416,14 +415,7 @@ public class GamePageController {
 
 
     private void setBombCountListen(){
-        gameEngine.bombCountProperty.addListener(
-                new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number number, Number newNumber) {
-                        bombCount.textProperty().setValue(String.valueOf(newNumber));
-                    }
-                }
-        );
+        bombCount.textProperty().bind(gameEngine.bombCountProperty.asString());
     }
 
 
