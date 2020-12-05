@@ -39,7 +39,6 @@ public class MarkLogWindowController {
     /**
      * initialize the game completion page or the mark log page. Present the completed map name, the moves count to complete this map, and text field to prompt user to enter a user name
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 0:44
@@ -72,19 +71,31 @@ public class MarkLogWindowController {
         }.getType();
         Gson gson = new Gson();
         File recordsDir = new File(System.getProperty("user.dir") + "/rank");
-        recordsDir.mkdirs();
-        File records = new File(recordsDir+"/"+"ranking.json");
-        if (!records.exists()){
-            records.createNewFile();
+        boolean isCreated = recordsDir.mkdirs();
+        if (!isCreated) {
+            throw new IOException();
         }
-        FileReader fileReader = new FileReader(recordsDir+"/"+"ranking.json");
+        ;
+        File records = new File(recordsDir + "/ranking.json");
+        if (!records.exists()) {
+            boolean isCreate = records.createNewFile();
+            if (GameEngine.isDebugActive()) {
+                if (isCreate) {
+                    System.out.println("Create the ranking record file");
+                } else {
+                    System.out.println("The ranking record file already exits");
+                }
+            }
+        }
+
+        FileReader fileReader = new FileReader(recordsDir + "/" + "ranking.json");
         ArrayList<MarkKeeper> markKeeper = gson.fromJson(fileReader, REVIEW_TYPE);
         fileReader.close();
         if (markKeeper == null) {
-            markKeeper = new ArrayList<MarkKeeper>();
+            markKeeper = new ArrayList<>();
         }
         markKeeper.add(new MarkKeeper(mapName, userName, movesCount));
-        FileWriter fileWriter = new FileWriter(recordsDir+"/ranking.json");
+        FileWriter fileWriter = new FileWriter(recordsDir + "/ranking.json");
         gson.toJson(markKeeper, fileWriter);
         fileWriter.close();
         Stage currentStage = (Stage) saveAndBack.getScene().getWindow();

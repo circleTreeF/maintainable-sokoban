@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 
 import java.awt.*;
 import java.io.*;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
@@ -68,14 +69,13 @@ public class GameEngine implements Serializable {
      *
      * @param inputGameFile
      *         the input game file about the game map
-     * @param production
      * @description: the constructor would load the game map file name stored in inputGameFile
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
      **/
 
-    public GameEngine(InputStream inputGameFile, boolean production) {
+    public GameEngine(InputStream inputGameFile) {
         try {
             logger = GameLoggerSingleton.getGameLoggerSingleton();
             gameMap = new GameMap(inputGameFile);
@@ -89,12 +89,11 @@ public class GameEngine implements Serializable {
         } catch (IOException x) {
             System.out.println("Cannot create logger.");
         } catch (NoSuchElementException e) {
-            logger.warning("Cannot load the default save file: " + e.getStackTrace());
+            logger.warning("Cannot load the default save file: " + Arrays.toString(e.getStackTrace()));
         }
     }
 
     /**
-     * @param
      * @return boolean
      * @description: check if the game is in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -231,7 +230,6 @@ public class GameEngine implements Serializable {
     /**
      * revoke the latest movement of user， the shortcut key for this function is ctrl + z set in GamePage.fxml
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 21:36
@@ -247,7 +245,6 @@ public class GameEngine implements Serializable {
     /**
      * reset the current level to the initial one, and reset the movesCount to 0
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/26 16:35
@@ -291,7 +288,6 @@ public class GameEngine implements Serializable {
 
 
     /**
-     * @param
      * @return boolean
      * @description: return boolean value of if the game is completed
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
