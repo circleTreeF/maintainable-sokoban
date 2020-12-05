@@ -450,8 +450,8 @@ public class GamePageController {
                 System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
                 int column = (int) Math.floor(mouseEvent.getX() / GRID_LENGTH);
                 int row = (int) Math.floor(mouseEvent.getY() / GRID_LENGTH);
-                destroyWall(column, row);
                 transportKeeper(column, row);
+                destroyWall(column, row);
             }
         };
         gameGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, bombHandler);
