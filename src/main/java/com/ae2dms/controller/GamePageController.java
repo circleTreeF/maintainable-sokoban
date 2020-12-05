@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -51,6 +52,8 @@ public class GamePageController {
     @FXML
     public Text bombCount;
     public MenuItem loadMusicButton;
+    public MenuItem restartButton;
+    public RadioMenuItem toggleMusicMenuItem;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -481,14 +484,17 @@ public class GamePageController {
     }
 
     /**
-    * transport the new location of the keeper by the new horizontal position {@code column} and vertical position {@code row}
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/12/5 4:19
-     * @param column the index of column of {@code gameGrid}
-     * @param row the index of row of {@code gameGrid}
-    * @return void
-    * @version:
-    **/
+     * transport the new location of the keeper by the new horizontal position {@code column} and vertical position {@code row}
+     *
+     * @param column
+     *         the index of column of {@code gameGrid}
+     * @param row
+     *         the index of row of {@code gameGrid}
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 4:19
+     * @version:
+     **/
 
 
     private void transportKeeper(int column, int row) {
@@ -506,20 +512,39 @@ public class GamePageController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:47
-     * @version:
+     * @version: 1.0.0
      **/
 
 
     public void onLoadMusicButtonClicked() {
         FileOperator fileOperator = new FileOperator();
         File musicFile = fileOperator.selectMusic(Main.primaryStage);
-        if (musicFile==null){
+        if (musicFile == null) {
             System.out.println("Select nothing!");
             throw new NullPointerException();
         }
         musicPlayer.stop();
         musicPlayer = new MusicPlayer(musicFile);
+    }
 
+
+    /**
+     * reload and rebase the current music broadcasting clip to the beginning of the music file. And select the radio item <b>Toggle Music</b>
+     * <p>This method will be called when the menu item <b>Restart Music</b> is clicked</p>
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 21:39
+     * @version: 1.0.0
+     **/
+
+    public void onRestartButtonClicked() {
+        try {
+            musicPlayer.restart();
+            toggleMusicMenuItem.setSelected(true);
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
     }
 }
 
