@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -70,14 +71,20 @@ public class MarkLogWindowController {
         Type REVIEW_TYPE = new TypeToken<List<MarkKeeper>>() {
         }.getType();
         Gson gson = new Gson();
-        FileReader fileReader = new FileReader(String.valueOf(getClass().getClassLoader().getResource("rank/ranking.json").getFile()));
+        File recordsDir = new File(System.getProperty("user.dir") + "/rank");
+        recordsDir.mkdirs();
+        File records = new File(recordsDir+"/"+"ranking.json");
+        if (!records.exists()){
+            records.createNewFile();
+        }
+        FileReader fileReader = new FileReader(recordsDir+"/"+"ranking.json");
         ArrayList<MarkKeeper> markKeeper = gson.fromJson(fileReader, REVIEW_TYPE);
         fileReader.close();
         if (markKeeper == null) {
             markKeeper = new ArrayList<MarkKeeper>();
         }
         markKeeper.add(new MarkKeeper(mapName, userName, movesCount));
-        FileWriter fileWriter = new FileWriter(String.valueOf(getClass().getClassLoader().getResource("rank/ranking.json").getFile()));
+        FileWriter fileWriter = new FileWriter(recordsDir+"/ranking.json");
         gson.toJson(markKeeper, fileWriter);
         fileWriter.close();
         Stage currentStage = (Stage) saveAndBack.getScene().getWindow();

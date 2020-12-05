@@ -14,7 +14,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -45,6 +47,10 @@ import static com.ae2dms.Main.primaryStage;
 public class GamePageController {
     private final Number PAGE_WIDTH = 1000;
     private final Number PAGE_HEIGHT = 750;
+    private final double GRID_LENGTH = 30.0d;
+    @FXML
+    public Text bombCount;
+    public MenuItem loadMusicButton;
     @FXML
     private GridPane gameGrid;
     @FXML
@@ -53,6 +59,7 @@ public class GamePageController {
     Text previousMoves;
     MusicPlayer musicPlayer;
     private EventHandler<KeyEvent> movesFilter;
+    private EventHandler<MouseEvent> bombHandler;
 
     /**
      * initialize the game page element, gameGrid. Display the initial level of the map to the game page
@@ -68,9 +75,11 @@ public class GamePageController {
     public void initialize() {
         String defaultMusic = "puzzle_theme.wav";
         setEventFilter();
+        setBombCountListen();
         setMovesCountEventListener();
         initializeGameStateBrief();
-        musicPlayer = new MusicPlayer(defaultMusic);
+        gameGridClickEventListener();
+        musicPlayer = new MusicPlayer();
         centerGameGrid();
         reloadGrid();
     }
@@ -119,7 +128,6 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    //TODO: this feature is not implemented yet
     public void undo() {
         gameEngine.undo();
         reloadGrid();
@@ -173,7 +181,6 @@ public class GamePageController {
      * @version: 1.0.0
      **/
 
-    //TODO: reset this level to the initial scene
     public void resetLevel() {
         gameEngine.resetCurrentLevel();
         reloadGrid();
@@ -345,6 +352,7 @@ public class GamePageController {
 
     private void removeEventFilter() {
         primaryStage.getScene().getWindow().removeEventFilter(KeyEvent.KEY_PRESSED, movesFilter);
+        gameGrid.removeEventFilter(MouseEvent.MOUSE_CLICKED, bombHandler);
     }
 
 
@@ -383,6 +391,7 @@ public class GamePageController {
     private void initializeGameStateBrief() {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
+        //bombCount.setText(String.valueOf(gameEngine.bombCountProperty.get()));
     }
 
 
@@ -407,5 +416,110 @@ public class GamePageController {
     }
 
 
+    /**
+     * This method is to bind the text element for presenting the number of available bombs in the game information brief
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:42
+     * @version:
+     **/
+
+
+    private void setBombCountListen() {
+        bombCount.textProperty().bind(gameEngine.bombCountProperty.asString());
+    }
+
+
+    /**
+     * This method is to set the event listener on the mouse clicking event for the view element {@code gameGrid}
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:44
+     * @version:
+     **/
+
+
+    private void gameGridClickEventListener() {
+        bombHandler = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
+                int column = (int) Math.floor(mouseEvent.getX() / GRID_LENGTH);
+                int row = (int) Math.floor(mouseEvent.getY() / GRID_LENGTH);
+                transportKeeper(column, row);
+                destroyWall(column, row);
+            }
+        };
+        gameGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, bombHandler);
+    }
+
+
+    /**
+     * destroy the wall specified by the horizontal position {@code column} and the vertical position {@code row}
+     *
+     * @param column
+     *         the index of column of {@code gameGrid}
+     * @param row
+     *         the index of row of {@code gameGrid}
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:45
+     * @version:
+     **/
+
+
+    private void destroyWall(int column, int row) {
+        Level currentLevel = gameEngine.getCurrentLevel();
+        if (currentLevel.objectsGrid.getGameObjectAt(row, column) == GameObject.WALL) {
+            gameEngine.wallBomb(column, row);
+            reloadGrid();
+        }
+    }
+
+    /**
+    * transport the new location of the keeper by the new horizontal position {@code column} and vertical position {@code row}
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/12/5 4:19
+     * @param column the index of column of {@code gameGrid}
+     * @param row the index of row of {@code gameGrid}
+    * @return void
+    * @version:
+    **/
+
+
+    private void transportKeeper(int column, int row) {
+        Level currentLevel = gameEngine.getCurrentLevel();
+        if (currentLevel.objectsGrid.getGameObjectAt(row, column) == GameObject.FLOOR) {
+            gameEngine.keeperTransport(column, row);
+            reloadGrid();
+        }
+    }
+
+
+    /**
+     * This method is the action on the button clicked for {@code Load Music} to load the user-specified file in the file chooser
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 2:47
+     * @version:
+     **/
+
+
+    public void onLoadMusicButtonClicked() {
+        FileOperator fileOperator = new FileOperator();
+        File musicFile = fileOperator.selectMusic(Main.primaryStage);
+        if (musicFile==null){
+            System.out.println("Select nothing!");
+            throw new NullPointerException();
+        }
+        musicPlayer.stop();
+        musicPlayer = new MusicPlayer(musicFile);
+
+    }
 }
 
