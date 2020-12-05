@@ -75,11 +75,11 @@ class GamePageControllerTest {
     @Test
     void setMovesCountEventListener() {
         InputStream inputStream = GamePageControllerTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
-        GameEngine gameEngine = new GameEngine(inputStream, true);
+        GameEngine gameEngine = new GameEngine(inputStream);
         gameEngine.handleKey(KeyCode.LEFT);
         gameEngine.handleKey(KeyCode.UP);
         gameEngine.handleKey(KeyCode.RIGHT);
         gameEngine.handleKey(KeyCode.DOWN);
-        assertEquals(4, gameEngine.movesCountsProperty.get());
+        assertEquals(4, gameEngine.currentLevelMovesCountsProperty.get());
     }
 }
