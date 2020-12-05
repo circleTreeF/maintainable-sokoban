@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 import java.io.*;
 
@@ -29,6 +31,7 @@ public class MainPageController {
     public ImageView loadNewGameButton;
     public ImageView loadSavedGameButton;
     public ImageView exitButton;
+    public ImageView infoButton;
 
 
     /**
@@ -248,5 +251,31 @@ public class MainPageController {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * This method is to provide the new stage/window based on the current stage/window. This new window will provide the user the web browser with the homepage set as the game information page.
+     *
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/6 1:29
+     * @version: 1.0.0
+     **/
+
+
+    public void onInfoButtonClicked() {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/InfoPage.fxml"));
+        FlowPane webBrowser;
+        try {
+            webBrowser = loader.load();
+            Stage infoStage = new Stage();
+            infoStage.setScene(new Scene(webBrowser, 1366, 768));
+            infoStage.setResizable(false);
+            infoStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
