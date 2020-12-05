@@ -225,4 +225,25 @@ public class MusicPlayer {
         clip.stop();
         clip.close();
     }
+
+
+    /**
+     * This method is to restart the audio from the beginning
+     *
+     * @param
+     * @return void
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/12/5 20:50
+     * @version:
+     **/
+
+
+    public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
+        clip.stop();
+        clip.close();
+        resetAudioStream();
+        currentFrame = 0L;
+        clip.setMicrosecondPosition(0);
+        this.play();
+    }
 }
