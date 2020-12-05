@@ -448,7 +448,10 @@ public class GamePageController {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
-                destroyWall(mouseEvent.getX(), mouseEvent.getY());
+                int column = (int) Math.floor(mouseEvent.getX() / GRID_LENGTH);
+                int row = (int) Math.floor(mouseEvent.getY() / GRID_LENGTH);
+                destroyWall(column, row);
+                transportKeeper(column, row);
             }
         };
         gameGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, bombHandler);
@@ -456,12 +459,12 @@ public class GamePageController {
 
 
     /**
-     * destory the wall specified by the horizontal position {@code x} and the vertical position {@code y}
+     * destroy the wall specified by the horizontal position {@code column} and the vertical position {@code row}
      *
-     * @param x
-     *         the horizontal x position of the event relative to the source component.
-     * @param y
-     *         the vertical y position of the event relative to the source component.
+     * @param column
+     *         the index of column of {@code gameGrid}
+     * @param row
+     *         the index of row of {@code gameGrid}
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:45
@@ -469,17 +472,31 @@ public class GamePageController {
      **/
 
 
-    private void destroyWall(double x, double y) {
-        int column = (int) Math.floor(x / GRID_LENGTH);
-        int row = (int) Math.floor(y / GRID_LENGTH);
-        System.out.println(column + "  " + row);
+    private void destroyWall(int column, int row) {
         Level currentLevel = gameEngine.getCurrentLevel();
-        System.out.println(currentLevel.objectsGrid.getGameObjectAt(row, column));
         if (currentLevel.objectsGrid.getGameObjectAt(row, column) == GameObject.WALL) {
             gameEngine.wallBomb(column, row);
             reloadGrid();
         }
+    }
 
+    /**
+    * transport the new location of the keeper by the new horizontal position {@code column} and vertical position {@code row}
+    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+    * @date: 2020/12/5 4:19
+     * @param column the index of column of {@code gameGrid}
+     * @param row the index of row of {@code gameGrid}
+    * @return void
+    * @version:
+    **/
+
+
+    private void transportKeeper(int column, int row) {
+        Level currentLevel = gameEngine.getCurrentLevel();
+        if (currentLevel.objectsGrid.getGameObjectAt(row, column) == GameObject.FLOOR) {
+            gameEngine.keeperTransport(column, row);
+            reloadGrid();
+        }
     }
 
 
@@ -496,13 +513,13 @@ public class GamePageController {
     public void onLoadMusicButtonClicked() {
         FileOperator fileOperator = new FileOperator();
         File musicFile = fileOperator.selectMusic(Main.primaryStage);
-        try {
-            musicPlayer = new MusicPlayer(musicFile);
-        } catch (NullPointerException nullPointerException) {
-            nullPointerException.printStackTrace();
+        if (musicFile==null){
             System.out.println("Select nothing!");
+            throw new NullPointerException();
         }
         musicPlayer.stop();
+        musicPlayer = new MusicPlayer(musicFile);
+
     }
 }
 

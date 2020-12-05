@@ -27,7 +27,9 @@ public class MusicPlayer {
     Status status;
 
     AudioInputStream audioInputStream;
-    File musicFile;
+    static String musicPath;
+//    File musicFile;
+//    URL musicURL;
 
     /**
      * constructor
@@ -44,9 +46,14 @@ public class MusicPlayer {
         try {
 
             audioInputStream = AudioSystem.getAudioInputStream(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
-            System.out.println(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
-            musicFile = new File(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").toString());
-            System.out.println(musicFile);
+            musicPath = MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").getPath();
+//            musicFile = new File(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").toURI());
+//            //          musicFile = new File("https://raw.githubusercontent.com/circleTreeF/myImg/master/puzzle_theme.wav");
+//            musicURL = MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav");
+//            System.out.println("non arg getResource    " + MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
+//            System.out.println(musicFile);
+//            System.out.println(musicFile.exists());
+//            System.out.println(musicPath);
             // create clip reference
             clip = AudioSystem.getClip();
 
@@ -76,6 +83,10 @@ public class MusicPlayer {
 
     public MusicPlayer(File musicFile) {
         try {
+            //musicURL = new URL(musicFile.toString());
+//            musicURL = musicFile.toURI().toURL();
+            musicPath = String.valueOf(musicFile);
+            System.out.println("Print file " + musicFile);
             audioInputStream = AudioSystem.getAudioInputStream(musicFile);
             // create clip reference
             clip = AudioSystem.getClip();
@@ -149,28 +160,31 @@ public class MusicPlayer {
             }
             return;
         }
-        currentFrame =
-                this.clip.getMicrosecondPosition();
+        currentFrame = this.clip.getMicrosecondPosition();
         clip.stop();
         status = Status.PAUSED;
     }
+
 
     /**
      * resume the audio
      *
      * @param
      * @return void
+     * @throws UnsupportedAudioFileException
+     *         This exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
+     * @throws IOException
+     *         This exception is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws LineUnavailableException
+     *         an exception indicating that a line cannot be opened because it is unavailable. This situation arises most commonly when a requested line is already in use by another application.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:07
      * @version: 1.0.0
-     **/
-
+     */
     //FIXME: 停止后启动会进入无响应 原装就有问题
-    public void resumeAudio() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException {
+    public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (status.equals(Status.PLAY)) {
-            System.out.println("Audio is already " +
-                    "being played");
+            System.out.println("Audio is already being played");
             return;
         }
         clip.close();
@@ -189,9 +203,8 @@ public class MusicPlayer {
      * @version: 1.0.0
      **/
 
-    public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
-            LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(musicFile);
+    public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        audioInputStream = AudioSystem.getAudioInputStream(new File(musicPath).getAbsoluteFile());
         clip.open(audioInputStream);
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }

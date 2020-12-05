@@ -111,8 +111,6 @@ public class FileOperator {
         fileChooser.setTitle("Open Music File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Load Music File", "*.wav"));
         File musicFile = fileChooser.showOpenDialog(loadStage);
-        System.out.println(musicFile);
-        System.out.println(musicFile.toURI());
         return musicFile;
     }
 }
