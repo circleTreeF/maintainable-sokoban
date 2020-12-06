@@ -9,8 +9,9 @@ import javafx.util.Duration;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * <p>
+ * The graphic view of game object diamond
  *
- * @description: the graphic view of game object diamond
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 20:24
  */
@@ -18,10 +19,8 @@ import javafx.util.Duration;
 
 public class Diamond extends ObjectView {
     /**
-     * constructor
+     * construct the normal diamond in the game view
      *
-     * @param
-     * @description: construct the normal diamond in the game view
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:31
      * @version: 1.0.0
@@ -33,11 +32,10 @@ public class Diamond extends ObjectView {
     }
 
     /**
-     * constructor
+     * construct the diamond in the game view in debug mode
      *
      * @param isDebug
      *         true if the game is in debug mode; false otherwise
-     * @description: construct the diamond in the game view in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:32
      * @version: 1.0.0
@@ -56,9 +54,9 @@ public class Diamond extends ObjectView {
     }
 
     /**
-     * @param
+     * initialize the wall with common features between normal diamond and diamond in debug mode
+     *
      * @return void
-     * @description: initialize the wall with common features between normal diamond and diamond in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:34
      * @version: 1.0.0

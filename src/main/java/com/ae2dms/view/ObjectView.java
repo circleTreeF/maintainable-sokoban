@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
  * <p>
  * Package: com.ae2dms.view
  *
- * @description: the abstract product, declares an abstract class for product objects
+ * The abstract product, declares an abstract class for product objects
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/22 17:46
  */

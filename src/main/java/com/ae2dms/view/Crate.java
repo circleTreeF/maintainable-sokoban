@@ -7,8 +7,9 @@ import javafx.scene.paint.Color;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * <p>
+ * The graphic view of game object crate
  *
- * @description: the graphic view of game object crate
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 20:20
  */
@@ -16,10 +17,8 @@ import javafx.scene.paint.Color;
 
 public class Crate extends ObjectView {
     /**
-     * constructor
+     * construct the normal crate in the game view
      *
-     * @param
-     * @description: construct the normal crate in the game view
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:27
      * @version: 1.0.0
@@ -31,11 +30,10 @@ public class Crate extends ObjectView {
     }
 
     /**
-     * constructor
+     * construct the crate in the game view in debug mode
      *
      * @param isDebug
      *         true if the game is in debug mode; false otherwise
-     * @description: construct the crate in the game view in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:28
      * @version:
@@ -50,9 +48,9 @@ public class Crate extends ObjectView {
     }
 
     /**
-     * @param
+     * initialize the wall with common features between normal crate and crate in debug mode
+     *
      * @return void
-     * @description: initialize the wall with common features between normal crate and crate in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:28
      * @version: 1.0.0

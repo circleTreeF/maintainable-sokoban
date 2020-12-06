@@ -6,8 +6,9 @@ import javafx.scene.paint.Color;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * <p>
+ * The graphic view of game object floor
  *
- * @description: the graphic view of game object floor
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 20:47
  */
@@ -16,10 +17,8 @@ import javafx.scene.paint.Color;
 public class Floor extends ObjectView {
 
     /**
-     * constructor
+     * construct the normal floor in the game view
      *
-     * @param
-     * @description: construct the normal floor in the game view
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:50
      * @version: 1.0.0
@@ -32,11 +31,10 @@ public class Floor extends ObjectView {
     }
 
     /**
-     * constructor
+     * construct the floor in the game view in debug mode
      *
      * @param isDebug
      *         true if the game is in debug mode; false otherwise
-     * @description: construct the floor in the game view in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:50
      * @version: 1.0.0
@@ -50,9 +48,9 @@ public class Floor extends ObjectView {
     }
 
     /**
-     * @param
+     * initialize the wall with common features between normal floor and floor in debug mode
+     *
      * @return void
-     * @description: initialize the wall with common features between normal floor and floor in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:51
      * @version: 1.0.0

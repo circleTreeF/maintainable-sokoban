@@ -6,8 +6,9 @@ import javafx.scene.paint.Color;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * <p>
+ * The graphic view of game object keeper
  *
- * @description: the graphic view of game object keeper
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 20:42
  */
@@ -16,10 +17,8 @@ import javafx.scene.paint.Color;
 public class Keeper extends ObjectView {
 
     /**
-     * constructor
+     * construct the normal keeper in the game view
      *
-     * @param
-     * @description: construct the normal keeper in the game view
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:46
      * @version:
@@ -31,11 +30,10 @@ public class Keeper extends ObjectView {
     }
 
     /**
-     * constructor
+     * construct the keeper in the game view in debug mode
      *
      * @param isDebug
      *         true if the game is in debug mode; false otherwise
-     * @description: construct the keeper in the game view in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:45
      * @version:
@@ -50,9 +48,9 @@ public class Keeper extends ObjectView {
     }
 
     /**
-     * @param
+     * initialize the wall with common features between normal keeper and keeper in debug mode
+     *
      * @return void
-     * @description: initialize the wall with common features between normal keeper and keeper in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:28
      * @version: 1.0.0

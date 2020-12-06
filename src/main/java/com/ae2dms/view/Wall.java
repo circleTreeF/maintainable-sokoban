@@ -6,8 +6,9 @@ import javafx.scene.paint.Color;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * <p>
+ * The graphic view of game object wall
  *
- * @description: the graphic view of game object wall
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 17:56
  */
@@ -15,10 +16,8 @@ import javafx.scene.paint.Color;
 
 public class Wall extends ObjectView {
     /**
-     * constructor
+     * construct the normal wall in the game view
      *
-     * @param
-     * @description: construct the normal wall in the game view
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:24
      * @version: 1.0.0
@@ -27,15 +26,13 @@ public class Wall extends ObjectView {
     public Wall() {
         initializeCommonSize();
         initializeCommonWall();
-        //this = FXMLLoader.load(getClass().getResource("/view/Wall.fxml"));
     }
 
     /**
-     * constructor
+     * constructor to construct the wall in the game view in debug mode
      *
      * @param isDebug
      *         true if the game is in debug mode; false otherwise
-     * @description: construct the wall in the game view in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:25
      * @version: 1.0.0
@@ -43,7 +40,6 @@ public class Wall extends ObjectView {
 
 
     public Wall(Boolean isDebug) {
-        // FXMLLoader.load(getClass().getResource("/view/Wall.fxml"));
         initializeCommonSize();
         initializeCommonWall();
         this.setStroke(Color.RED);
@@ -51,9 +47,9 @@ public class Wall extends ObjectView {
     }
 
     /**
-     * @param
+     * initialize the wall with common features between normal wall and wall in debug mode
+     *
      * @return void
-     * @description: initialize the wall with common features between normal wall and wall in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:24
      * @version: 1.0.0
