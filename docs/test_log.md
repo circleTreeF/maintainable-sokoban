@@ -174,14 +174,6 @@ In this test, the map file debugGame.skb would be applied to test.
 
 
 
-
-
-
-
-
-
-
-
 ## GamePageControllerTest
 
 ### setMovesCountEventListener()
@@ -191,5 +183,23 @@ In this test, the map file debugGame.skb would be applied to test.
 | 1    | **Test fail** | Compiling fails | This is a **Regression Test** on save game. When saving the game, the compiling fails, the compiler message is as follow:![](img/issue30.png) |                                                              |
 | 2    | **Test pass** |                 |                                                              | This issue is also reported in [issue 30]([Bug reported in move count after loading saved file (#30) · Issues · scyyf1 / AE2DMS-CW-20127091 · GitLab (nottingham.edu.cn)](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/issues/30)). And, this is solved by refactoring and new serializing feature. The main improvement is logged in [commit 08fc2f630acd638b5ac7fb60f9d238b49df1b599]([refactor(move count): refactor the observer pattern on the move count feature... (08fc2f63) · Commits · scyyf1 / AE2DMS-CW-20127091 · GitLab (nottingham.edu.cn)](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/commit/08fc2f630acd638b5ac7fb60f9d238b49df1b599)),[commit 8f34339f1c610c261ef0502172932c46044bdfb2]([fix(moves count): the field variable `movesCountsProperty` is not... (8f34339f) · Commits · scyyf1 / AE2DMS-CW-20127091 · GitLab (nottingham.edu.cn)](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/commit/8f34339f1c610c261ef0502172932c46044bdfb2)), and [commit c2ecd54765f951d4d4b9a3c9261d8145691c6433]([fix(move counts): fix the bug issued in #30. This is fixed by moving the event... (c2ecd547) · Commits · scyyf1 / AE2DMS-CW-20127091 · GitLab (nottingham.edu.cn)](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/commit/c2ecd54765f951d4d4b9a3c9261d8145691c6433)). |
 
+## GameGrid
 
+#### translatePoint(Point sourceLocation, Point delta)
 
+| No.  | Result        | Comparison                                 | Test  Brief                                                  | Improvement                                                  |
+| ---- | ------------- | ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1    | **Test fail** | ![](img/GameGrid.translatePoint_Test1.png) | This test is conducted by checking if the only `GameObject` in the `20*20` instance of `GameGrid` could be translated by `Point(1,1)`. |                                                              |
+| 2    | **Test Pass** |                                            |                                                              | The tested method `GameGrid.translatePoint`will return the `Point` object instead of `GameObject` |
+
+#### getTargetFromSource()
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test Pass** |            | This method is tested by `putGameObjectAt` and then check `GameObject` of the putted location by `getTargetFromSource()`. |             |
+
+### getGameObjectAt()
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test Pass** |            | This method is tested by `putGameObjectAt` and then check `GameObject` of the putted location by `getGameObjectAt(Point p)`. |             |

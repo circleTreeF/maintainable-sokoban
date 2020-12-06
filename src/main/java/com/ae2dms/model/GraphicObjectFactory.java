@@ -7,12 +7,12 @@ import javafx.scene.shape.Rectangle;
 import java.io.IOException;
 
 /**
+ * This class is the factory of graphic object
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
  * class name: GraphicObjectFactory
  *
- * @description: the factory of graphic object
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/21 15:22
  */
@@ -30,42 +30,36 @@ public class GraphicObjectFactory {
     public Rectangle getGraphicObject(GameObject gameObject) {
         switch (gameObject) {
             case WALL:
-                //return FXMLLoader.load(getClass().getResource("/view/Wall.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new Wall(true);
                 } else {
                     return new Wall();
                 }
             case CRATE:
-                //return FXMLLoader.load(getClass().getResource("/view/Crate.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new Crate(true);
                 } else {
                     return new Crate();
                 }
             case DIAMOND:
-                //return FXMLLoader.load(getClass().getResource("/view/Diamond.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new Diamond(true);
                 } else {
                     return new Diamond();
                 }
             case KEEPER:
-                //return FXMLLoader.load(getClass().getResource("/view/Keeper.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new Keeper(true);
                 } else {
                     return new Keeper();
                 }
             case FLOOR:
-                //return FXMLLoader.load(getClass().getResource("/view/Floor.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new Floor(true);
                 } else {
                     return new Floor();
                 }
             case CRATE_ON_DIAMOND:
-                //return FXMLLoader.load(getClass().getResource("/view/CrateOnDiamond.fxml"));
                 if (GameEngine.isDebugActive()) {
                     return new CrateOnDiamond(true);
                 } else {
@@ -79,6 +73,7 @@ public class GraphicObjectFactory {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                assert logger != null;
                 logger.severe(message);
                 throw new AssertionError(message);
         }
