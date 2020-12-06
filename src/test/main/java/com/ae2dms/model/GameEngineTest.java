@@ -1,12 +1,13 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
 import com.ae2dms.controller.GamePageController;
 import javafx.scene.input.KeyCode;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * @date: 2020/11/25 14:35
  */
 class GameEngineTest {
-
     @Test
     void isDebugActive() {
         assertFalse(GameEngine.isDebugActive());
@@ -73,6 +73,7 @@ class GameEngineTest {
         GameEngine gameEngine = new GameEngine(inputStream);
         gameEngine.toggleDebug();
         assertTrue(GameEngine.isDebugActive());
+        gameEngine.toggleDebug();
     }
 
     @Test

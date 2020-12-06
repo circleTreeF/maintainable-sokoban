@@ -1,6 +1,5 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
 import javafx.embed.swing.JFXPanel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
