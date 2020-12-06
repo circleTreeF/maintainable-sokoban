@@ -20,9 +20,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * @date: 2020/12/6 17:38
  */
 class GameGridTest {
+    private GameGrid gameGrid;
 
     @BeforeEach
     void setUp() {
+        gameGrid = new GameGrid(20, 20);
+        gameGrid.putGameObjectAt(GameObject.FLOOR, 10, 10);
     }
 
     @AfterEach
@@ -36,29 +39,21 @@ class GameGridTest {
 
     @Test
     void getTargetFromSource() {
-        GameGrid gameGrid = new GameGrid(20, 20);
-        gameGrid.putGameObjectAt(GameObject.FLOOR, 10, 10);
-        assertEquals(GameObject.FLOOR, gameGrid.getGameObjectAt(10, 10));
         assertEquals(GameObject.FLOOR, gameGrid.getTargetFromSource(new Point(9,9), new Point(1,1)));
     }
 
     @Test
     void getGameObjectAt() {
-        GameGrid gameGrid = new GameGrid(20, 20);
-        gameGrid.putGameObjectAt(GameObject.FLOOR, 10, 10);
         assertEquals(GameObject.FLOOR, gameGrid.getGameObjectAt(new Point(10,10)));
     }
 
     @Test
     void putGameObjectAt() {
-        GameGrid gameGrid = new GameGrid(20, 20);
-        gameGrid.putGameObjectAt(GameObject.FLOOR, 10, 10);
         assertEquals(GameObject.FLOOR, gameGrid.getGameObjectAt(10, 10));
     }
 
     @Test
     void testPutGameObjectAt() {
-        GameGrid gameGrid = new GameGrid(20, 20);
         gameGrid.putGameObjectAt(GameObject.FLOOR, new Point(12, 10));
         assertEquals(GameObject.FLOOR, gameGrid.getGameObjectAt(12, 10));
     }
