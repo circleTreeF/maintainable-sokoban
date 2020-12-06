@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.awt.*;
 import java.io.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
@@ -24,34 +23,56 @@ class GameEngineTest {
 
     @Test
     void isDebugActive() {
-        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
-        GameEngine gameEngine = new GameEngine(inputStream);
         assertFalse(GameEngine.isDebugActive());
     }
 
     @Test
-    void handleKey() {
-
+    void handleKeyLeft() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.handleKey(KeyCode.LEFT);
+        assertEquals(new Point(2,12), gameEngine.getCurrentLevel().getKeeperPosition());
     }
 
     @Test
-    void move() {
+    void handleKeyRight() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.handleKey(KeyCode.RIGHT);
+        assertEquals(new Point(2,14), gameEngine.getCurrentLevel().getKeeperPosition());
     }
+
+    @Test
+    void handleKeyUp() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.handleKey(KeyCode.UP);
+        assertEquals(new Point(1,13), gameEngine.getCurrentLevel().getKeeperPosition());
+    }
+
+
+    @Test
+    void handleKeyDown() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.handleKey(KeyCode.DOWN);
+        assertEquals(new Point(2,13), gameEngine.getCurrentLevel().getKeeperPosition());
+    }
+
 
     @Test
     void isGameComplete() {
-    }
-
-    @Test
-    void getNextLevel() {
-    }
-
-    @Test
-    void getCurrentLevel() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        assertFalse(gameEngine.isGameComplete());
     }
 
     @Test
     void toggleDebug() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.toggleDebug();
+        assertTrue(GameEngine.isDebugActive());
     }
 
     @Test
@@ -88,29 +109,12 @@ class GameEngineTest {
     }
 
     @Test
-    void saveGame() throws IOException, ClassNotFoundException {
+    void saveGame() throws IOException{
         String testFileName = "gameEngine.json";
         File file = new File(testFileName);
         InputStream defaultInputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/DebugLevel.skb");
         GameEngine gameEngine = new GameEngine(defaultInputStream);
         gameEngine.saveGame(file);
-    }
-
-    @Test
-    void getMovesCount() {
-    }
-
-    @Test
-    void setMovesCount() {
-    }
-
-    @Test
-    void attach() {
-    }
-
-    @Test
-    void notifyAllObservers() {
-
     }
 
     @Test
@@ -125,7 +129,35 @@ class GameEngineTest {
     }
 
     @Test
-    void testMove() {
+    void testMoveDown() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.move(new Point(1,0));
+        assertEquals(new Point(2,13),gameEngine.getCurrentLevel().getKeeperPosition());
+    }
+
+    @Test
+    void testMoveUp() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.move(new Point(-1,0));
+        assertEquals(new Point(1,13),gameEngine.getCurrentLevel().getKeeperPosition());
+    }
+
+    @Test
+    void testMoveLeft() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.move(new Point(0,-1));
+        assertEquals(new Point(2,12),gameEngine.getCurrentLevel().getKeeperPosition());
+    }
+
+    @Test
+    void testMoveRight() {
+        InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
+        GameEngine gameEngine = new GameEngine(inputStream);
+        gameEngine.move(new Point(0,1));
+        assertEquals(new Point(2,14),gameEngine.getCurrentLevel().getKeeperPosition());
     }
 
     @Test
@@ -139,15 +171,15 @@ class GameEngineTest {
     void wallBomb() {
         InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
         GameEngine gameEngine = new GameEngine(inputStream);
-        gameEngine.wallBomb(10,2);
-        assertEquals(GameObject.FLOOR, gameEngine.getCurrentLevel().objectsGrid.getGameObjectAt(2,10));
+        gameEngine.wallBomb(10, 2);
+        assertEquals(GameObject.FLOOR, gameEngine.getCurrentLevel().objectsGrid.getGameObjectAt(2, 10));
     }
 
     @Test
     void keeperTransport() {
         InputStream inputStream = GameEngineTest.class.getClassLoader().getResourceAsStream("level/debugGame.skb");
         GameEngine gameEngine = new GameEngine(inputStream);
-        gameEngine.keeperTransport(10,2);
-        assertEquals(new Point(2,10), gameEngine.getCurrentLevel().getKeeperPosition());
+        gameEngine.keeperTransport(10, 2);
+        assertEquals(new Point(2, 10), gameEngine.getCurrentLevel().getKeeperPosition());
     }
 }
