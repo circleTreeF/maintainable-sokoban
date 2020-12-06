@@ -22,7 +22,7 @@ public class GameGrid implements Serializable {
     private final GameObject[][] gameObjects;
 
     /**
-     * constructor
+     * This constructor will initialize the array of GameObject storing the current level.
      *
      * @param columns
      *         the size of columns of the GameGrid
@@ -45,14 +45,13 @@ public class GameGrid implements Serializable {
     }
 
     /**
-     * static
+     * translate the point {@code sourceLocation} by delta in x and y axis
      *
      * @param sourceLocation
      *         the source location of the game object
      * @param delta
      *         the delta value this source need to translate
      * @return java.awt.Point
-     * @description: translate the point sourceLocation by delta in x and y axis
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:14
      * @version: 1.0.0
@@ -65,20 +64,18 @@ public class GameGrid implements Serializable {
         return translatedPoint;
     }
 
-    public Dimension getDimension() {
-        return new Dimension(COLUMNS, ROWS);
-    }
 
     /**
+     * get the game object transferred from source by delta
+     *
      * @param source
      *         the point of the source point
      * @param delta
      *         the delta value of target from the source in Point format
      * @return com.ae2dms.GameObject
-     * @description: get the game object transferred from source by delta
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:36 given
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -87,13 +84,14 @@ public class GameGrid implements Serializable {
     }
 
     /**
+     * check if the input col, cow is within the boundary and return the GameObject at the input position.
+     * If no, throw exception and promote in console if in debug mode
+     *
      * @param col
      *         the column index of the searched game object
      * @param row
      *         the row index of the searched game object
      * @return com.ae2dms.GameObject
-     * @description: check if the input col, cow is within the boundary and return the GameObject at the input position.
-     * If no, throw exception and promote in console if in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 22:30 given
      * @version: 1.0.0
@@ -132,11 +130,9 @@ public class GameGrid implements Serializable {
         return getGameObjectAt((int) p.getX(), (int) p.getY());
     }
 
-    public boolean removeGameObjectAt(Point position) {
-        return putGameObjectAt(null, position);
-    }
-
     /**
+     * put the game object at the defined position, return true if success; false, otherwise.
+     *
      * @param gameObject
      *         the game object to be put
      * @param x
@@ -144,7 +140,6 @@ public class GameGrid implements Serializable {
      * @param y
      *         the y value in the y axis to put the game object at
      * @return boolean
-     * @description: put the game object at the defined position, return true if success; false, otherwise.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/12 0:07 given
      * @version:
@@ -160,17 +155,16 @@ public class GameGrid implements Serializable {
     }
 
     /**
-     * overload
+     * put the game object at the input point
      *
      * @param gameObject
      *         the game object to be put
      * @param p
      *         the point the game object should be put at
      * @return boolean
-     * @description: put the game object at the input point
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/13 21:59 given
-     * @version:
+     * @version: 1.0.0
      **/
 
 
