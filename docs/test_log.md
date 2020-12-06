@@ -1,5 +1,47 @@
 ## GameEngineTest
 
+### handleKey()
+
+#### handleLeft()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.LEFT)` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### handleKeyRight()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.RIGHT)`method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### handleKeyUp()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.Up)`method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### handleKeyDown()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.Dow)`method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+### isGameComplete()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by check if the value returned from `isGameComplete` of the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
 ### undo()
 
 In this test, the map file debugGame.skb would be applied to test.
@@ -51,7 +93,53 @@ In this test, the map file debugGame.skb would be applied to test.
 | 1    | **Test fail** | ![](img/GameEngine.keeperTransport_test1.png) | This test is conducted by applying this method in the new gameEngine and compare the result with the specified location |                                                              |
 | 2    | **Test pass** |                                               | Same as above.                                               | The issue is about the test method. The `Point` returned by the function `getKeeperPosition` is in format `row, column`. The expected value of keeper location should be in `row, column` format instead of `column, row`. |
 
+### move()
 
+#### testMoveDown()
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `move(new Point(1,0))` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### testMoveUp()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `move(new Point(-1,0))` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### testMoveLeft()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `move(new Point(0,-1))` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+#### testMoveRight()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by calling the `move(new Point(0,1))` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
+
+### isDebugActive()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by checking if the default value of `GameEngine.debug`.got by calling `GameEngine.isDebugActive` is false |             |
+
+### toggleDebug()
+
+### 
+
+| No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
+| ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
+| 1    | **Test pass** |            | This test is conducted by checking if the value of `GameEngine.debug`.got by calling `GameEngine.isDebugActive` in the new instance of `gameEngine` constructed by the test map file `debugGame.skb`. is true after calling `GameEngine.toggleDebug` |             |
 
 ## MusicPlayer
 
