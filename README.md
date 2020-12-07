@@ -6,15 +6,32 @@ This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and
 
 ```
 git clone git@csprojects.nottingham.edu.cn:scyyf1/ae2dms-cw-20127091.git
+cd SokobanFX
 ```
 
+
+
 ## Execute
+
+Run with JavaFX
 
 To run this, you should apply VM option,
 
 ```
 --module-path "$JAVAFX_PATH$" --add-modules javafx.controls,javafx.fxml,javafx.web
 ```
+
+Run with Maven:
+
+Install **all necessary plug-in and dependency** firstly.
+
+To run with Maven, you should use the follow option:
+
+```
+javafx:run
+```
+
+
 
 ## Refactor
 
