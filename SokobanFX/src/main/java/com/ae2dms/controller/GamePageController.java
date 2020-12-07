@@ -43,8 +43,6 @@ import static com.ae2dms.Main.primaryStage;
  * @date: 2020/11/14 22:57
  */
 public class GamePageController {
-    private final Number PAGE_WIDTH = 1000;
-    private final Number PAGE_HEIGHT = 750;
     private final double GRID_LENGTH = 30.0d;
     @FXML
     public Text bombCount;
@@ -72,7 +70,6 @@ public class GamePageController {
 
 
     public void initialize() {
-        String defaultMusic = "puzzle_theme.wav";
         setEventFilter();
         setBombCountListen();
         setMovesCountEventListener();
