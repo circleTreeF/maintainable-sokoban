@@ -37,13 +37,13 @@ javafx:run
 
 ### Design Pattern
 
-| Design Pattern  | Class                            | Brief                                                        |
-| --------------- | -------------------------------- | ------------------------------------------------------------ |
-| **Singleton**   | [`GameLogger`]()                 | This is to make sure only one logger                         |
-| **Factory**     | [`GraphicObjectFactory`]()       | This is to create object without exposing the creation logic to the client. |
-| **Observer**    | [`GamePageController`]()         | Any property modified, its dependent objects are to be notified automatically. |
-| **Iterator**    | [`GameMap`]()                    | Access the elements of a collection `Levels` in sequential manner. |
-| **MVC pattern** | Controller, Model, View packages | Break the components into 3 packages. The **controller** is to acts on both model and view. The **model** is to **Game Execution Logic**. The **view** package is the visualization of model working together with the view resources in the resources directory. |
+| Design Pattern  | Class                                                        | Brief                                                        |
+| --------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **Singleton**   | [`GameLoggerSingleton`](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/blob/master/SokobanFX/src/main/java/com/ae2dms/model/GameLoggerSingleton.java) | This is to make sure only one logger                         |
+| **Factory**     | [`GraphicObjectFactory`](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/blob/master/SokobanFX/src/main/java/com/ae2dms/model/GraphicObjectFactory.java) | This is to create object without exposing the creation logic to the client. |
+| **Observer**    | [`GamePageController`](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/blob/master/SokobanFX/src/main/java/com/ae2dms/controller/GamePageController.java) | Any property modified, its dependent objects are to be notified automatically. |
+| **Iterator**    | [`GameMap`](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/blob/master/SokobanFX/src/main/java/com/ae2dms/model/GameMap.java) | Access the elements of a collection `Levels` in sequential manner. |
+| **MVC pattern** | Controller, Model, View packages                             | Break the components into 3 packages. The **controller** is to acts on both model and view. The **model** is to **Game Execution Logic**. The **view** package is the visualization of model working together with the view resources in the resources directory. |
 
 
 
@@ -133,7 +133,7 @@ This feature will reset the current level and the moves count of this level by c
 
 ## Test
 
-The logic of this project, `Model` package is tested, by **JUnit**, and **Assertj**, and **TestFX**. The Test Log is as follow, or clicking [here](docs/test_log.md)
+The logic of this project, `Model` package is tested, by **JUnit**, and **Assertj**, and **TestFX**. The Test Log is [here](docs/test_log.md), or [this](https://csprojects.nottingham.edu.cn/scyyf1/ae2dms-cw-20127091/-/blob/master/docs/test_log.md).
 
 ## Conversion
 
