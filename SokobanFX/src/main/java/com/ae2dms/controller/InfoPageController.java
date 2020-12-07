@@ -13,7 +13,7 @@ import javafx.scene.web.WebView;
  * <p>
  * Package: com.ae2dms.controller
  *
- * @description: TODOa
+ * @description: This class is to control the main page scene
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/12/5 22:15
  */
