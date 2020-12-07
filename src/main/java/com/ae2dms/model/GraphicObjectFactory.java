@@ -1,6 +1,5 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
 import com.ae2dms.view.*;
 import javafx.scene.shape.Rectangle;
 
@@ -18,10 +17,11 @@ import java.io.IOException;
  */
 public class GraphicObjectFactory {
     /**
+     * create the graphic game view of game object
+     *
      * @param gameObject
      *         the game object in this game
      * @return javafx.scene.shape.Rectangle
-     * @description: create the graphic game view of game object
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 20:57
      * @version: 1.1.0

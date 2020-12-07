@@ -11,25 +11,36 @@ import java.io.IOException;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * This class is to play background music for this game
  *
- * @description: This class is to play background music for this game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/24 22:45
  */
 
-//TODO: could be refactored to apply javafx.media to be a better player
 public class MusicPlayer {
-    // to store current position
+    /**
+     * The current playing frame of the music
+     */
     Long currentFrame;
+    /**
+     * The clip of the current music data, and can be loaded prior to playback
+     */
     Clip clip;
 
-    // current status of clip
+    /**
+     * current status of clip
+     */
     Status status;
 
+    /**
+     * The audio input stream of the current music file to be played
+     */
     AudioInputStream audioInputStream;
+    /**
+     * The path of the current music file
+     */
     static String musicPath;
-//    File musicFile;
-//    URL musicURL;
 
     /**
      * constructor
@@ -47,19 +58,8 @@ public class MusicPlayer {
 
             audioInputStream = AudioSystem.getAudioInputStream(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
             musicPath = MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").getPath();
-//            musicFile = new File(MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav").toURI());
-//            //          musicFile = new File("https://raw.githubusercontent.com/circleTreeF/myImg/master/puzzle_theme.wav");
-//            musicURL = MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav");
-//            System.out.println("non arg getResource    " + MusicPlayer.class.getClassLoader().getResource("music/puzzle_theme.wav"));
-//            System.out.println(musicFile);
-//            System.out.println(musicFile.exists());
-//            System.out.println(musicPath);
-            // create clip reference
             clip = AudioSystem.getClip();
-
-            // open audioInputStream to the clip
             clip.open(audioInputStream);
-
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             status = Status.PLAY;
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
@@ -74,8 +74,6 @@ public class MusicPlayer {
     /**
      * Construct the music playing the music file speficied by the input {@code musicFile}
      *
-     * @param musicFile
-     *         the specified music file need to be played as the background music
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:55
      * @version:
@@ -83,8 +81,6 @@ public class MusicPlayer {
 
     public MusicPlayer(File musicFile) {
         try {
-            //musicURL = new URL(musicFile.toString());
-//            musicURL = musicFile.toURI().toURL();
             musicPath = String.valueOf(musicFile);
             System.out.println("Print file " + musicFile);
             audioInputStream = AudioSystem.getAudioInputStream(musicFile);
@@ -108,8 +104,13 @@ public class MusicPlayer {
      * change the status of music according to the current status of music player.
      * If the music is currently playing, then pause this music; if paused, then resume the music
      *
-     * @param
      * @return void
+     * @throws UnsupportedAudioFileException
+     *         This exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
+     * @throws IOException
+     *         This exception is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws LineUnavailableException
+     *         an exception indicating that a line cannot be opened because it is unavailable. This situation arises most commonly when a requested line is already in use by another application.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:03
      * @version: 1.0.0
@@ -127,7 +128,6 @@ public class MusicPlayer {
     /**
      * play the music
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:06
@@ -136,7 +136,6 @@ public class MusicPlayer {
 
 
     public void play() {
-        // open audioInputStream to the clip
         clip.start();
         status = Status.PLAY;
     }
@@ -145,7 +144,6 @@ public class MusicPlayer {
     /**
      * pause the music
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:06
@@ -169,7 +167,6 @@ public class MusicPlayer {
     /**
      * resume the audio
      *
-     * @param
      * @return void
      * @throws UnsupportedAudioFileException
      *         This exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
@@ -181,7 +178,7 @@ public class MusicPlayer {
      * @date: 2020/11/25 16:07
      * @version: 1.0.0
      */
-    //FIXME: 停止后启动会进入无响应 原装就有问题
+
     public void resumeAudio() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         if (status.equals(Status.PLAY)) {
             System.out.println("Audio is already being played");
@@ -193,16 +190,21 @@ public class MusicPlayer {
         this.play();
     }
 
+
     /**
      * reset audio stream
      *
-     * @param
      * @return void
+     * @throws UnsupportedAudioFileException
+     *         This exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
+     * @throws IOException
+     *         This exception is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws LineUnavailableException
+     *         This exception indicates that a line cannot be opened because it is unavailable. This situation arises most commonly when a requested line is already in use by another application.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 16:07
      * @version: 1.0.0
-     **/
-
+     */
     public void resetAudioStream() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         audioInputStream = AudioSystem.getAudioInputStream(new File(musicPath).getAbsoluteFile());
         clip.open(audioInputStream);
@@ -213,7 +215,6 @@ public class MusicPlayer {
     /**
      * terminate the current music playing
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/2 14:36
@@ -230,12 +231,17 @@ public class MusicPlayer {
     /**
      * This method is to restart the audio from the beginning
      *
-     * @param
      * @return void
+     * @throws IOException
+     *         This exception is the general class of exceptions produced by failed or interrupted I/O operations.
+     * @throws LineUnavailableException
+     *         This exception indicates that a line cannot be opened because it is unavailable. This situation arises most commonly when a requested line is already in use by another application.
+     * @throws UnsupportedAudioFileException
+     *         This exception indicating that an operation failed because a file did not contain valid data of a recognized file type and format.
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 20:50
-     * @version:
-     **/
+     * @version: 1.0.-
+     */
 
 
     public void restart() throws IOException, LineUnavailableException, UnsupportedAudioFileException {
