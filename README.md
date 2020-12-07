@@ -1,5 +1,7 @@
 # AE2DMS-Yizirui Fang-20127091
 
+**Word Count**: Without table: *405* Total: *715*
+
 This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and **GSON**. This project is tested by **JUnit**, and **Assertj**, and **TestFX**.
 
 ## Download
