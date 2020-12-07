@@ -1,7 +1,5 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
-
 import java.awt.*;
 import java.io.Serializable;
 
@@ -9,8 +7,8 @@ import java.io.Serializable;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.model.GameGrid
+ * This is the class to place the graphic objects of the game to present
  *
- * @description: This is the class to place the graphic objects of the game to present
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/10 11:10 given
  * @version: 1.0
@@ -22,13 +20,13 @@ public class GameGrid implements Serializable {
     private final GameObject[][] gameObjects;
 
     /**
-     * This constructor will initialize the array of GameObject storing the current level.
+     * This constructor is the default constructor. This constructor will create a array of GameObject with specified number of columns and rows.
+     * to initialize the array of GameObject storing the current level.
      *
      * @param columns
      *         the size of columns of the GameGrid
      * @param rows
      *         the size of rows of the GameGrid
-     * @description: the default constructor, create a array of GameObject with specified number of columns and rows
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 23:30 given
      * @version: 1.0.0
@@ -72,7 +70,7 @@ public class GameGrid implements Serializable {
      *         the point of the source point
      * @param delta
      *         the delta value of target from the source in Point format
-     * @return com.ae2dms.GameObject
+     * @return com.ae2dms.model.GameObject
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:36 given
      * @version: 1.0.0
@@ -91,7 +89,7 @@ public class GameGrid implements Serializable {
      *         the column index of the searched game object
      * @param row
      *         the row index of the searched game object
-     * @return com.ae2dms.GameObject
+     * @return com.ae2dms.model.GameObject
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 22:30 given
      * @version: 1.0.0
@@ -110,12 +108,11 @@ public class GameGrid implements Serializable {
     }
 
     /**
-     * Overload
+     * return the game object at the input point
      *
      * @param p
      *         the point of the game object
-     * @return com.ae2dms.GameObject
-     * @description: return the game object at the input point
+     * @return com.ae2dms.model.GameObject
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 22:37 given
      * @version: 1.0.0
@@ -174,12 +171,13 @@ public class GameGrid implements Serializable {
     }
 
     /**
+     * check if the input index is out of bound for this level
+     *
      * @param x
      *         the x value in the x axis for the point need to be checked
      * @param y
      *         the y value in the y axis for the point need to be checked
      * @return boolean
-     * @description: check if the input index is out of bound for this level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/12 0:01 given
      * @version: 1.0.0
@@ -190,25 +188,11 @@ public class GameGrid implements Serializable {
         return (x < 0 || y < 0 || x >= COLUMNS || y >= ROWS);
     }
 
-    /**
-     * @param p
-     *         the point need to be checked
-     * @return boolean
-     * @description: check if the input index is out of bound for this level
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/12 16:32
-     * @version: 1.0.0
-     **/
-
-
-    private boolean isPointOutOfBounds(Point p) {
-        return isPointOutOfBounds(p.x, p.y);
-    }
 
     /**
-     * @param
+     * return the string of all game object, separated with new line
+     *
      * @return java.lang.String
-     * @description: return the string of all game object, separated with new line
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 23:27 given
      * @version: 1.0.0

@@ -3,8 +3,6 @@ package com.ae2dms.controller;
 import com.ae2dms.model.MarkKeeper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -25,8 +23,9 @@ import java.util.List;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * his class includes controller for {@code MarkBoard.fxml}, which is the view page for the game history record
  *
- * @description: This class includes controller for {@code MarkBoard.fxml}, which is the view page for the game history record
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/12/3 18:15
  */
@@ -49,7 +48,7 @@ public class MarkBoardController {
      *         Signals that an I/O exception of some sort has occurred
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 1:01
-     * @version:
+     * @version: 1.0.0
      **/
 
     public void initialize() throws IOException {
@@ -57,12 +56,7 @@ public class MarkBoardController {
         initializeComboBox();
         if (markKeepers != null) {
             mapSelectionComboBox.getSelectionModel().selectedItemProperty().addListener(
-                    new ChangeListener<String>() {
-                        @Override
-                        public void changed(ObservableValue<? extends String> observableValue, String oldItem, String newItem) {
-                            setMarkBoardForMap(newItem);
-                        }
-                    }
+                    (observableValue, oldItem, newItem) -> setMarkBoardForMap(newItem)
             );
             setMarkBoardForMap(DEFAULT_MAP_NAME);
         } else {
@@ -85,7 +79,7 @@ public class MarkBoardController {
 
     private void readMarks() throws IOException {
         File record = new File(System.getProperty("user.dir") + "/rank/ranking.json");
-        if (record.exists()){
+        if (record.exists()) {
             FileReader fileReader = new FileReader(record);
             Type reviewType = new TypeToken<List<MarkKeeper>>() {
             }.getType();
@@ -132,7 +126,7 @@ public class MarkBoardController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 1:12
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -171,7 +165,7 @@ public class MarkBoardController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 1:15
-     * @version:
+     * @version: 1.0.0
      **/
 
     private void addTextToGrid(String text, int column, int row) {
@@ -186,7 +180,7 @@ public class MarkBoardController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 3:11
-     * @version:
+     * @version: 1.0.0
      **/
 
 

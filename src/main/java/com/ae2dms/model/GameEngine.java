@@ -1,6 +1,5 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.input.KeyCode;
@@ -14,8 +13,9 @@ import java.util.NoSuchElementException;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.model
+ * <p>
+ * This is the game engine
  *
- * @description: This is the game engine
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/9 21:10 given
  * @version: 1.0
@@ -94,11 +94,12 @@ public class GameEngine implements Serializable {
     }
 
     /**
+     * check if the game is in debug mode
+     *
      * @return boolean
-     * @description: check if the game is in debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/21 22:00
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -107,17 +108,16 @@ public class GameEngine implements Serializable {
     }
 
     /**
+     * handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
+     *
      * @param pressedKeyCode
      *         the key code of the pressed key in the keyboard
      * @return void
-     * @description: handle the keyboard input, if the input is up, right, down, or left, move the character accordingly. if not do default
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:25 given
      * @version: 1.0.0
      **/
 
-    //TODO: refactor switch statement
-    //TODO: use a adapter design pattern to refactor the input variable in KeyCode data type to Event data type for the key combination
     public void handleKey(KeyCode pressedKeyCode) {
         switch (pressedKeyCode) {
             case UP:
@@ -147,10 +147,11 @@ public class GameEngine implements Serializable {
     }
 
     /**
+     * move the keeper according to input movement direction and distance, and store the level before moving
+     *
      * @param delta
      *         the difference of location between current location and the destination in Point format about the movement
      * @return void
-     * @description: move the keeper according to input movement direction and distance, and store the level before moving
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:26 given
      * @version: 1.0.0
@@ -177,7 +178,6 @@ public class GameEngine implements Serializable {
         }
 
         boolean keeperMoved = false;
-        //FIXME: refactor the switch statement
         switch (keeperTarget) {
 
             case WALL:
@@ -228,7 +228,7 @@ public class GameEngine implements Serializable {
 
 
     /**
-     * revoke the latest movement of user， the shortcut key for this function is ctrl + z set in GamePage.fxml
+     * revoke the latest movement of user, the shortcut key for this function is ctrl + z set in GamePage.fxml
      *
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -248,7 +248,7 @@ public class GameEngine implements Serializable {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/26 16:35
-     * @version:
+     * @version: 1.0.0
      **/
 
     public void resetCurrentLevel() {
@@ -288,8 +288,9 @@ public class GameEngine implements Serializable {
 
 
     /**
+     * return boolean value of if the game is completed
+     *
      * @return boolean
-     * @description: return boolean value of if the game is completed
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/13 22:27
      * @version: 1.0.0
@@ -301,9 +302,9 @@ public class GameEngine implements Serializable {
     }
 
     /**
-     * @param
+     * move to next level
+     *
      * @return com.ae2dms.model.Level
-     * @description move to next level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:10 given
      * @version: 1.0.0
@@ -322,9 +323,9 @@ public class GameEngine implements Serializable {
     }
 
     /**
-     * @param
+     * return the current level
+     *
      * @return com.ae2dms.model.Level
-     * @description: return the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:22 given
      * @version: 1.0.0
@@ -335,9 +336,9 @@ public class GameEngine implements Serializable {
     }
 
     /**
-     * @param
+     * start or close the debug mode
+     *
      * @return void
-     * @description: start or close the debug mode
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/10 14:23 given
      * @version: 1.0.0
@@ -350,7 +351,6 @@ public class GameEngine implements Serializable {
     /**
      * increment the value of current moves count in field variable, currentLevelMovesCountsProperty, by one
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/30 23:14
@@ -366,7 +366,6 @@ public class GameEngine implements Serializable {
     /**
      * update the moves count in the previous levels
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/30 23:31
@@ -391,7 +390,7 @@ public class GameEngine implements Serializable {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 4:10
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -416,7 +415,7 @@ public class GameEngine implements Serializable {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 4:15
-     * @version:
+     * @version: 1.0.0
      **/
 
 

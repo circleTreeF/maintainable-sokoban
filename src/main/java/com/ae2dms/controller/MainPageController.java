@@ -19,8 +19,9 @@ import static com.ae2dms.Main.primaryStage;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * This is the class to control the main page
  *
- * @description: This is the class to control the main page
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/9 21:10
  */
@@ -35,8 +36,9 @@ public class MainPageController {
 
 
     /**
+     * start game when the start button is clicked
+     *
      * @return void
-     * @description start game when the start button is clicked
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/9 22:14
      * @version: 1.0.0
@@ -96,8 +98,9 @@ public class MainPageController {
 
 
     /**
+     * new dialog for about information
+     *
      * @return void
-     * @description new dialog for about information
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/9 22:15
      * @version: 1.0.0
@@ -156,8 +159,9 @@ public class MainPageController {
     }
 
     /**
+     * load the default file of the map for the game
+     *
      * @return void
-     * @description: load the default file of the map for the game
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 21:08
      * @version:
@@ -171,10 +175,11 @@ public class MainPageController {
 
 
     /**
+     * initialize the grid and the singleton, game engine for this game.
+     *
      * @param inputGameFile
      *         The input file of the map of this game
      * @return void
-     * @description: initialize the grid and the singleton, game engine for this game.
      * extracted from Main.initializeGame()
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 17:06
@@ -248,6 +253,7 @@ public class MainPageController {
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
             gameEngine = (GameEngine) inputStream.readObject();
             inputStream.close();
+            fileIn.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -23,8 +23,9 @@ import static com.ae2dms.Main.gameEngine;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * This class is the controller to the view page, mark log window. This page will pop up when the user completed a certain game map
  *
- * @description: This class is the controller to the view page, mark log window. This page will pop up when the user completed a certain game map
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/12/2 21:31
  */
@@ -73,9 +74,8 @@ public class MarkLogWindowController {
         File recordsDir = new File(System.getProperty("user.dir") + "/rank");
         boolean isCreated = recordsDir.mkdirs();
         if (!isCreated) {
-            throw new IOException();
+            System.out.println("Fail to create!");
         }
-        ;
         File records = new File(recordsDir + "/ranking.json");
         if (!records.exists()) {
             boolean isCreate = records.createNewFile();
