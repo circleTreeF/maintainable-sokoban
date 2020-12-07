@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+            prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.ae2dms.controller.MarkLogWindowController">
+    <children>
+        <Text layoutX="20.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Game Completed!">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Text>
+        <Text layoutX="20.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Map Name:">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Text>
+        <Text layoutX="20.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Moves Count:">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Text>
+        <Text fx:id="mapMessage" layoutX="150.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <Text fx:id="movesCountMessage" layoutX="150.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Text">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Text>
+        <TextField fx:id="inputName" layoutX="115.0" layoutY="170.0" promptText="Enter Your Name">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </TextField>
+        <Text layoutX="25.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your Name:">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Text>
+        <ImageView fx:id="saveAndBack" fitHeight="32.0" fitWidth="250.0" layoutX="75.0" layoutY="229.0"
+                   onMouseClicked="#onSaveAndBackClicked" pickOnBounds="true">
+            <image>
+                <Image url="@../images/save_record.png"/>
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>
