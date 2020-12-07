@@ -2,6 +2,14 @@
 
 This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and **GSON**. This project is tested by **JUnit**, and **Assertj**, and **TestFX**.
 
+## Execute
+
+To run this, you should apply VM option,
+
+```
+--module-path "$JAVAFX_PATH$" --add-modules javafx.controls,javafx.fxml,javafx.web
+```
+
 ## Refactor
 
 ### Design Pattern
@@ -28,7 +36,11 @@ This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and
 
 ## Project Class Diagram
 
-![image](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/autoGenorV1.png)
+![image](docs/img/Class_Diagram_Overall.png)
+
+### Singleton pattern diagram
+
+![](docs/img/Class_Diagram1.png)
 
 ## Additional Feature
 
@@ -36,55 +48,55 @@ This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and
 
 The homepage of this web browser is the user guide of this game. This browser is equipped with URL field, back, forward, and view icon for project repository redirection. The URL will automatically change according to the current page.
 
-![image-20201207052506452](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207052506452.png)
+![image-20201207052506452](docs/img/web_broswer.png)
 
 ### High Mark Board
 
 This is to present the **top 5 mark records** of the map selected in the combo box. 
 
-![image-20201207054923617](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207054923617.png)
+![image-20201207054923617](docs/img/high_mark.png)
 
 ### Load Saved Game
 
 This feature is to load the previously saved game file and resume everything.
 
-![image-20201207055037004](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207055037004.png)
+![image-20201207055037004](docs/img/load_saved.png)
 
 ### Current Moves Count
 
 This feature is to count and present the moves count in the current level dynamically. 
 
-![](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207052807781.png)
+![](docs/img/moves_count.png)
 
-### Total previous move conut
+### Total previous move count
 
 This feature is to log and record the moves count you have in all previous levels of this map.
 
-![image-20201207052951933](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207052951933.png)
+![image-20201207052951933](docs/img/total_previous.png)
 
 ### Wall Bombs
 
 This feature is to destroy the wall by bombs. By default, a user will have 2 bombs at the start and can use by clicking the wall. Once use the number of bomb present in the scene will change accordingly.
 
-![image-20201207053038594](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207053038594.png)
+![image-20201207053038594](docs/img/wall_bombs.png)
 
 ### Load Music
 
 This feature is to allow user load the user-specified music to the game. Please note only pure **.wav** format music file is allowed.
 
-![image-20201207053433187](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207053433187.png) 
+![image-20201207053433187](docs/img/load_music.png) 
 
 ### Restart Music
 
 This feature is to restart the currently playing music. Please note, in this operation, there is chance that the program will struck. If you meet with this issue, please   **invalidate and restart the IDE** execute the program with IDE Debug mode.
 
-![image](../../OneDrive/OneDrive%20-%20The%20University%20of%20Nottingham%20Ningbo%20China/%E5%9B%BE%E7%89%87/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE(126).png)
+![image](docs/img/restart_music.png)
 
 ### Save Game
 
 This feature allow the user to save file in **.skbSaved** format at the user-specified directory.
 
-![image-20201207053824607](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/image-20201207053824607.png)
+![image-20201207053824607](docs/img/save_game.png)
 
 ### Undo
 
@@ -94,11 +106,15 @@ This feature is to undo any latest movement of the keeper. However, as penalty, 
 
 This feature will reset the current level and the moves count of this level by clicking the button or the short cut key, `Ctrl + Shift + A`.
 
-![undo](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/undo.png)
+![undo](docs/img/undo.png)
 
 ## Test
 
 The logic of this project, `Model` package is tested, by **JUnit**, and **Assertj**, and **TestFX**. The Test Log is as follow, or clicking [here](docs/test_log.md)
+
+## Conversion
+
+This project is following [Alibaba Java Coding Guidelines]([alibaba/Alibaba-Java-Coding-Guidelines: Gitbook for AJCG (github.com)](https://github.com/alibaba/Alibaba-Java-Coding-Guidelines)) in design, naming, etc. This project also follow the [**conventional commits**]([Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Copyright
 
