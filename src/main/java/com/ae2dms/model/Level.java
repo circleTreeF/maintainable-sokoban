@@ -1,27 +1,15 @@
 package com.ae2dms.model;
 
-import com.ae2dms.GameObject;
-
 import java.awt.*;
 import java.util.List;
 
 /**
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
- * Package: com.ae2dms.controller
- *
- * @description: This is the class for level in the game
- * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
- * @date: 2020/11/10 11:10 given
- * @version 1.0.0
- */
-
-/**
- * The project of AE2DMS Coursework of Yizirui FANG 20127091
- * <p>
  * Package: com.ae2dms.model
+ * <p>
+ * This class is a concrete class implemented to store the collection of the game project of one level of the game
  *
- * @description: This class is a concrete class implemented to store the collection of the game project of one level of the game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/24 14:21
  */
@@ -38,8 +26,6 @@ public final class Level implements ContainerInterface {
     private Point keeperPosition = new Point(0, 0);
 
     /**
-     * constructor
-     * <p>
      * the default constructor of class Level, write all GameObjects into objectsGrid where DIAMOND would be regraded as FLOOR; DIAMOND and FLOOR only into diamondsGrid
      *
      * @param levelName
@@ -50,12 +36,11 @@ public final class Level implements ContainerInterface {
      *         the list of raw level where game object is specified by strings, got from the map file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/24 15:17
-     * @version 2.0.0
+     * @version: 2.0.0
      **/
 
 
     public Level(String levelName, int levelIndex, List<String> rawLevel) {
-        //TODO: refactor the if statement
         if (GameEngine.isDebugActive()) {
             System.out.printf("[ADDING LEVEL] LEVEL [%d]: %s\n", levelIndex, levelName);
         }
@@ -83,7 +68,6 @@ public final class Level implements ContainerInterface {
                 }
 
                 objectsGrid.putGameObjectAt(curTile, row, col);
-                curTile = null;
             }
         }
     }
@@ -91,7 +75,6 @@ public final class Level implements ContainerInterface {
     /**
      * check if the current level of the game is completed by comparing the number of crate and the number of the crates already in the diamond position
      *
-     * @param
      * @return boolean
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/12 16:00 given
@@ -115,7 +98,6 @@ public final class Level implements ContainerInterface {
     /**
      * get the current position of keep in the current level
      *
-     * @param
      * @return java.awt.Point
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 17:28 given
@@ -134,7 +116,7 @@ public final class Level implements ContainerInterface {
      *         the source point
      * @param delta
      *         the offset for the source point to find the transferred point
-     * @return com.ae2dms.GameObject
+     * @return com.ae2dms.model.GameObject
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:35 given
      * @version:
@@ -149,7 +131,6 @@ public final class Level implements ContainerInterface {
     /**
      * get the name of the level
      *
-     * @param
      * @return java.lang.String
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/11 23:35 given
@@ -161,31 +142,14 @@ public final class Level implements ContainerInterface {
         return name;
     }
 
-    /**
-     * Currently not used but possible to be used
-     * <p>
-     * get the index of the level in the list of levels
-     *
-     * @param
-     * @return int
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 22:30 given
-     * @version:
-     **/
-
-    public int getIndex() {
-        return index;
-    }
-
 
     /**
      * Return the string of objectsGrid of this class
      *
-     * @param
      * @return java.lang.String
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/24 15:25
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -211,13 +175,6 @@ public final class Level implements ContainerInterface {
      * This inner class is the common iterator for both objectsGrid and diamondsGrid of this class
      *
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/19 23:48 given
-     * @version: 1.0.0
-     **/
-    /**
-     * This inner class is the common iterator for both objectsGrid and diamondsGrid of this class
-     *
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/24 15:26
      * @version: 2.0.0
      **/
@@ -232,12 +189,10 @@ public final class Level implements ContainerInterface {
          * <p>
          * This method narrates navigation. This method returns true, if there is next element in the repository; false, otherwise.
          *
-         * @param
          * @return boolean
-         * @description: check if this level iterator has next element. Return 1, if it has; 0, otherwise
-         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+         * @description: * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
          * @date: 2020/11/19 22:56
-         * @version:
+         * @version: 1.0.0
          **/
 
 
@@ -248,20 +203,10 @@ public final class Level implements ContainerInterface {
 
         /**
          * Override
-         *
-         * @param
-         * @return com.ae2dms.GameObject
-         * @description: get and move the iterator to the next game object in the level
-         * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-         * @date: 2020/11/19 22:58
-         * @version:
-         **/
-        /**
-         * Override
-         *
+         * <p>
          * Get the current game object and move the iterator to the next element in the repository
          *
-         * @return com.ae2dms.GameObject
+         * @return com.ae2dms.model.GameObject
          * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
          * @date: 2020/11/22 22:47
          * @version: 1.1.0
@@ -289,11 +234,10 @@ public final class Level implements ContainerInterface {
         /**
          * get the Point specified in LevelIterator
          *
-         * @param
          * @return java.awt.Point
          * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
          * @date: 2020/11/19 22:27 given
-         * @version:
+         * @version: 1.0.0
          **/
 
         public Point getCurrentPosition() {

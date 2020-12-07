@@ -13,8 +13,9 @@ import java.util.logging.SimpleFormatter;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.model
+ * <p>
+ * The single object of GameLogger. This class has its constructor as private and have a static instance of itself. This class provides a static method to get its static instance to outside world.
  *
- * @description: the single object of GameLogger. This class has its constructor as private and have a static instance of itself. This class provides a static method to get its static instance to outside world.
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/23 20:24
  */
@@ -28,7 +29,6 @@ public class GameLoggerSingleton extends Logger {
     /**
      * private constructor so that this class cannot be instantiated
      *
-     * @param
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/23 20:35
      * @version: 1.0.0
@@ -47,7 +47,7 @@ public class GameLoggerSingleton extends Logger {
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * instantiate this class and return the only single instance of it
      *
      * @param

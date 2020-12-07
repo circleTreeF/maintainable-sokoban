@@ -4,8 +4,9 @@ package com.ae2dms.model;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.model
+ * <p>
+ * The interface to compare the MarkKeeper
  *
- * @description: TODO
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/12/3 21:20
  */

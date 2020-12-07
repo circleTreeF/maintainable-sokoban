@@ -14,8 +14,8 @@ import javafx.stage.Stage;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.view
+ * The view of new dialog window without dialog message effect
  *
- * @description: The view of new dialog window without dialog message effect
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/13 22:33
  * @version: 1.0
@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 public class DialogWindow extends Stage {
 
     /**
-     * constructor
+     * construct a instance of dialog window without visually present
      *
      * @param primaryStage
      *         the primary stage of this scene
@@ -31,14 +31,11 @@ public class DialogWindow extends Stage {
      *         the title of this dialog new window
      * @param dialogMessage
      *         the dialog message of this new dialog window
-     * @description: construct a instance of dialog window without visually present
-     * extracted from Main.java.newDialog
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/13 23:16
      * @version: 1.0.0
      **/
 
-    //TODO: could be refactored to the factory design pattern
     public DialogWindow(Stage primaryStage, String dialogTitle, String dialogMessage, Effect dialogMessageEffect) {
         this.initModality(Modality.APPLICATION_MODAL);
         this.initOwner(primaryStage);
@@ -49,7 +46,6 @@ public class DialogWindow extends Stage {
         text1.setTextAlignment(TextAlignment.CENTER);
         text1.setFont(javafx.scene.text.Font.font(14));
 
-        //TODO: try to refactor the if statement
         if (dialogMessageEffect != null) {
             text1.setEffect(dialogMessageEffect);
         }

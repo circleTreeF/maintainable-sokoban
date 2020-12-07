@@ -25,12 +25,8 @@ import java.util.Stack;
 
 public class MovementTracker implements Serializable {
     private final Stack<Level> movingLevelsStack;
-    //FIXME: when deserialize the default construct is not called to resume the value of gson, and leads to gson = nullZ
-    //private transient final Gson gson;
 
     /**
-     * Constructor
-     * <p>
      * construct the instance of this class without adding any element
      *
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
@@ -64,7 +60,6 @@ public class MovementTracker implements Serializable {
     /**
      * Removes the level at the top of this tracker and returns that level as the value of this function.
      *
-     * @param
      * @return com.ae2dms.model.Level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/25 21:32
@@ -78,24 +73,22 @@ public class MovementTracker implements Serializable {
     }
 
     /**
-    * Empty the tracker and return the element pushed into the track at the earliest time
-    * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-    * @date: 2020/11/26 16:26
-     * @param
-    * @return com.ae2dms.model.Level
-    * @version:
-    **/
+     * Empty the tracker and return the element pushed into the track at the earliest time
+     *
+     * @return com.ae2dms.model.Level
+     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
+     * @date: 2020/11/26 16:26
+     * @version:
+     **/
 
 
-    public Level resetTrack(){
-        if (!movingLevelsStack.empty()){
+    public Level resetTrack() {
+        if (!movingLevelsStack.empty()) {
             Level firstElement = movingLevelsStack.get(0);
             movingLevelsStack.clear();
             return firstElement;
         } else {
-            return  null;
+            return null;
         }
     }
-
-
 }
