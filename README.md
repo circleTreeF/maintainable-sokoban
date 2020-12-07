@@ -2,6 +2,12 @@
 
 This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and **GSON**. This project is tested by **JUnit**, and **Assertj**, and **TestFX**.
 
+## Download
+
+```
+git clone git@csprojects.nottingham.edu.cn:scyyf1/ae2dms-cw-20127091.git
+```
+
 ## Execute
 
 To run this, you should apply VM option,
@@ -114,7 +120,7 @@ The logic of this project, `Model` package is tested, by **JUnit**, and **Assert
 
 ## Conversion
 
-This project is following [Alibaba Java Coding Guidelines]([alibaba/Alibaba-Java-Coding-Guidelines: Gitbook for AJCG (github.com)](https://github.com/alibaba/Alibaba-Java-Coding-Guidelines)) in design, naming, etc. This project also follow the [**conventional commits**]([Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+This project is following [Alibaba Java Coding Guidelines](https://github.com/alibaba/Alibaba-Java-Coding-Guidelines) in design, naming, etc. This project also follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 ## Copyright
 
