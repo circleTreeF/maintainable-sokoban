@@ -420,6 +420,7 @@ public class GameEngine implements Serializable {
 
 
     public void keeperTransport(int column, int row) {
+        movementTracker.trackerMove(currentLevel);
         currentLevel.objectsGrid.putGameObjectAt(GameObject.FLOOR, currentLevel.getKeeperPosition());
         currentLevel.getKeeperPosition().setLocation(row, column);
         currentLevel.objectsGrid.putGameObjectAt(GameObject.KEEPER, row, column);

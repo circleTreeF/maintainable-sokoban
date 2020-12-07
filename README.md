@@ -1,5 +1,7 @@
 # AE2DMS-Yizirui Fang-20127091
 
+This project is AE2DMS coursework, Sokoban, built with **Java**, **JavaFX**, and **GSON**. This project is tested by **JUnit**, and **Assertj**, and **TestFX**.
+
 ## Refactor
 
 ### Design Pattern
@@ -10,7 +12,7 @@
 | **Factory**     | [`GraphicObjectFactory`]()       | This is to create object without exposing the creation logic to the client. |
 | **Observer**    | [`GamePageController`]()         | Any property modified, its dependent objects are to be notified automatically. |
 | **Iterator**    | [`GameMap`]()                    | Access the elements of a collection `Levels` in sequential manner. |
-| **MVC pattern** | Controller, Model, View packages |                                                              |
+| **MVC pattern** | Controller, Model, View packages | Break the components into 3 packages. The **controller** is to acts on both model and view. The **model** is to **Game Execution Logic**. The **view** package is the visualization of model working together with the view resources in the resources directory. |
 
 
 
@@ -18,6 +20,7 @@
 
 | Type                            | Class                                                        | Brief                                                        |
 | ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| GUI design                      | view resources                                               | The GUI is refactored the widgets of this project, designing with Above XD. |
 | Remove dead code                | `GameEnigine`, `GameGrid`                                    | I largely remove all unused methods and code in  these classes |
 | Enhance identifier naming       | `input`, `code` in `GameEngine`, `raw_level` in `Level`, `obj` and `ft` in `GraphicObject` | I refactor the variables name to self-explaining ones        |
 | Reduce method size              | Extracted methods to new class `FileOperator` for all operations about the file chooser | I split the given methods in `Main`, `GameEnigne` to make the classes and methods |
@@ -85,10 +88,20 @@ This feature allow the user to save file in **.skbSaved** format at the user-spe
 
 ### Undo
 
-This feature is to undo any latest movement of the keeper. However, as penalty, the move count will not decreases. This could be executed either by clicking the item or pressing the hot key.
+This feature is to undo any latest movement of the keeper. However, as penalty, the move count will not decreases. This could be executed either by clicking the item or pressing the hot key, `Ctrl + Z`.
 
 ### Reset
 
-This feature will reset the current level and the moves count of this level.
+This feature will reset the current level and the moves count of this level by clicking the button or the short cut key, `Ctrl + Shift + A`.
 
 ![undo](https://raw.githubusercontent.com/circleTreeF/myImg/master/typora/undo.png)
+
+## Test
+
+The logic of this project, `Model` package is tested, by **JUnit**, and **Assertj**, and **TestFX**. The Test Log is as follow, or clicking [here](docs/test_log.md)
+
+## Copyright
+
+```
+Copyright 2020 Yizirui Fang.
+```

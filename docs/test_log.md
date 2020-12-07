@@ -103,15 +103,11 @@ In this test, the map file debugGame.skb would be applied to test.
 
 #### testMoveUp()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by calling the `move(new Point(-1,0))` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
 
 #### testMoveLeft()
-
-### 
 
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
@@ -119,7 +115,7 @@ In this test, the map file debugGame.skb would be applied to test.
 
 #### testMoveRight()
 
-### 
+
 
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
@@ -127,29 +123,17 @@ In this test, the map file debugGame.skb would be applied to test.
 
 ### isDebugActive()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by checking if the default value of `GameEngine.debug`.got by calling `GameEngine.isDebugActive` is false |             |
 
 ### toggleDebug()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by checking if the value of `GameEngine.debug`.got by calling `GameEngine.isDebugActive` in the new instance of `gameEngine` constructed by the test map file `debugGame.skb`. is true after calling `GameEngine.toggleDebug` |             |
 
 ## MusicPlayer
-
-### togglePlay()
-
-|      |      |      |      |      |
-| ---- | ---- | ---- | ---- | ---- |
-|      |      |      |      |      |
-
-
 
 ## GamePageController
 
