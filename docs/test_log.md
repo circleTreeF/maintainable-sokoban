@@ -4,15 +4,11 @@
 
 #### handleLeft()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.LEFT)` method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
 
 #### handleKeyRight()
-
-### 
 
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
@@ -20,23 +16,17 @@
 
 #### handleKeyUp()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.Up)`method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
 
 #### handleKeyDown()
 
-### 
-
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
 | 1    | **Test pass** |            | This test is conducted by calling the `handle(KeyEvent.Dow)`method on the new instance of `GameEngine` constructed by the test map file `debugGame.skb`. |             |
 
 ### isGameComplete()
-
-### 
 
 | No.  | Result        | Comparison | Test  Brief                                                  | Improvement |
 | ---- | ------------- | ---------- | ------------------------------------------------------------ | ----------- |
