@@ -1,14 +1,12 @@
 package com.ae2dms.controller;
 
 
-import com.ae2dms.GameObject;
 import com.ae2dms.Main;
 import com.ae2dms.model.GameEngine;
+import com.ae2dms.model.GameObject;
 import com.ae2dms.model.GraphicObjectFactory;
 import com.ae2dms.model.Level;
 import com.ae2dms.view.DialogWindow;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +28,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import static com.ae2dms.Main.gameEngine;
 import static com.ae2dms.Main.primaryStage;
@@ -39,9 +36,9 @@ import static com.ae2dms.Main.primaryStage;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * This class includes controller for the {@code GamePage.fxml}, which is the page of playing this game
  *
- * @className: MenuBarController
- * @description: This class includes controller for the {@code GamePage.fxml}, which is the page of playing this game
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/11/14 22:57
  */
@@ -67,7 +64,6 @@ public class GamePageController {
     /**
      * initialize the game page element, gameGrid. Display the initial level of the map to the game page
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 13:23
@@ -83,15 +79,14 @@ public class GamePageController {
         initializeGameStateBrief();
         gameGridClickEventListener();
         musicPlayer = new MusicPlayer();
-        centerGameGrid();
         reloadGrid();
     }
 
 
     /**
-     * @param
+     * save the current game level to file
+     *
      * @return void
-     * @description: save the current game level to file
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * extracted from Main.saveGame()
      * @date: 2020/11/15 15:11
@@ -106,10 +101,10 @@ public class GamePageController {
 
 
     /**
-     * @param
-     * @return void
-     * @description: close the game, i.e. exist from the whole program
+     * close the game, i.e. exist from the whole program
      * extracted from Main.closeGame()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:14
      * @version: 1.0.0
@@ -122,10 +117,10 @@ public class GamePageController {
     //TODO: this feature is not implemented temporarily replaced by existing from the game
 
     /**
-     * @param
-     * @return void
-     * @description: undo the previous movement
+     * undo the previous movement
      * extracted from Main.undo()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:17
      * @version: 1.0.0
@@ -139,10 +134,10 @@ public class GamePageController {
     //TODO: toggle music according to the ratio clicking
 
     /**
-     * @param
-     * @return void
-     * @description: play or end music
+     * play or end music
      * extracted from Main.toggleMusic()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:18
      * @version: 1.0.0
@@ -160,10 +155,10 @@ public class GamePageController {
     }
 
     /**
-     * @param
-     * @return void
-     * @description: enter or exit the debug mode
+     * enter or exit the debug mode
      * extracted from the Main.toggleDebug()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 15:21
      * @version: 1.0.0
@@ -175,10 +170,10 @@ public class GamePageController {
     }
 
     /**
-     * @param
-     * @return void
-     * @description: reset the current level to the original level view
+     * reset the current level to the original level view
      * extracted from Main.resetLevel()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 20:40
      * @version: 1.0.0
@@ -191,10 +186,10 @@ public class GamePageController {
 
 
     /**
-     * @param
-     * @return void
-     * @description: show the program information by new dialog
+     * show the program information by new dialog
      * extracted from the Main.showAbout()
+     *
+     * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 16:04
      * @version: 1.0.0
@@ -215,7 +210,7 @@ public class GamePageController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/2 15:33
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -230,21 +225,9 @@ public class GamePageController {
 
 
     /**
-     * @param inputGameFile
-     *         The input file of the map of this game
+     * reload the GridPane grid of the current game level
+     *
      * @return void
-     * @description: initialize the grid and the singleton, game engine for this game.
-     * extracted from Main.initializeGame()
-     * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
-     * @date: 2020/11/15 17:06
-     * @version: 1.0.0
-     **/
-
-
-    /**
-     * @param
-     * @return void
-     * @description: reload the GridPane grid of the current game level
      * extracted from Main.reloadGrid()
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 17:08
@@ -263,21 +246,17 @@ public class GamePageController {
         while (levelIterator.hasNext()) {
             addObjectToGrid(levelIterator.next(), levelIterator.getCurrentPosition());
         }
-        //gameGrid.setAlignment(Pos.CENTER);
-        //gameGrid.setLayoutX((1000-gameGrid.getWidth())/2);
-        //gameGrid.setLayoutY((750-gameGrid.getHeight())/2);
-        //gameGrid.autosize();
-        //centerGameGrid();
         Main.primaryStage.sizeToScene();
     }
 
     /**
+     * add the game object into the grid of the current level
+     *
      * @param gameObject
      *         The category of game object
      * @param location
      *         The location of this new game object
      * @return void
-     * @description: add the game object into the grid of the current level
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 19:10
      * @version: 1.0.0
@@ -291,9 +270,9 @@ public class GamePageController {
     }
 
     /**
-     * @param
+     * show the victory message when all levels of the game by a new dialog window
+     *
      * @return void
-     * @description: show the victory message when all levels of the game by a new dialog window
      * extracted from Main.showVictoryMessage()
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/15 20:48
@@ -324,9 +303,9 @@ public class GamePageController {
     }
 
     /**
-     * @param
+     * the event filter to the keyboard event at the primary stage window of the game page
+     *
      * @return void
-     * @description: the event filter to the keyboard event at the primary stage window of the game page
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/19 13:10 given
      * @version: 1.0.0
@@ -345,11 +324,10 @@ public class GamePageController {
     /**
      * remove the event filter set on this scene, before changing the scene
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 1:54
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -362,7 +340,6 @@ public class GamePageController {
     /**
      * set a change listener to be notified automatically when the move count has changed
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/30 22:29
@@ -383,7 +360,6 @@ public class GamePageController {
     /**
      * set the initial value for the information in the game state brief component
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/11/30 23:38
@@ -394,39 +370,17 @@ public class GamePageController {
     private void initializeGameStateBrief() {
         currentMovesCount.setText(String.valueOf(gameEngine.currentLevelMovesCountsProperty.get()));
         previousMoves.setText(String.valueOf(gameEngine.previousLevelsMovesCountsProperty.get()));
-        //bombCount.setText(String.valueOf(gameEngine.bombCountProperty.get()));
-    }
 
-
-    private void centerGameGrid() {
-        gameGrid.widthProperty().addListener(
-                new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldWidth, Number newWidth) {
-                        gameGrid.layoutXProperty().setValue(BigDecimal.valueOf(PAGE_WIDTH.floatValue() / 2).subtract(BigDecimal.valueOf(newWidth.floatValue() / 2)));
-                    }
-                }
-        );
-
-        gameGrid.heightProperty().addListener(
-                new ChangeListener<Number>() {
-                    @Override
-                    public void changed(ObservableValue<? extends Number> observableValue, Number oldHeight, Number newHeight) {
-                        gameGrid.layoutYProperty().setValue(BigDecimal.valueOf(PAGE_HEIGHT.floatValue() / 2).subtract(BigDecimal.valueOf(newHeight.floatValue() / 2)));
-                    }
-                }
-        );
     }
 
 
     /**
      * This method is to bind the text element for presenting the number of available bombs in the game information brief
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:42
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -438,24 +392,20 @@ public class GamePageController {
     /**
      * This method is to set the event listener on the mouse clicking event for the view element {@code gameGrid}
      *
-     * @param
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:44
-     * @version:
+     * @version: 1.0.0
      **/
 
 
     private void gameGridClickEventListener() {
-        bombHandler = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
-                int column = (int) Math.floor(mouseEvent.getX() / GRID_LENGTH);
-                int row = (int) Math.floor(mouseEvent.getY() / GRID_LENGTH);
-                transportKeeper(column, row);
-                destroyWall(column, row);
-            }
+        bombHandler = mouseEvent -> {
+            System.out.println("X " + mouseEvent.getX() + " Y " + mouseEvent.getY());
+            int column = (int) Math.floor(mouseEvent.getX() / GRID_LENGTH);
+            int row = (int) Math.floor(mouseEvent.getY() / GRID_LENGTH);
+            transportKeeper(column, row);
+            destroyWall(column, row);
         };
         gameGrid.addEventHandler(MouseEvent.MOUSE_CLICKED, bombHandler);
     }
@@ -471,7 +421,7 @@ public class GamePageController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 2:45
-     * @version:
+     * @version: 1.0.0
      **/
 
 
@@ -493,7 +443,7 @@ public class GamePageController {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/5 4:19
-     * @version:
+     * @version: 1.0.0
      **/
 
 

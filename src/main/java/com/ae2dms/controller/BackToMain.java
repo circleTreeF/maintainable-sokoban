@@ -12,8 +12,9 @@ import static com.ae2dms.Main.primaryStage;
  * The project of AE2DMS Coursework of Yizirui FANG 20127091
  * <p>
  * Package: com.ae2dms.controller
+ * <p>
+ * This class is to set the scene of the {@code primaryStage} to the main dashboard scene.
  *
- * @description: This class is to set the scene of the {@code primaryStage} to the main dashboard scene.
  * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
  * @date: 2020/12/4 2:28
  */
@@ -25,7 +26,7 @@ public class BackToMain {
      * @return void
      * @author: Yizirui FANG ID: 20127091 Email: scyyf1@nottingham.edu.cn
      * @date: 2020/12/4 3:22
-     * @version:
+     * @version: 1.0.0
      **/
 
 
