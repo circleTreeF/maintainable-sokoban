@@ -52,7 +52,6 @@ public class FileOperator {
                 logger.info("Loading save file: " + saveFile.getName());
             }
         }
-        //TODO: perform something fun when the file is not chosen
         return saveFile;
     }
 

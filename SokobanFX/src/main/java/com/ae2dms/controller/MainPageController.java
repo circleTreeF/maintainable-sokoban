@@ -228,7 +228,6 @@ public class MainPageController {
         FileOperator fileOperator = new FileOperator();
         File saveFile = fileOperator.selectGameFile(Main.primaryStage);
 
-        //TODO: refactor the if statement
         if (saveFile != null) {
             initializeGame(new FileInputStream(saveFile));
         }

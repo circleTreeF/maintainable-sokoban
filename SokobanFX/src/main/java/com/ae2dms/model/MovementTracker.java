@@ -68,7 +68,6 @@ public class MovementTracker implements Serializable {
 
 
     public Level trackerPop() {
-        //TODO: do something fun when the stack is empty
         return movingLevelsStack.pop();
     }
 

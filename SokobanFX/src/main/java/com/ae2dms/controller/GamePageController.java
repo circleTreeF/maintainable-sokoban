@@ -114,7 +114,6 @@ public class GamePageController {
         System.exit(0);
     }
 
-    //TODO: this feature is not implemented temporarily replaced by existing from the game
 
     /**
      * undo the previous movement
@@ -130,8 +129,6 @@ public class GamePageController {
         gameEngine.undo();
         reloadGrid();
     }
-
-    //TODO: toggle music according to the ratio clicking
 
     /**
      * play or end music
@@ -221,8 +218,6 @@ public class GamePageController {
     }
 
 
-    //TODO: investigate for these variable, SaveFile, gameEngineer, primarilyStage should be in parameters or in the field
-
 
     /**
      * reload the GridPane grid of the current game level
@@ -235,7 +230,6 @@ public class GamePageController {
      **/
 
     private void reloadGrid() {
-        //TODO: refactor the if statement
         if (gameEngine.isGameComplete()) {
             showVictoryMessage();
             return;

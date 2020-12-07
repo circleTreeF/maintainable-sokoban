@@ -137,10 +137,9 @@ public class GameEngine implements Serializable {
                 break;
 
             default:
-                // TODO: implement something funny.
         }
 
-        //TODO: refactor the if statement
+
         if (isDebugActive()) {
             System.out.println(pressedKeyCode);
         }
@@ -158,7 +157,6 @@ public class GameEngine implements Serializable {
      **/
 
     public void move(Point delta) {
-        //TODO:refactor to state pattern
         if (isGameComplete()) {
             return;
         }
@@ -168,7 +166,6 @@ public class GameEngine implements Serializable {
         Point targetObjectPoint = GameGrid.translatePoint(keeperPosition, delta);
         GameObject keeperTarget = currentLevel.objectsGrid.getGameObjectAt(targetObjectPoint);
 
-        //TODO: refactor the if statement
         if (GameEngine.isDebugActive()) {
             System.out.println("Current level state:");
             System.out.println(currentLevel.toString());
@@ -212,7 +209,6 @@ public class GameEngine implements Serializable {
                 throw new AssertionError("This should not have happened. Report this problem to the developer.");
         }
 
-        //TODO: refactor the if statement
         if (keeperMoved) {
             keeperPosition.translate((int) delta.getX(), (int) delta.getY());
             incrementCurrentLevelMovesCountByOne();
@@ -238,7 +234,6 @@ public class GameEngine implements Serializable {
 
 
     public void undo() {
-        //TODO: when undo, the movesCount is set to be not changed by design
         currentLevel = movementTracker.trackerPop();
     }
 
@@ -275,7 +270,6 @@ public class GameEngine implements Serializable {
 
 
     public void saveGame(File savedLocation) throws IOException {
-        //TODO: store movesCount, map, movementTracker
         savedCurrentMovesCount = currentLevelMovesCountsProperty.get();
         savedPreviousMovesCount = previousLevelsMovesCountsProperty.get();
         savedBombCount = bombCountProperty.get();
@@ -312,7 +306,6 @@ public class GameEngine implements Serializable {
 
     public Level getNextLevel() {
 
-        //TODO: refactor the position of assigning variable $gameComplete$ in this class
         if (!iterator.hasNext()) {
             gameComplete = true;
         }

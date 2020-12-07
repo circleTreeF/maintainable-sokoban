@@ -38,7 +38,6 @@ public class GameGrid implements Serializable {
         ROWS = rows;
 
         // Initialize the array
-        //FIXME:the column and row is in the opposite
         gameObjects = new GameObject[COLUMNS][ROWS];
     }
 
@@ -100,7 +99,6 @@ public class GameGrid implements Serializable {
             if (GameEngine.isDebugActive()) {
                 System.out.printf("Trying to get null GameObject from COL: %d  ROW: %d", col, row);
             }
-            //TODO: exception may be generated to a new class
             throw new ArrayIndexOutOfBoundsException("The point [" + col + ":" + row + "] is outside the map.");
         }
 
@@ -120,7 +118,6 @@ public class GameGrid implements Serializable {
 
     public GameObject getGameObjectAt(Point p) {
         if (p == null) {
-            //TODO: all exception could be generated in a new class
             throw new IllegalArgumentException("Point cannot be null.");
         }
 
@@ -166,7 +163,6 @@ public class GameGrid implements Serializable {
 
 
     public boolean putGameObjectAt(GameObject gameObject, Point p) {
-        //TODO: make the style consist with others, implicit if statement for all or explicit
         return p != null && putGameObjectAt(gameObject, (int) p.getX(), (int) p.getY());
     }
 
